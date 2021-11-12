@@ -1,0 +1,107 @@
+
+/*     LOGIN   */
+.back {
+    -fx-background-image: url('back.jpg');
+    -fx-background-size: cover;
+}
+
+.figura {
+  -fx-background-color: rgba(6, 6, 11, 0.64);
+}
+
+
+
+/*      Main page MENU    */
+.menuButtonBackground{
+  -fx-background-color: linear-gradient(from 0% 100% to 100% 100%, #000000, #a55c1b);
+}
+
+.menuButton{
+  -fx-border: none;
+  -fx-background-color: transparent;
+  -fx-cursor: pointer;
+  -fx-display: inline-block;
+}
+
+.menuButton: hover{
+    -fx-background-color: rgba(89,50,15,0.2);
+    -fx-border-color: WHITE;
+    -fx-border-width: 0px 0px 0px 3px;
+    -fx-text-fill: #cfcb5b;
+}
+
+.menuClick{
+  -fx-text-fill: #A0CF64;
+}
+
+.exitButton{
+    -fx-background-color: transparent;
+}
+
+.exitButton: hover{
+  -fx-background-color: #5F5F5F;
+}
+
+/*    TAB PANE */
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-background-color: #293039;
+}
+
+.tab{
+    -fx-tab-min-width:200px;
+    -fx-background-insets: 0 1 0 1,0,0;
+}
+
+.tab-pane .tab
+{
+    -fx-background-color: #e6e6e6;
+}
+
+.tab-pane .tab:selected
+{
+  -fx-background-color:
+        #a55c1b,
+        linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),
+        linear-gradient(#20262b, #191d22),
+        radial-gradient(center 50% 0%, radius 100%, rgba(107,140,188,0.9), rgba(255,255,255,0));
+}
+
+.tab .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: #828282;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.tab:selected .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: #cfcb5b;
+
+}
+
+
+.buttonsStyle{
+  -fx-background-color:
+        #090a0c,
+        linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),
+        linear-gradient(#20262b, #191d22),
+        radial-gradient(center 50% 0%, radius 100%, rgba(107,140,188,0.9), rgba(255,255,255,0));
+    -fx-background-radius: 5,4,3,5;
+    -fx-background-insets: 0,1,2,0;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: linear-gradient(white, #d0d0d0);
+    -fx-padding: 10 20 10 20;
+}
+
+.buttonsStyle:pressed{
+
+}
+/* ADD ASSET STYLE*/
+.addAssetBackground{
+  -fx-background-color: linear-gradient(from 0% 0% to 74% 74%, #2c3e50, #000000);
+}
+
+.tabsBackground{
+  -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #12100e, #2b4162);
+}
