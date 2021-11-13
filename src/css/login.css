@@ -76,7 +76,6 @@
 .tab:selected .tab-label {
     -fx-alignment: CENTER;
     -fx-text-fill: #cfcb5b;
-
 }
 
 
@@ -95,7 +94,13 @@
 }
 
 .buttonsStyle:pressed{
-
+  -fx-background-color:
+        #090a0c,
+        linear-gradient(#38424b 0%, #1f2429 20%, #191d22 100%),
+        linear-gradient(#20262b, #191d22),
+        radial-gradient(center 50% 0%, radius 100%, rgba(107,140,188,1), rgba(255,255,255,0.05));
+  -fx-font-family: 'Bell MT';
+  -fx-font-size: 16px;
 }
 /* ADD ASSET STYLE*/
 .addAssetBackground{

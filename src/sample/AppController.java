@@ -27,15 +27,13 @@ import java.util.stream.Stream;
 public class AppController implements Initializable {
     // Afisarea din baza de date a tabelului pentru depozite
     @FXML
-    private TableView<Depozite> depoziteTableView;
+    private TableView<Assets> depoziteTableView, terenuriTableView;
 
     @FXML
-    private TableColumn<Depozite, String> id_depozit;
+    private TableColumn<Assets, String> id_depozit, depozit_localitate, terenID, terenNrCadastral, terenSuprafata, terenLocalitate, terenGrup;
 
-    @FXML
-    private TableColumn<Depozite, String> depozit_localitate;
-
-    ObservableList<Depozite> depoziteObservableList = FXCollections.observableArrayList();
+    ObservableList<Assets> depoziteObservableList = FXCollections.observableArrayList();
+    ObservableList<Assets> terenuriObservableList = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -45,18 +43,33 @@ public class AppController implements Initializable {
         try{
             ResultSet rs_depozite = conn.createStatement().executeQuery("SELECT _id_depozit, localitate FROM depozite");
             while(rs_depozite.next()){
-                depoziteObservableList.add(new Depozite(rs_depozite.getString("_id_depozit"),rs_depozite.getString("localitate")));
+                depoziteObservableList.add(new Assets(rs_depozite.getString("_id_depozit"),rs_depozite.getString("localitate")));
+            }
+            ResultSet rs_terenuri = conn.createStatement().executeQuery("SELECT * FROM terenuri_agricole");
+            while(rs_terenuri.next()){
+                terenuriObservableList.add(new Assets(rs_terenuri.getString("_id_teren"), rs_terenuri.getString("teren_grup"),
+                        rs_terenuri.getString("nr_cadastral"), rs_terenuri.getString("suprafata"), rs_terenuri.getString("localitate")));
             }
         }
         catch (SQLException e){
             e.printStackTrace();
         }
-
+        terenID.setCellValueFactory(new PropertyValueFactory<>("idTeren"));
+        terenNrCadastral.setCellValueFactory(new PropertyValueFactory<>("nrCadastral"));
+        terenSuprafata.setCellValueFactory(new PropertyValueFactory<>("suprafata"));
+        terenLocalitate.setCellValueFactory(new PropertyValueFactory<>("localitate"));
+        terenGrup.setCellValueFactory(new PropertyValueFactory<>("grupTeren"));
         id_depozit.setCellValueFactory(new PropertyValueFactory<>("id_depozit"));
         depozit_localitate.setCellValueFactory(new PropertyValueFactory<>("localitate"));
 
+        terenuriTableView.setItems(terenuriObservableList);
         depoziteTableView.setItems(depoziteObservableList);
+
     }
+
+
+
+
 
 
 
@@ -105,44 +118,45 @@ public class AppController implements Initializable {
 
         if(e.getSource() == dashboardButton){
             dashboardAnchor.toFront();
-            dashboardButton.setStyle("-fx-text-fill: #A0CF64; -fx-background-color: #5F5F5F");
-            Stream.of(transactionButton,incomesButton,costsButton,productsButton,assetsButton,claimsButton,debtsButton).forEach(button -> button.setStyle("menuButton"));
+            dashboardButton.setStyle("-fx-text-fill: #cfcb5b; -fx-background-color: rgba(89,50,15,0.2)");
+            Stream.of(transactionButton,incomesButton,costsButton,productsButton,assetsButton,claimsButton,debtsButton).forEach(Button -> Button.setStyle("menuButton"));
         }
         else if(e.getSource() == transactionButton){
             transactionAnchor.toFront();
-            transactionButton.setStyle("-fx-text-fill: #A0CF64; -fx-background-color: #5F5F5F");
-            Stream.of(dashboardButton,incomesButton,costsButton,productsButton,assetsButton,claimsButton,debtsButton).forEach(button -> button.setStyle("menuButton"));
+            transactionButton.setStyle("-fx-text-fill: #cfcb5b; -fx-background-color: rgba(89,50,15,0.2)");
+            Stream.of(dashboardButton,incomesButton,costsButton,productsButton,assetsButton,claimsButton,debtsButton).forEach(Button -> Button.setStyle("menuButton"));
         }
         else if(e.getSource() == incomesButton){
             incomesAnchor.toFront();
-            incomesButton.setStyle("-fx-text-fill: #A0CF64; -fx-background-color: #5F5F5F");
-            Stream.of(dashboardButton,transactionButton,costsButton,productsButton,assetsButton,claimsButton,debtsButton).forEach(button -> button.setStyle("menuButton"));
+            incomesButton.setStyle("-fx-text-fill: #cfcb5b; -fx-background-color: rgba(89,50,15,0.2)");
+            Stream.of(dashboardButton,transactionButton,costsButton,productsButton,assetsButton,claimsButton,debtsButton).forEach(Button -> Button.setStyle("menuButton"));
         }
         else if(e.getSource() == costsButton){
             costsAnchor.toFront();
-            costsButton.setStyle("-fx-text-fill: #A0CF64; -fx-background-color: #5F5F5F");
+            costsButton.setStyle("-fx-text-fill: #cfcb5b; -fx-background-color: rgba(89,50,15,0.2)");
             Stream.of(dashboardButton,incomesButton,transactionButton,productsButton,assetsButton,claimsButton,debtsButton).forEach(button -> button.setStyle("menuButton"));
         }
         else if(e.getSource() == productsButton){
             productsAnchor.toFront();
-            productsButton.setStyle("-fx-text-fill: #A0CF64; -fx-background-color: #5F5F5F");
+            productsButton.setStyle("-fx-text-fill: #cfcb5b; -fx-background-color: rgba(89,50,15,0.2)");
             Stream.of(dashboardButton,incomesButton,costsButton,transactionButton,assetsButton,claimsButton,debtsButton).forEach(button -> button.setStyle("menuButton"));
         }
         else if(e.getSource() == assetsButton){
             assetsAnchor.toFront();
-            assetsButton.setStyle("-fx-text-fill: #A0CF64; -fx-background-color: #5F5F5F");
+            assetsButton.setStyle("-fx-text-fill: #cfcb5b; -fx-background-color: rgba(89,50,15,0.2)");
             Stream.of(dashboardButton,incomesButton,costsButton,productsButton,transactionButton,claimsButton,debtsButton).forEach(button -> button.setStyle("menuButton"));
         }
         else if(e.getSource() == claimsButton){
             claimsAnchor.toFront();
-            claimsButton.setStyle("-fx-text-fill: #A0CF64; -fx-background-color: #5F5F5F");
+            claimsButton.setStyle("-fx-text-fill: #cfcb5b; -fx-background-color: rgba(89,50,15,0.2)");
             Stream.of(dashboardButton,incomesButton,costsButton,productsButton,assetsButton,transactionButton,debtsButton).forEach(button -> button.setStyle("menuButton"));
         }
         else if(e.getSource() == debtsButton){
             debtsAnchor.toFront();
-            debtsButton.setStyle("-fx-text-fill: #A0CF64; -fx-background-color: #5F5F5F");
+            debtsButton.setStyle("-fx-text-fill: #cfcb5b; -fx-background-color: rgba(89,50,15,0.2)");
             Stream.of(dashboardButton,incomesButton,costsButton,productsButton,assetsButton,claimsButton,transactionButton).forEach(button -> button.setStyle("menuButton"));
         }
+        
     }
 
 

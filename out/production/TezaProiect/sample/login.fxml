@@ -16,26 +16,26 @@
    <children>
       <BorderPane prefHeight="583.0" prefWidth="989.0" styleClass="back" stylesheets="@../css/login.css">
          <center>
-            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="379.0" prefWidth="351.0" styleClass="figura" stylesheets="@../css/login.css" BorderPane.alignment="CENTER">
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="379.0" prefWidth="404.0" styleClass="figura" stylesheets="@../css/login.css" BorderPane.alignment="CENTER">
                <children>
-                  <Text cache="true" fill="WHITE" layoutX="32.0" layoutY="69.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="SRL Dîngenarul" textAlignment="CENTER" wrappingWidth="287.13671875">
+                  <Text cache="true" fill="WHITE" layoutX="19.0" layoutY="70.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="GT Mazureac Alexandru" textAlignment="CENTER" wrappingWidth="360.13671875">
                      <font>
                         <Font name="SansSerif Bold" size="30.0" />
                      </font>
                   </Text>
-                  <Text cache="true" fill="WHITE" layoutX="74.0" layoutY="130.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" textAlignment="CENTER" wrappingWidth="202.13671875">
+                  <Text cache="true" fill="WHITE" layoutX="144.0" layoutY="124.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" textAlignment="CENTER" wrappingWidth="127.13671875">
                      <font>
                         <Font name="SansSerif Regular" size="24.0" />
                      </font>
                   </Text>
-                  <Text cache="true" fill="WHITE" layoutX="74.0" layoutY="212.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" textAlignment="CENTER" wrappingWidth="202.13671875">
+                  <Text cache="true" fill="WHITE" layoutX="107.0" layoutY="211.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" textAlignment="CENTER" wrappingWidth="202.13671875">
                      <font>
                         <Font name="SansSerif Regular" size="24.0" />
                      </font>
                   </Text>
-                  <TextField fx:id="usernameField" layoutX="42.0" layoutY="143.0" prefHeight="33.0" prefWidth="267.0" promptText="Username" />
-                  <PasswordField fx:id="passwordField" layoutX="42.0" layoutY="223.0" onAction="#loginButtonOnAction" prefHeight="34.0" prefWidth="267.0" promptText="Password" />
-                  <Button fx:id="loginButton" layoutX="199.0" layoutY="302.0" mnemonicParsing="false" onAction="#loginButtonOnAction" prefHeight="34.0" prefWidth="110.0" text="Log in" textAlignment="CENTER">
+                  <TextField fx:id="usernameField" layoutX="42.0" layoutY="143.0" prefHeight="33.0" prefWidth="332.0" promptText="Username" />
+                  <PasswordField fx:id="passwordField" layoutX="42.0" layoutY="223.0" onAction="#loginButtonOnAction" prefHeight="34.0" prefWidth="332.0" promptText="Password" />
+                  <Button fx:id="loginButton" layoutX="259.0" layoutY="302.0" mnemonicParsing="false" onAction="#loginButtonOnAction" prefHeight="34.0" prefWidth="110.0" text="Log in" textAlignment="CENTER">
                      <font>
                         <Font name="SansSerif Bold" size="16.0" />
                      </font>
