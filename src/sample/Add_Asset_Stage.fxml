@@ -55,7 +55,7 @@
             <Font name="Bell MT Bold" size="21.0" />
          </font>
       </Text>
-      <Text fill="#cfcb5b" layoutX="6.0" layoutY="372.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cantitate" textAlignment="CENTER" wrappingWidth="207.1123046875" AnchorPane.leftAnchor="5.1123046875" AnchorPane.rightAnchor="223.8876953125" AnchorPane.topAnchor="362.0">
+      <Text fx:id="addAssetGrupTeren" fill="#cfcb5b" layoutX="6.0" layoutY="372.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cantitate" textAlignment="CENTER" wrappingWidth="207.1123046875" AnchorPane.leftAnchor="5.1123046875" AnchorPane.rightAnchor="223.8876953125" AnchorPane.topAnchor="362.0">
          <font>
             <Font name="Bell MT Bold" size="21.0" />
          </font>
@@ -65,13 +65,13 @@
             <Font name="Bell MT Bold" size="21.0" />
          </font>
       </Text>
-      <TextField fx:id="addAssetNrFacturiiTextField" layoutX="225.0" layoutY="98.0" prefHeight="25.0" prefWidth="195.0" AnchorPane.leftAnchor="225.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="98.0" />
-      <TextField fx:id="addAssetContractantTextField" layoutX="225.0" layoutY="188.0" prefHeight="25.0" prefWidth="195.0" AnchorPane.leftAnchor="225.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="186.0" />
-      <DatePicker fx:id="facturaDatePicker" layoutX="225.0" layoutY="231.0" prefHeight="25.0" prefWidth="195.0" style="-fx-background-color: #ADADAD;" AnchorPane.leftAnchor="225.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="230.0" />
+      <TextField fx:id="addAssetNrFacturiiTextField" layoutX="225.0" layoutY="98.0" prefHeight="25.0" prefWidth="195.0" promptText="Nr. Facturii" AnchorPane.leftAnchor="225.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="98.0" />
+      <TextField fx:id="addAssetContractantTextField" layoutX="225.0" layoutY="188.0" prefHeight="25.0" prefWidth="195.0" promptText="Contractant" AnchorPane.leftAnchor="225.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="186.0" />
+      <DatePicker fx:id="facturaDatePicker" layoutX="225.0" layoutY="231.0" prefHeight="25.0" prefWidth="195.0" promptText="Data intocmirii facturii" style="-fx-background-color: #ADADAD;" AnchorPane.leftAnchor="225.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="230.0" />
       <ComboBox fx:id="tipContinutComboBox" layoutX="225.0" layoutY="283.0" onAction="#addAssetChooseVisability" prefHeight="25.0" prefWidth="195.0" promptText="Materiale/ MF/ OMVSD.." AnchorPane.leftAnchor="225.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="274.0" />
-      <TextField fx:id="addAssetDenumireTextField" layoutX="225.0" layoutY="317.0" prefHeight="25.0" prefWidth="195.0" AnchorPane.leftAnchor="225.0" AnchorPane.rightAnchor="17.0" />
-      <TextField fx:id="addAssetCantitateTextField" layoutX="225.0" layoutY="361.0" prefHeight="25.0" prefWidth="195.0" AnchorPane.leftAnchor="225.0" AnchorPane.rightAnchor="17.0" />
-      <TextField fx:id="addAssetPretTextField" layoutX="225.0" layoutY="405.0" prefHeight="25.0" prefWidth="195.0" AnchorPane.leftAnchor="225.0" AnchorPane.rightAnchor="17.0" />
+      <TextField fx:id="addAssetDenumireTextField" layoutX="225.0" layoutY="317.0" prefHeight="25.0" prefWidth="195.0" promptText="Denumire" AnchorPane.leftAnchor="225.0" AnchorPane.rightAnchor="17.0" />
+      <TextField fx:id="addAssetCantitateTextField" layoutX="225.0" layoutY="361.0" prefHeight="25.0" prefWidth="195.0" promptText="Cantitate" AnchorPane.leftAnchor="225.0" AnchorPane.rightAnchor="17.0" />
+      <TextField fx:id="addAssetPretTextField" layoutX="225.0" layoutY="405.0" prefHeight="25.0" prefWidth="195.0" promptText="Pret" AnchorPane.leftAnchor="225.0" AnchorPane.rightAnchor="17.0" />
       <ComboBox fx:id="idProduseComboBox" layoutX="225.0" layoutY="449.0" prefHeight="25.0" prefWidth="195.0" promptText="ID Produs" visible="false" AnchorPane.leftAnchor="225.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="449.0" />
       <Text fx:id="addAssetLocalitateText" fill="#cfcb5b" layoutX="15.0" layoutY="478.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Localitate" textAlignment="CENTER" visible="false" wrappingWidth="207.1123046875" AnchorPane.rightAnchor="224.775390625" AnchorPane.topAnchor="450.0">
          <font>
@@ -84,13 +84,13 @@
             <Font name="Bell MT Bold" size="21.0" />
          </font>
       </Text>
-      <TextField fx:id="addAssetNrCadastralTextField" layoutX="225.0" layoutY="497.0" prefHeight="25.0" prefWidth="195.0" promptText="Pret" visible="false" AnchorPane.topAnchor="493.0" />
+      <TextField fx:id="addAssetNrCadastralTextField" layoutX="225.0" layoutY="497.0" prefHeight="25.0" prefWidth="195.0" promptText="Numar Cadastral" visible="false" AnchorPane.topAnchor="493.0" />
       <Text fx:id="addAssetSuprafataText" fill="#cfcb5b" layoutX="2.0" layoutY="522.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Suprafata" textAlignment="CENTER" visible="false" wrappingWidth="207.1123046875" AnchorPane.topAnchor="537.0">
          <font>
             <Font name="Bell MT Bold" size="21.0" />
          </font>
       </Text>
-      <TextField fx:id="addAssetSuprafataTextField" layoutX="223.0" layoutY="493.0" prefHeight="25.0" prefWidth="195.0" visible="false" AnchorPane.topAnchor="537.0" />
+      <TextField fx:id="addAssetSuprafataTextField" layoutX="223.0" layoutY="493.0" prefHeight="25.0" prefWidth="195.0" promptText="Suprafata" visible="false" AnchorPane.topAnchor="537.0" />
       <Label fx:id="invalidNrFacturiiLabel" layoutX="26.0" layoutY="123.0" prefHeight="17.0" prefWidth="195.0" textFill="#f80000" AnchorPane.leftAnchor="26.0" AnchorPane.topAnchor="123.0" />
       <Label fx:id="invalidContractantLabel" layoutX="25.0" layoutY="211.0" prefHeight="17.0" prefWidth="195.0" textFill="RED" AnchorPane.leftAnchor="26.0" AnchorPane.topAnchor="211.0" />
       <Label fx:id="invalidDatePickerLabel" layoutX="26.0" layoutY="253.0" prefHeight="17.0" prefWidth="195.0" textFill="RED" AnchorPane.leftAnchor="26.0" AnchorPane.topAnchor="253.0" />
@@ -107,5 +107,6 @@
       <ComboBox fx:id="idMijlocFixComboBox" layoutX="223.0" layoutY="449.0" prefHeight="25.0" prefWidth="195.0" promptText="ID MijlocFix" visible="false" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="449.0" />
       <ComboBox fx:id="idMaterialComboBox" layoutX="225.0" layoutY="449.0" prefHeight="25.0" prefWidth="195.0" promptText="ID Material" visible="false" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="449.0" />
       <ComboBox fx:id="idOMVSDComboBox" layoutX="225.0" layoutY="449.0" prefHeight="25.0" prefWidth="195.0" promptText="ID OMVSD" visible="false" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="449.0" />
+      <Label fx:id="invalidTipFactura" layoutX="25.0" layoutY="165.0" prefHeight="17.0" prefWidth="195.0" textFill="RED" AnchorPane.leftAnchor="26.0" AnchorPane.topAnchor="165.0" />
    </children>
 </AnchorPane>

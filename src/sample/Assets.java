@@ -7,6 +7,7 @@ public class Assets {
     String grupTeren;
     String nrCadastral;
     String suprafata;
+    String idAsset;
 
     public Assets(String id_depozit, String localitate) {
         this.id_depozit = id_depozit;
@@ -19,6 +20,18 @@ public class Assets {
         this.nrCadastral = nrCadastral;
         this.suprafata = suprafata;
         this.localitate = localitate;
+    }
+
+    public Assets(String idAsset){
+        this.idAsset = idAsset;
+    }
+
+    public String getIdAsset() {
+        return idAsset;
+    }
+
+    public void setIdAsset(String idAsset) {
+        this.idAsset = idAsset;
     }
 
     public String getIdTeren() {
