@@ -54,6 +54,20 @@ public class Add_Asset_Controller implements Initializable {
             while(idDepozitResultSet.next()){
                 idDepozitComboBox.getItems().add(idDepozitResultSet.getString("_id_depozit"));
             }
+            String idAssetGeneralQuery = "SELECT assets._id_asset FROM assets INNER JOIN facturi ON assets.nr_factura = facturi.nr_factura "
+                    +"WHERE assets.cantitate_stock > 0 and facturi.tip_marfa = ";
+            ResultSet idMaterialeResultSet = conn.createStatement().executeQuery(idAssetGeneralQuery + "'Materiale'");
+            while(idMaterialeResultSet.next()){
+                idMaterialComboBox.getItems().add(idMaterialeResultSet.getString("assets._id_asset"));
+            }
+            ResultSet idMijloaceFixeResultSet = conn.createStatement().executeQuery(idAssetGeneralQuery + "'Mijloc Fix'");
+            while(idMijloaceFixeResultSet.next()){
+                idMijlocFixComboBox.getItems().add(idMijloaceFixeResultSet.getString("assets._id_asset"));
+            }
+            ResultSet idOMVSDResultSet = conn.createStatement().executeQuery(idAssetGeneralQuery + "'OMVSD'");
+            while(idOMVSDResultSet.next()){
+                idOMVSDComboBox.getItems().add(idOMVSDResultSet.getString("assets._id_asset"));
+            }
         }
         catch (SQLException e){
             e.printStackTrace();
@@ -113,7 +127,9 @@ public class Add_Asset_Controller implements Initializable {
                             saveAssetInDataBase();
                         }
                     } else {
-                        saveAssetInDataBase();
+                        if(checkIdDepositAssetEntering()){
+                            saveAssetInDataBase();
+                        }
                     }
                 }
             }
@@ -125,52 +141,28 @@ public class Add_Asset_Controller implements Initializable {
         DatabaseConnection db = new DatabaseConnection();
         Connection conn = db.getConnection();
 
-        if(!tipContinutComboBox.getValue().equals("Produse")){
+        if(!tipContinutComboBox.getValue().equals("Produse")) {
             String facturaQueryIntrare = "INSERT INTO facturi(nr_factura, tip_intrare_iesire, contractant,"
-                    +"data, tip_marfa, denumire_marfa, cantitate, pret) VALUES(?,?,?,?,?,?,?,?)";
+                    + "data, tip_marfa, denumire_marfa, cantitate, pret) VALUES(?,?,?,?,?,?,?,?)";
             String ContinutTeren;
-            if(tipContinutComboBox.getValue().equals("Teren")){
+            if (tipContinutComboBox.getValue().equals("Teren")) {
                 ContinutTeren = "1";
-            }else{
+            } else {
                 ContinutTeren = tipContinutComboBox.getValue();
             }
-            try{
+            try {
                 PreparedStatement facturaPreparedStatemen = conn.prepareStatement(facturaQueryIntrare);
-                facturaPreparedStatemen.setString(1,addAssetNrFacturiiTextField.getText());
-                facturaPreparedStatemen.setString(2,facturaFiscalaTipComboBox.getValue());
-                facturaPreparedStatemen.setString(3,addAssetContractantTextField.getText());
-                facturaPreparedStatemen.setDate(4,Date.valueOf(facturaDatePicker.getValue()));
-                facturaPreparedStatemen.setString(5,ContinutTeren);
-                facturaPreparedStatemen.setString(6,addAssetDenumireTextField.getText());
-                facturaPreparedStatemen.setFloat(7,Float.parseFloat(addAssetCantitateTextField.getText()));
+                facturaPreparedStatemen.setString(1, addAssetNrFacturiiTextField.getText());
+                facturaPreparedStatemen.setString(2, facturaFiscalaTipComboBox.getValue());
+                facturaPreparedStatemen.setString(3, addAssetContractantTextField.getText());
+                facturaPreparedStatemen.setDate(4, Date.valueOf(facturaDatePicker.getValue()));
+                facturaPreparedStatemen.setString(5, ContinutTeren);
+                facturaPreparedStatemen.setString(6, addAssetDenumireTextField.getText());
+                facturaPreparedStatemen.setFloat(7, Float.parseFloat(addAssetCantitateTextField.getText()));
                 facturaPreparedStatemen.setFloat(8, Float.parseFloat(addAssetPretTextField.getText()));
                 facturaPreparedStatemen.execute();
-            } catch (SQLException e){
+            } catch (SQLException e) {
                 e.printStackTrace();
-            }
-            if(tipContinutComboBox.getValue().equals("Depozit") && facturaFiscalaTipComboBox.getValue().equals("Intrare")){
-                String depozitQuery = "INSERT INTO depozite(localitate, nr_factura) VALUES(?,?)";
-                try{
-                    PreparedStatement depozitPreparedStatement = conn.prepareStatement(depozitQuery);
-                    depozitPreparedStatement.setString(1, addAssetLocalitateTextField.getText());
-                    depozitPreparedStatement.setString(2, addAssetNrFacturiiTextField.getText());
-                    depozitPreparedStatement.execute();
-                }
-                catch (SQLException e){
-                    e.printStackTrace();
-                }
-            }else if(tipContinutComboBox.getValue().equals("Teren") && facturaFiscalaTipComboBox.getValue().equals("Intrare")){
-                String terenQuery = "INSERT INTO terenuri_agricole(teren_grup, nr_cadastral, suprafata, localitate)"
-                        +"VALUES(?,?,?,?)";
-                try{
-                    PreparedStatement terenPreparedStatement = conn.prepareStatement(terenQuery);
-                    terenPreparedStatement.setString(1, addAssetCantitateTextField.getText());
-                    terenPreparedStatement.setString(2, addAssetNrFacturiiTextField.getText());
-                    terenPreparedStatement.setString(3, addAssetSuprafataTextField.getText());
-                    terenPreparedStatement.setString(4, addAssetLocalitateTextField.getText());
-                }catch (SQLException e){
-                    e.printStackTrace();
-                }
             }
         } else {
             String facturaQueryIntrare = "INSERT INTO facturi(nr_factura, tip_intrare_iesire, contractant,"
@@ -191,9 +183,102 @@ public class Add_Asset_Controller implements Initializable {
                 e.printStackTrace();
             }
         }
+        if(facturaFiscalaTipComboBox.getValue().equals("Intrare")){
+            if(tipContinutComboBox.getValue().equals("Depozit")){
+                String depozitQuery = "INSERT INTO depozite(localitate, nr_factura) VALUES(?,?)";
+                try{
+                    PreparedStatement depozitPreparedStatement = conn.prepareStatement(depozitQuery);
+                    depozitPreparedStatement.setString(1, addAssetLocalitateTextField.getText());
+                    depozitPreparedStatement.setString(2, addAssetNrFacturiiTextField.getText());
+                    depozitPreparedStatement.execute();
+                }
+                catch (SQLException e){
+                    e.printStackTrace();
+                }
+            }else if(tipContinutComboBox.getValue().equals("Teren")){
+                String terenQuery = "INSERT INTO terenuri_agricole(teren_grup, nr_cadastral, suprafata, localitate)"
+                        +"VALUES(?,?,?,?)";
+                try{
+                    PreparedStatement terenPreparedStatement = conn.prepareStatement(terenQuery);
+                    terenPreparedStatement.setString(1, addAssetCantitateTextField.getText());
+                    terenPreparedStatement.setString(2, addAssetNrFacturiiTextField.getText());
+                    terenPreparedStatement.setString(3, addAssetSuprafataTextField.getText());
+                    terenPreparedStatement.setString(4, addAssetLocalitateTextField.getText());
+                }catch (SQLException e){
+                    e.printStackTrace();
+                }
+            }else{
+                String otherAssetsQuery = "INSERT INTO assets(cantitate_stock, depozit_id, nr_factura)"
+                        +"VALUES (?,?,?)";
+                try{
+                    PreparedStatement otherAssetsPreparedStatement = conn.prepareStatement(otherAssetsQuery);
+                    otherAssetsPreparedStatement.setFloat(1,Float.parseFloat(addAssetCantitateTextField.getText()));
+                    otherAssetsPreparedStatement.setInt(2, Integer.parseInt(idDepozitComboBox.getValue()));
+                    otherAssetsPreparedStatement.setString(3, addAssetNrFacturiiTextField.getText());
+                    otherAssetsPreparedStatement.execute();
+                }catch (SQLException e){
+                    e.printStackTrace();
+                }
+            }
+        } else {
+            if ("Teren".equals(tipContinutComboBox.getValue())) {
+                String terenSellQuery = "DELETE FROM terenuri_agricole WHERE _id_teren = " + idTerenComboBox.getValue();
+                try {
+                    conn.createStatement().execute(terenSellQuery);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            } else if(tipContinutComboBox.getValue().equals("Depozit")){
+                String depozitSellQuery = "DELETE FROM depozite WHERE _id_depozit = "+ idDepozitComboBox.getValue();
+                try{
+                    conn.createStatement().execute(depozitSellQuery);
+                }catch(SQLException e){
+                    e.printStackTrace(); // check ca in depozit sa nu fie nimic trebuie de adaugat
+                }
+            }else if (tipContinutComboBox.getValue().equals("OMVSD")){
+                String getQuantityInStockQuery = "SELECT cantitate_stock FROM assets WHERE _id_asset = " + idOMVSDComboBox.getValue();
+                try{
+                    ResultSet quatityInStockResultSet = conn.createStatement().executeQuery(getQuantityInStockQuery);
+                    float quantityInStock = quatityInStockResultSet.getFloat("cantitate_stock");
+                    String otherAssetsSellQuery = "UPDATE assets SET cantitate_stock = " + (quantityInStock - Float.parseFloat(addAssetCantitateTextField.getText()))
+                            +" WHERE _id_asset = " + idOMVSDComboBox.getValue();
+                    conn.createStatement().execute(otherAssetsSellQuery);
+                }catch (SQLException e){
+                    e.printStackTrace();
+                }
+            } else if(tipContinutComboBox.getValue().equals("Mijloc Fix")){
+                String getQuantityInStockQuery = "SELECT cantitate_stock FROM assets WHERE _id_asset = " + idMijlocFixComboBox.getValue();
+                try{
+                    ResultSet quatityInStockResultSet = conn.createStatement().executeQuery(getQuantityInStockQuery);
+                    float quantityInStock = quatityInStockResultSet.getFloat("cantitate_stock");
+                    String otherAssetsSellQuery = "UPDATE assets SET cantitate_stock = " + (quantityInStock - Float.parseFloat(addAssetCantitateTextField.getText()))
+                            +" WHERE _id_asset = " + idMijlocFixComboBox.getValue();
+                    conn.createStatement().execute(otherAssetsSellQuery);
+                }catch (SQLException e){
+                    e.printStackTrace();
+                }
+            } else {
+                String getQuantityInStockQuery = "SELECT cantitate_stock FROM assets WHERE _id_asset = " + idMaterialComboBox.getValue();
+                try{
+                    ResultSet quatityInStockResultSet = conn.createStatement().executeQuery(getQuantityInStockQuery);
+                    float quantityInStock = quatityInStockResultSet.getFloat("cantitate_stock");
+                    String otherAssetsSellQuery = "UPDATE assets SET cantitate_stock = " + (quantityInStock - Float.parseFloat(addAssetCantitateTextField.getText()))
+                            +" WHERE _id_asset = " + idMaterialComboBox.getValue();
+                    conn.createStatement().execute(otherAssetsSellQuery);
+                }catch (SQLException e){
+                    e.printStackTrace();
+                }
+            }
+        }
         // Iesirea activelor din baza
-        // ComboBoxurile de completat
+    }
 
+    public boolean checkIdDepositAssetEntering(){
+        if(idDepozitComboBox.getSelectionModel().isEmpty()){
+            invalidIdProdus.setText("Alegeti Depozitul");
+            return false;
+        }
+        return true;
     }
 
     public boolean omvsdCaseValidation(){
@@ -269,8 +354,7 @@ public class Add_Asset_Controller implements Initializable {
             try{
                 String getCantitateProdus = "SELECT cantitate_ramasa FROM produse where _id_produs =" + idProduseComboBox.getValue();
                 ResultSet cantitateProdusResultSet = conn.createStatement().executeQuery(getCantitateProdus);
-                while(cantitateProdusResultSet.next()){
-                    float cantitateProdus = (cantitateProdusResultSet.getFloat("cantitate_ramasa"));
+                float cantitateProdus = cantitateProdusResultSet.getFloat("cantitate_ramasa");
                     if(cantitateProdus < Float.parseFloat(addAssetCantitateTextField.getText())){
                         invalidCantitateLabel.setText("Cantitatea in depozit este mai mica");
                         return false;
@@ -281,14 +365,13 @@ public class Add_Asset_Controller implements Initializable {
                         conn.createStatement().execute(produsScadereCantitateQuery);
                         return true;
                     }
-                }
+
             }
             catch (SQLException e){
                 e.printStackTrace();
                 return false;
             }
         }
-        return true;
     }
 
     public boolean terenCaseValidation() {
@@ -361,31 +444,6 @@ public class Add_Asset_Controller implements Initializable {
 
     public void addAssetChooseVisability(ActionEvent e) {
         Stage stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-        if ((tipContinutComboBox.getValue().equals("Depozit") || tipContinutComboBox.getValue().equals("Teren")) && facturaFiscalaTipComboBox.getValue().equals("Intrare")) {
-            addAssetLocalitateText.setVisible(true);
-            addAssetLocalitateTextField.setVisible(true);
-        } else {
-            addAssetLocalitateText.setVisible(false);
-            addAssetLocalitateTextField.setVisible(false);
-        }
-        if (tipContinutComboBox.getValue().equals("Teren") && facturaFiscalaTipComboBox.getValue().equals("Intrare")) {
-            stage.setHeight(704);
-            addAssetNrCadastralTextField.setVisible(true);
-            addAssetNrCadastralText.setVisible(true);
-            addAssetSuprafataText.setVisible(true);
-            addAssetSuprafataTextField.setVisible(true);
-            addAssetGrupTeren.setText("Grupul terenului");
-            addAssetCantitateTextField.setPromptText("Grupul terenului");
-
-        } else {
-            stage.setHeight(604);
-            addAssetNrCadastralTextField.setVisible(false);
-            addAssetNrCadastralText.setVisible(false);
-            addAssetSuprafataText.setVisible(false);
-            addAssetSuprafataTextField.setVisible(false);
-            addAssetGrupTeren.setText("Cantitate");
-            addAssetCantitateTextField.setPromptText("Cantitate");
-        }
         if(facturaFiscalaTipComboBox.getValue().equals("Iesire")){
             produsAlegere.setVisible(true);
             switch (tipContinutComboBox.getValue()) {
@@ -426,10 +484,42 @@ public class Add_Asset_Controller implements Initializable {
                             idTerenComboBox).forEach(stringComboBox -> stringComboBox.setVisible(false));
                     break;
             }
-        }else {
+        }else if(facturaFiscalaTipComboBox.getValue().equals("Intrare")){
             produsAlegere.setVisible(false);
             Stream.of(idMaterialComboBox,idDepozitComboBox,idMijlocFixComboBox,idOMVSDComboBox,
                     idProduseComboBox,idTerenComboBox).forEach(stringComboBox -> stringComboBox.setVisible(false));
+            if(tipContinutComboBox.getValue().equals("Teren") || tipContinutComboBox.getValue().equals("Depozit")){
+                addAssetLocalitateText.setVisible(true);
+                addAssetLocalitateTextField.setVisible(true);
+            }else{
+                addAssetLocalitateText.setVisible(false);
+                addAssetLocalitateTextField.setVisible(false);
+            }
+            if (tipContinutComboBox.getValue().equals("Teren")) {
+                stage.setHeight(704);
+                addAssetNrCadastralTextField.setVisible(true);
+                addAssetNrCadastralText.setVisible(true);
+                addAssetSuprafataText.setVisible(true);
+                addAssetSuprafataTextField.setVisible(true);
+                addAssetGrupTeren.setText("Grupul terenului");
+                addAssetCantitateTextField.setPromptText("Grupul terenului");
+            }else{
+                stage.setHeight(604);
+                addAssetNrCadastralTextField.setVisible(false);
+                addAssetNrCadastralText.setVisible(false);
+                addAssetSuprafataText.setVisible(false);
+                addAssetSuprafataTextField.setVisible(false);
+                addAssetGrupTeren.setText("Cantitate");
+                addAssetCantitateTextField.setPromptText("Cantitate");
+            }
+            if(!tipContinutComboBox.getValue().equals("Depozit") && !tipContinutComboBox.getValue().equals("Teren")){
+                produsAlegere.setVisible(true);
+                produsAlegere.setText("ID Depozit");
+                idDepozitComboBox.setVisible(true);
+            }else{
+                idDepozitComboBox.setVisible(false);
+                produsAlegere.setVisible(false);
+            }
         }
     }
 }
