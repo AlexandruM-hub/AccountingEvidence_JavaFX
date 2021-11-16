@@ -35,7 +35,7 @@ public class Controller {
 
     public void  loginButtonOnAction(ActionEvent e){
         loginMessageError.setText("Username");
-        if(usernameField.getText().isBlank() == false && passwordField.getText().isBlank() == false){
+        if(!usernameField.getText().isBlank() && !passwordField.getText().isBlank()){
             validateLogin();
         }
         else{
@@ -64,6 +64,7 @@ public class Controller {
         catch(SQLException e){
             e.printStackTrace();
         }
+
     }
 
 }

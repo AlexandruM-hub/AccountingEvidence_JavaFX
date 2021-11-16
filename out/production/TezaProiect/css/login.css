@@ -107,6 +107,10 @@
   -fx-background-color: linear-gradient(from 0% 0% to 74% 74%, #2c3e50, #000000);
 }
 
+.addSuccesfullyData{
+  -fx-background-color: rgba(	44, 62, 80, 0.7)
+}
+
 .tabsBackground{
   -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #12100e, #2b4162);
 }
