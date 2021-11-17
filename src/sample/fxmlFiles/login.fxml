@@ -12,11 +12,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controllers.Controller">
    <children>
-      <BorderPane prefHeight="583.0" prefWidth="989.0" styleClass="back" stylesheets="@../css/login.css">
+      <BorderPane prefHeight="583.0" prefWidth="989.0" styleClass="back" stylesheets="@../../css/login.css">
          <center>
-            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="379.0" prefWidth="404.0" styleClass="figura" stylesheets="@../css/login.css" BorderPane.alignment="CENTER">
+            <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="379.0" prefWidth="404.0" styleClass="figura" stylesheets="@../../css/login.css" BorderPane.alignment="CENTER">
                <children>
                   <Text cache="true" fill="WHITE" layoutX="19.0" layoutY="70.0" smooth="false" strokeType="OUTSIDE" strokeWidth="0.0" text="GT Mazureac Alexandru" textAlignment="CENTER" wrappingWidth="360.13671875">
                      <font>
