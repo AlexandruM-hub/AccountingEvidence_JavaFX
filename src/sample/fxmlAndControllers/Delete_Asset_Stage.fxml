@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="241.0" prefWidth="504.0" styleClass="addAssetBackground" stylesheets="@../../css/login.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.fxmlAndControllers.Delete_Asset_Controller">
+   <children>
+      <ComboBox fx:id="tipActivComboBox" layoutX="285.0" layoutY="53.0" prefHeight="25.0" prefWidth="179.0" promptText="Circulante/Fixe/Terenuri..." />
+      <ComboBox fx:id="idAssetsComboBox" layoutX="285.0" layoutY="106.0" prefHeight="25.0" prefWidth="179.0" />
+      <Text layoutX="43.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="textStyle" text="Alegeti tipul activului">
+         <font>
+            <Font name="Bell MT Bold" size="23.0" />
+         </font>
+      </Text>
+      <Text layoutX="39.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="textStyle" text="Alegeti ID-ul activului">
+         <font>
+            <Font name="Bell MT Bold" size="23.0" />
+         </font>
+      </Text>
+      <Button layoutX="367.0" layoutY="175.0" mnemonicParsing="false" onAction="#submitButtonOnAction" styleClass="buttonsStyle" stylesheets="@../../css/login.css" text="Submit">
+         <font>
+            <Font name="Bell MT Bold" size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="cancelButton" layoutX="43.0" layoutY="175.0" mnemonicParsing="false" onAction="#cancelButtonOnAction" styleClass="buttonsStyle" stylesheets="@../../css/login.css" text="Cancel">
+         <font>
+            <Font name="Bell MT Bold" size="18.0" />
+         </font>
+      </Button>
+      <Pane fx:id="confirmationPane" layoutX="85.0" layoutY="19.0" prefHeight="200.0" prefWidth="334.0" styleClass="addSuccesfullyData" stylesheets="@../../css/login.css" visible="false">
+         <children>
+            <Text layoutX="102.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="textStyle" text="Sunteti sigur">
+               <font>
+                  <Font name="Bell MT Bold" size="23.0" />
+               </font>
+            </Text>
+            <Button layoutX="245.0" layoutY="136.0" mnemonicParsing="false" onAction="#confirmButtonOnAction" styleClass="buttonsStyle" stylesheets="@../../css/login.css" text="Da">
+               <font>
+                  <Font name="Bell MT Bold" size="18.0" />
+               </font>
+            </Button>
+            <Button layoutX="32.0" layoutY="136.0" mnemonicParsing="false" onAction="#denyButtonOnAction" styleClass="buttonsStyle" stylesheets="@../../css/login.css" text="Nu">
+               <font>
+                  <Font name="Bell MT Bold" size="18.0" />
+               </font>
+            </Button>
+            <Text layoutX="26.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="textStyle" text="ca doriti sa stergeti activul?">
+               <font>
+                  <Font name="Bell MT Bold" size="23.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
+      <Label fx:id="invalidDepozit" layoutX="43.0" layoutY="141.0" prefHeight="25.0" prefWidth="423.0" textFill="RED">
+         <font>
+            <Font size="15.0" />
+         </font></Label>
+      <Pane fx:id="succesDeletionPane" layoutX="155.0" layoutY="19.0" prefHeight="200.0" prefWidth="200.0" styleClass="addSuccesfullyData" stylesheets="@../../css/login.css" visible="false">
+         <children>
+            <ImageView fitHeight="95.0" fitWidth="108.0" layoutX="46.0" layoutY="32.0">
+               <image>
+                  <Image url="@../../css/SuccesLogo.png" />
+               </image>
+            </ImageView>
+            <Text fill="WHITE" layoutX="30.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Datele au fost salvate!" textAlignment="CENTER" wrappingWidth="140.0">
+               <font>
+                  <Font name="Bell MT Bold" size="25.0" />
+               </font>
+            </Text>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

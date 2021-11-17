@@ -113,9 +113,17 @@
 }
 
 .addSuccesfullyData{
-  -fx-background-color: rgba(	44, 62, 80, 0.7)
+  -fx-background-color: rgba(	44, 62, 80, 0.95)
 }
 
 .tabsBackground{
   -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #12100e, #2b4162);
+}
+
+.textStyle{
+  -fx-fill: #cfcb5b;
+}
+
+.changeAssetBackground{
+  -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #fc4a1a, #f7b733);
 }

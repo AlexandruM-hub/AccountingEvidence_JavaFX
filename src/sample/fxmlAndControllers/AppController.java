@@ -1,4 +1,4 @@
-package sample.Controllers;
+package sample.fxmlAndControllers;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -303,11 +303,19 @@ public class AppController implements Initializable {
         
     }
 
+    public void changeAssetButtonOnAction(ActionEvent e) throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("Change_Asset_Stage.fxml"));
+        Stage DeleteAssetStage = new Stage(StageStyle.DECORATED);
+        DeleteAssetStage.setScene(new Scene(root));
+        DeleteAssetStage.setTitle("Change Asset");
+        DeleteAssetStage.show();
+    }
+
     public void deleteAssetButtonOnAction(ActionEvent e) throws IOException{
-        Parent root = FXMLLoader.load(getClass().getResource("Add_Asset_Stage.fxml"));
-        Stage addAssetStage = new Stage(StageStyle.DECORATED);
-        addAssetStage.setScene(new Scene(root));
-        addAssetStage.setTitle("Add asset");
-        addAssetStage.show();
+        Parent root = FXMLLoader.load(getClass().getResource("Delete_Asset_Stage.fxml"));
+        Stage DeleteAssetStage = new Stage(StageStyle.DECORATED);
+        DeleteAssetStage.setScene(new Scene(root));
+        DeleteAssetStage.setTitle("Delete Asset");
+        DeleteAssetStage.show();
     }
 }

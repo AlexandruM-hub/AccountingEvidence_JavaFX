@@ -4,4 +4,6 @@ module TezaProiect {
     requires java.sql;
     requires javafx.graphics;
     opens sample;
+    opens sample.fxmlAndControllers;
+
 }
