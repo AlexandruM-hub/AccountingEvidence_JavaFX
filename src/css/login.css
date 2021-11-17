@@ -23,6 +23,11 @@
   -fx-display: inline-block;
 }
 
+.menuButton: pressed{
+  -fx-text-fill: #cfcb5b;
+  -fx-background-color: rgba(89,50,15,0.2);
+}
+
 .menuButton: hover{
     -fx-background-color: rgba(89,50,15,0.2);
     -fx-border-color: WHITE;

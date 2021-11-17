@@ -477,24 +477,24 @@
                   <content>
                     <AnchorPane cache="true" minHeight="0.0" minWidth="500.0" prefHeight="180.0" prefWidth="200.0" styleClass="tabsBackground" stylesheets="@../css/login.css">
                            <children>
-                              <TextField layoutX="355.0" layoutY="14.0" prefHeight="25.0" prefWidth="200.0" promptText="Search" AnchorPane.rightAnchor="181.0" AnchorPane.topAnchor="14.0" />
+                              <TextField fx:id="currentAssetsSearchTextField" layoutX="355.0" layoutY="14.0" prefHeight="25.0" prefWidth="200.0" promptText="Search" AnchorPane.rightAnchor="181.0" AnchorPane.topAnchor="14.0" />
                               <ImageView fitHeight="24.0" fitWidth="32.0" layoutX="499.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="392.0" AnchorPane.topAnchor="15.0">
                                  <image>
                                     <Image url="@../css/search.png" />
                                  </image>
                               </ImageView>
-                              <TableView layoutX="31.0" layoutY="66.0" prefHeight="631.0" prefWidth="705.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="181.0" AnchorPane.topAnchor="66.0">
+                              <TableView fx:id="otherAssetsTableView" layoutX="31.0" layoutY="66.0" prefHeight="631.0" prefWidth="705.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="181.0" AnchorPane.topAnchor="66.0">
                                 <columns>
-                                  <TableColumn minWidth="50.0" prefWidth="57.0" text="ID_Activ" />
-                                  <TableColumn minWidth="60.0" prefWidth="114.0" text="Furnizor" />
-                                    <TableColumn minWidth="50.0" prefWidth="93.0" text="Data Procurare" />
-                                    <TableColumn minWidth="70.0" prefWidth="76.0" text="Tip" />
-                                    <TableColumn minWidth="50.0" prefWidth="195.0" text="Denumire" />
-                                    <TableColumn minWidth="50.0" prefWidth="101.0" text="Cantitate" />
-                                    <TableColumn minWidth="50.0" prefWidth="68.0" text="Pret" />
-                                    <TableColumn minWidth="100.0" prefWidth="61.0" text="Valoare" />
-                                    <TableColumn minWidth="100.0" prefWidth="17.0" text="Cantitate in depozit" />
-                                    <TableColumn minWidth="100.0" prefWidth="75.0" text="Depozit" />
+                                  <TableColumn fx:id="idAsset" minWidth="50.0" prefWidth="57.0" text="ID_Activ" />
+                                    <TableColumn fx:id="nrFacturaAlteActive" minWidth="70.0" prefWidth="75.0" text="Nr. Factura" />
+                                  <TableColumn fx:id="contractantAlteActive" minWidth="100.0" prefWidth="114.0" text="Furnizor" />
+                                    <TableColumn fx:id="dataIntrareAlteActive" minWidth="80.0" prefWidth="93.0" text="Data Procurare" />
+                                    <TableColumn fx:id="tipAlteActive" minWidth="100.0" prefWidth="76.0" text="Tip" />
+                                    <TableColumn fx:id="denumireAlteActive" minWidth="130.0" prefWidth="195.0" text="Denumire" />
+                                    <TableColumn fx:id="cantitateAlteActive" minWidth="50.0" prefWidth="101.0" text="Cantitate in stock" />
+                                    <TableColumn fx:id="pretAlteActive" minWidth="50.0" prefWidth="68.0" text="Pret" />
+                                    <TableColumn fx:id="valoareAlteActive" minWidth="70.0" prefWidth="61.0" text="Valoare" />
+                                    <TableColumn fx:id="idDepozitAlteActive" minWidth="50.0" prefWidth="75.0" text="Depozit" />
                                 </columns>
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -511,20 +511,21 @@
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="tabsBackground" stylesheets="@../css/login.css">
                            <children>
-                              <TextField layoutX="539.0" layoutY="13.0" prefHeight="25.0" prefWidth="200.0" promptText="Search" AnchorPane.rightAnchor="181.0" AnchorPane.topAnchor="14.0" />
+                              <TextField fx:id="mijloaceFixeSearchTextField" layoutX="539.0" layoutY="13.0" prefHeight="25.0" prefWidth="200.0" promptText="Search" AnchorPane.rightAnchor="181.0" AnchorPane.topAnchor="14.0" />
                               <ImageView fitHeight="24.0" fitWidth="32.0" layoutX="501.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="392.0" AnchorPane.topAnchor="15.0">
                                  <image>
                                     <Image url="@../css/search.png" />
                                  </image>
                               </ImageView>
-                              <TableView layoutX="57.0" layoutY="93.0" prefHeight="200.0" prefWidth="664.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="196.0" AnchorPane.topAnchor="66.0">
+                              <TableView fx:id="mijloaceFixeTableView" layoutX="57.0" layoutY="93.0" prefHeight="200.0" prefWidth="664.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="196.0" AnchorPane.topAnchor="66.0">
                                 <columns>
-                                  <TableColumn prefWidth="75.0" text="ID_Factura" />
-                                  <TableColumn prefWidth="75.0" text="Furnizor" />
-                                    <TableColumn prefWidth="152.0" text="Data procurare" />
-                                    <TableColumn prefWidth="117.0" text="Tip" />
-                                    <TableColumn prefWidth="189.0" text="Denumire" />
-                                    <TableColumn prefWidth="81.0" text="Valoare" />
+                                  <TableColumn fx:id="id_facturaMF" prefWidth="75.0" text="ID_Factura" />
+                                    <TableColumn fx:id="nrFacturaMijlocFix" minWidth="50.0" prefWidth="75.0" text="Nr. Factura" />
+                                  <TableColumn fx:id="contractantMijlocFix" prefWidth="75.0" text="Furnizor" />
+                                    <TableColumn fx:id="dataIntrareMijlocFix" prefWidth="152.0" text="Data procurare" />
+                                    <TableColumn fx:id="denumireMijlocFix" prefWidth="189.0" text="Denumire" />
+                                    <TableColumn fx:id="cantitateStocMijlocFix" prefWidth="117.0" text="Cantitate" />
+                                    <TableColumn fx:id="valoareActivMijlocFix" prefWidth="81.0" text="Valoare" />
                                 </columns>
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -542,7 +543,7 @@
                                     <Image url="@../css/search.png" />
                                  </image>
                               </ImageView>
-                              <TextField layoutX="545.0" layoutY="20.0" prefHeight="25.0" prefWidth="200.0" promptText="Search" AnchorPane.rightAnchor="181.0" AnchorPane.topAnchor="14.0" />
+                              <TextField fx:id="terenuriSearchTextField" layoutX="545.0" layoutY="20.0" prefHeight="25.0" prefWidth="200.0" promptText="Search" AnchorPane.rightAnchor="181.0" AnchorPane.topAnchor="14.0" />
                               <TableView fx:id="terenuriTableView" layoutX="48.0" layoutY="89.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="196.0" AnchorPane.topAnchor="66.0">
                                 <columns>
                                     <TableColumn fx:id="terenID" prefWidth="163.0" text="Teren_ID" />
@@ -562,13 +563,13 @@
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="717.0" prefWidth="917.0" styleClass="tabsBackground" stylesheets="@../css/login.css">
                            <children>
-                              <TextField prefHeight="25.0" prefWidth="200.0" promptText="Search" AnchorPane.rightAnchor="181.0" AnchorPane.topAnchor="14.0" />
+                              <TextField fx:id="depoziteSearchTextField" prefHeight="25.0" prefWidth="200.0" promptText="Search" AnchorPane.rightAnchor="181.0" AnchorPane.topAnchor="14.0" />
                               <ImageView fitHeight="24.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="392.0" AnchorPane.topAnchor="15.0">
                                  <image>
                                     <Image url="@../css/search.png" />
                                  </image>
                               </ImageView>
-                              <TableView fx:id="depoziteTableView" layoutX="52.0" layoutY="83.0" prefHeight="200.0" prefWidth="705.0" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="181.0" AnchorPane.topAnchor="66.0">
+                              <TableView fx:id="depoziteTableView" layoutX="52.0" layoutY="83.0" prefHeight="628.0" prefWidth="705.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="181.0" AnchorPane.topAnchor="66.0">
                                 <columns>
                                   <TableColumn fx:id="id_depozit" prefWidth="104.0" text="ID_depozit" />
                                   <TableColumn fx:id="depozit_localitate" prefWidth="173.0" text="Localitate" />

@@ -107,7 +107,7 @@
          <font>
             <Font name="Bell MT Bold" size="17.0" />
          </font></Button>
-      <Pane fx:id="succesValidationPane" layoutX="119.0" layoutY="186.0" prefHeight="200.0" prefWidth="200.0" styleClass="addSuccesfullyData" stylesheets="@../css/login.css" visible="false" AnchorPane.leftAnchor="119.0" AnchorPane.rightAnchor="118.0" AnchorPane.topAnchor="186.0">
+      <Pane fx:id="succesValidationPane" layoutX="125.0" layoutY="306.0" prefHeight="200.0" prefWidth="200.0" styleClass="addSuccesfullyData" stylesheets="@../css/login.css" visible="false" AnchorPane.topAnchor="306.0">
          <children>
             <ImageView fitHeight="95.0" fitWidth="108.0" layoutX="46.0" layoutY="32.0">
                <image>
