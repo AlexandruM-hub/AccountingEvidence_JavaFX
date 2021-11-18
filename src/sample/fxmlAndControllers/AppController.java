@@ -227,13 +227,13 @@ public class AppController implements Initializable {
                         mijloaceFixeResultSet.getFloat("cantitate_stock"), mijloaceFixeResultSet.getFloat("valoareActiv")));
             }
             String otherAssetsQuery = "SELECT assets._id_asset,facturi.nr_factura, facturi.contractant, facturi.data, facturi.tip_marfa, "
-                    +"facturi.denumire_marfa, facturi.cantitate, facturi.pret, assets.cantitate_stock * facturi.pret AS valoareActive, "
+                    +"facturi.denumire_marfa, assets.cantitate_stock, facturi.pret, assets.cantitate_stock * facturi.pret AS valoareActive, "
                     +"assets.depozit_id FROM assets INNER JOIN facturi ON assets.nr_factura = facturi.nr_factura WHERE facturi.tip_marfa <> 'Mijloc Fix'";
             ResultSet otherAssetsResultSet = conn.createStatement().executeQuery(otherAssetsQuery);
             while(otherAssetsResultSet.next()){
                 otherAssetsObservableList.add(new Assets(otherAssetsResultSet.getInt("_id_asset"), otherAssetsResultSet.getString("nr_factura"),
                         otherAssetsResultSet.getString("contractant"), otherAssetsResultSet.getDate("data"), otherAssetsResultSet.getString("tip_marfa"),
-                        otherAssetsResultSet.getString("denumire_marfa"), otherAssetsResultSet.getFloat("cantitate"), otherAssetsResultSet.getFloat("pret"),
+                        otherAssetsResultSet.getString("denumire_marfa"), otherAssetsResultSet.getFloat("cantitate_stock"), otherAssetsResultSet.getFloat("pret"),
                         otherAssetsResultSet.getFloat("valoareActive"), otherAssetsResultSet.getInt("depozit_id")));
             }
             conn.close();

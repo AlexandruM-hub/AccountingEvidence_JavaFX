@@ -11,7 +11,6 @@ public class DatabaseConnection {
         String mysqlPassword = "";
         try{
             databaseLink = DriverManager.getConnection(mysqlConnUrl, mysqlUserName, mysqlPassword);
-
         }
         catch (SQLException e){
             e.printStackTrace();
