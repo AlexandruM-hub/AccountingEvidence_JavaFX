@@ -202,51 +202,10 @@ public class AppController implements Initializable {
     }
 
     private void loadAllAssetsInAssetTableViews(){
-        DatabaseConnection db = new DatabaseConnection();
-        Connection conn = db.getConnection();
-        depoziteObservableList.clear();
-        otherAssetsObservableList.clear();
-        mijloaceFixeObservableList.clear();
-        terenuriObservableList.clear();
-        try{
-            ResultSet rs_depozite = conn.createStatement().executeQuery("SELECT _id_depozit, localitate FROM depozite");
-            while(rs_depozite.next()){
-                depoziteObservableList.add(new Assets(rs_depozite.getInt("_id_depozit"),rs_depozite.getString("localitate")));
-            }
-            ResultSet rs_terenuri = conn.createStatement().executeQuery("SELECT * FROM terenuri_agricole");
-            while(rs_terenuri.next()){
-                terenuriObservableList.add(new Assets(rs_terenuri.getInt("_id_teren"), rs_terenuri.getInt("teren_grup"),
-                        rs_terenuri.getString("nr_cadastral"), rs_terenuri.getFloat("suprafata"), rs_terenuri.getString("localitate")));
-            }
-            String mijloaceFixeQuery = "SELECT assets._id_asset, facturi.nr_factura, facturi.contractant, "
-                    + "facturi.data, facturi.denumire_marfa AS denumire, assets.cantitate_stock, assets.cantitate_stock * facturi.pret AS valoareActiv FROM "
-                    +"facturi INNER JOIN assets ON facturi.activ_id = assets._id_asset WHERE facturi.tip_marfa = 'Mijloc Fix' AND facturi.tip_intrare_iesire = 'Intrare'";
-            ResultSet mijloaceFixeResultSet = conn.createStatement().executeQuery(mijloaceFixeQuery);
-            while (mijloaceFixeResultSet.next()) {
-                mijloaceFixeObservableList.add(new Assets(mijloaceFixeResultSet.getInt("_id_asset"), mijloaceFixeResultSet.getString("nr_factura"),
-                        mijloaceFixeResultSet.getString("contractant"), mijloaceFixeResultSet.getDate("data"), mijloaceFixeResultSet.getString("denumire"),
-                        mijloaceFixeResultSet.getFloat("cantitate_stock"), mijloaceFixeResultSet.getFloat("valoareActiv")));
-            }
-            String otherAssetsQuery = "SELECT assets._id_asset, facturi.nr_factura, facturi.contractant, facturi.data, facturi.tip_marfa, "
-                    +"facturi.denumire_marfa, assets.cantitate_stock, facturi.pret, assets.cantitate_stock * facturi.pret AS valoareActive, "
-                    +"assets.depozit_id FROM assets INNER JOIN facturi ON assets._id_asset = facturi.activ_id WHERE facturi.tip_marfa <> 'Mijloc Fix' AND "
-                    +"facturi.tip_marfa <> 'Depozit' AND facturi.tip_intrare_iesire = 'Intrare'";
-            ResultSet otherAssetsResultSet = conn.createStatement().executeQuery(otherAssetsQuery);
-            while(otherAssetsResultSet.next()){
-                otherAssetsObservableList.add(new Assets(otherAssetsResultSet.getInt("_id_asset"), otherAssetsResultSet.getString("nr_factura"),
-                        otherAssetsResultSet.getString("contractant"), otherAssetsResultSet.getDate("data"), otherAssetsResultSet.getString("tip_marfa"),
-                        otherAssetsResultSet.getString("denumire_marfa"), otherAssetsResultSet.getFloat("cantitate_stock"), otherAssetsResultSet.getFloat("pret"),
-                        otherAssetsResultSet.getFloat("valoareActive"), otherAssetsResultSet.getInt("depozit_id")));
-            }
-            conn.close();
-        }
-        catch (SQLException error){
-            error.printStackTrace();
-        }
-        loadTerenuriInTable();
-        loadDepoziteInTable();
-        loadOtherAssetsInTable();
-        loadMijloaceFixeInTable();
+        searchCurrentAssetsInDB();
+        searchMijloaceFixeInDB();
+        searchPamanturiInDB();
+        searchDepoziteInDB();
     }
 
     //BUTTONS ON ACTION
@@ -322,5 +281,11 @@ public class AppController implements Initializable {
         
     }
 
-
+    public void addProdusButtonOnAction(ActionEvent e) throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("New_Product.fxml"));
+        Stage addAssetStage = new Stage(StageStyle.DECORATED);
+        addAssetStage.setScene(new Scene(root));
+        addAssetStage.setTitle("Produs nou");
+        addAssetStage.show();
+    }
 }
