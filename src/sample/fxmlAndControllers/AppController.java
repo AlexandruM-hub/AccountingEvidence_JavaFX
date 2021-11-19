@@ -69,7 +69,8 @@ public class AppController implements Initializable {
         Connection conn = db.getConnection();
         String checkForCurrentAssetsQuery = "SELECT assets._id_asset,facturi.nr_factura, facturi.contractant, facturi.data, facturi.tip_marfa, "
                 +"facturi.denumire_marfa, facturi.cantitate, facturi.pret, assets.cantitate_stock * facturi.pret AS valoareActive, "
-                +"assets.depozit_id FROM assets INNER JOIN facturi ON assets.nr_factura = facturi.nr_factura WHERE facturi.tip_marfa <> 'Mijloc Fix'";
+                +"assets.depozit_id FROM assets INNER JOIN facturi ON assets._id_asset = facturi.activ_id WHERE facturi.tip_marfa <> 'Mijloc Fix' AND "
+                +"facturi.tip_intrare_iesire = 'Intrare' AND facturi.tip_marfa <> 'Depozit'";
         String currentAssetsSearchQuery = " AND (facturi.tip_marfa LIKE '%" + currentAssetsSearchTextField.getText() +"%' OR assets._id_asset LIKE '%"
                 + currentAssetsSearchTextField.getText() +"%' OR facturi.nr_factura LIKE '%" + currentAssetsSearchTextField.getText() + "%' OR "
                 +"facturi.contractant LIKE '%" + currentAssetsSearchTextField.getText() +"%' OR facturi.data LIKE '%" + currentAssetsSearchTextField.getText() + "%' OR "
@@ -97,7 +98,7 @@ public class AppController implements Initializable {
         mijloaceFixeObservableList.clear();
         String mijloaceFixeQuery = "SELECT facturi._id_factura, facturi.nr_factura, facturi.contractant, "
                 + "facturi.data, facturi.denumire_marfa AS denumire, assets.cantitate_stock, assets.cantitate_stock * facturi.pret AS valoareActiv FROM "
-                +"facturi INNER JOIN assets ON facturi.nr_factura = assets.nr_factura WHERE facturi.tip_marfa = 'Mijloc Fix'";
+                +"facturi INNER JOIN assets ON facturi.activ_id = assets._id_asset WHERE facturi.tip_marfa = 'Mijloc Fix' AND facturi.tip_intrare_iesire = 'Intrare'";
         String mijloaceFixeSearchQuery = " AND (facturi._id_factura LIKE '%" + mijloaceFixeSearchTextField.getText() +"%' OR facturi.nr_factura LIKE '%"
                 + mijloaceFixeSearchTextField.getText() + "%' OR facturi.contractant LIKE '%" + mijloaceFixeSearchTextField.getText() + "%' OR "
                 +"facturi.data LIKE '%" + mijloaceFixeSearchTextField.getText() +"%' OR facturi.denumire_marfa LIKE '%" + mijloaceFixeSearchTextField.getText() +"%' OR "
@@ -217,18 +218,19 @@ public class AppController implements Initializable {
                 terenuriObservableList.add(new Assets(rs_terenuri.getInt("_id_teren"), rs_terenuri.getInt("teren_grup"),
                         rs_terenuri.getString("nr_cadastral"), rs_terenuri.getFloat("suprafata"), rs_terenuri.getString("localitate")));
             }
-            String mijloaceFixeQuery = "SELECT facturi._id_factura, facturi.nr_factura, facturi.contractant, "
+            String mijloaceFixeQuery = "SELECT assets._id_asset, facturi.nr_factura, facturi.contractant, "
                     + "facturi.data, facturi.denumire_marfa AS denumire, assets.cantitate_stock, assets.cantitate_stock * facturi.pret AS valoareActiv FROM "
-                    +"facturi INNER JOIN assets ON facturi.nr_factura = assets.nr_factura WHERE facturi.tip_marfa = 'Mijloc Fix'";
+                    +"facturi INNER JOIN assets ON facturi.activ_id = assets._id_asset WHERE facturi.tip_marfa = 'Mijloc Fix' AND facturi.tip_intrare_iesire = 'Intrare'";
             ResultSet mijloaceFixeResultSet = conn.createStatement().executeQuery(mijloaceFixeQuery);
             while (mijloaceFixeResultSet.next()) {
-                mijloaceFixeObservableList.add(new Assets(mijloaceFixeResultSet.getInt("_id_factura"), mijloaceFixeResultSet.getString("nr_factura"),
+                mijloaceFixeObservableList.add(new Assets(mijloaceFixeResultSet.getInt("_id_asset"), mijloaceFixeResultSet.getString("nr_factura"),
                         mijloaceFixeResultSet.getString("contractant"), mijloaceFixeResultSet.getDate("data"), mijloaceFixeResultSet.getString("denumire"),
                         mijloaceFixeResultSet.getFloat("cantitate_stock"), mijloaceFixeResultSet.getFloat("valoareActiv")));
             }
-            String otherAssetsQuery = "SELECT assets._id_asset,facturi.nr_factura, facturi.contractant, facturi.data, facturi.tip_marfa, "
+            String otherAssetsQuery = "SELECT assets._id_asset, facturi.nr_factura, facturi.contractant, facturi.data, facturi.tip_marfa, "
                     +"facturi.denumire_marfa, assets.cantitate_stock, facturi.pret, assets.cantitate_stock * facturi.pret AS valoareActive, "
-                    +"assets.depozit_id FROM assets INNER JOIN facturi ON assets.nr_factura = facturi.nr_factura WHERE facturi.tip_marfa <> 'Mijloc Fix'";
+                    +"assets.depozit_id FROM assets INNER JOIN facturi ON assets._id_asset = facturi.activ_id WHERE facturi.tip_marfa <> 'Mijloc Fix' AND "
+                    +"facturi.tip_marfa <> 'Depozit' AND facturi.tip_intrare_iesire = 'Intrare'";
             ResultSet otherAssetsResultSet = conn.createStatement().executeQuery(otherAssetsQuery);
             while(otherAssetsResultSet.next()){
                 otherAssetsObservableList.add(new Assets(otherAssetsResultSet.getInt("_id_asset"), otherAssetsResultSet.getString("nr_factura"),
@@ -249,11 +251,27 @@ public class AppController implements Initializable {
 
     //BUTTONS ON ACTION
     public void addAssetButtonOnAction(ActionEvent e) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("Add_Asset_Stage.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("New_Asset_FXML.fxml"));
         Stage addAssetStage = new Stage(StageStyle.DECORATED);
         addAssetStage.setScene(new Scene(root));
         addAssetStage.setTitle("Add asset");
         addAssetStage.show();
+    }
+
+    public void changeAssetButtonOnAction(ActionEvent e) throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("Change_Asset_Stage.fxml"));
+        Stage DeleteAssetStage = new Stage(StageStyle.DECORATED);
+        DeleteAssetStage.setScene(new Scene(root));
+        DeleteAssetStage.setTitle("Change Asset");
+        DeleteAssetStage.show();
+    }
+
+    public void deleteAssetButtonOnAction(ActionEvent e) throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("Delete_Asset_Stage.fxml"));
+        Stage DeleteAssetStage = new Stage(StageStyle.DECORATED);
+        DeleteAssetStage.setScene(new Scene(root));
+        DeleteAssetStage.setTitle("Delete Asset");
+        DeleteAssetStage.show();
     }
 
     public void exitButtonOnAction(ActionEvent e){
@@ -289,6 +307,7 @@ public class AppController implements Initializable {
             assetsAnchor.toFront();
 
             assetsButton.setStyle("-fx-text-fill: #cfcb5b; -fx-background-color: rgba(89,50,15,0.2)");
+            //loadAllAssetsInAssetTableViews();
             loadAllAssetsInAssetTableViews();
 
         }
@@ -303,19 +322,5 @@ public class AppController implements Initializable {
         
     }
 
-    public void changeAssetButtonOnAction(ActionEvent e) throws IOException{
-        Parent root = FXMLLoader.load(getClass().getResource("Change_Asset_Stage.fxml"));
-        Stage DeleteAssetStage = new Stage(StageStyle.DECORATED);
-        DeleteAssetStage.setScene(new Scene(root));
-        DeleteAssetStage.setTitle("Change Asset");
-        DeleteAssetStage.show();
-    }
 
-    public void deleteAssetButtonOnAction(ActionEvent e) throws IOException{
-        Parent root = FXMLLoader.load(getClass().getResource("Delete_Asset_Stage.fxml"));
-        Stage DeleteAssetStage = new Stage(StageStyle.DECORATED);
-        DeleteAssetStage.setScene(new Scene(root));
-        DeleteAssetStage.setTitle("Delete Asset");
-        DeleteAssetStage.show();
-    }
 }

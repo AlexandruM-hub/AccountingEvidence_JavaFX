@@ -519,7 +519,7 @@
                               </ImageView>
                               <TableView fx:id="mijloaceFixeTableView" layoutX="57.0" layoutY="93.0" prefHeight="200.0" prefWidth="664.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="196.0" AnchorPane.topAnchor="66.0">
                                 <columns>
-                                  <TableColumn fx:id="id_facturaMF" prefWidth="75.0" text="ID_Factura" />
+                                  <TableColumn fx:id="id_facturaMF" prefWidth="75.0" text="ID_Activ" />
                                     <TableColumn fx:id="nrFacturaMijlocFix" minWidth="50.0" prefWidth="75.0" text="Nr. Factura" />
                                   <TableColumn fx:id="contractantMijlocFix" prefWidth="75.0" text="Furnizor" />
                                     <TableColumn fx:id="dataIntrareMijlocFix" prefWidth="152.0" text="Data procurare" />

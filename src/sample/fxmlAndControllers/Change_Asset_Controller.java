@@ -38,7 +38,6 @@ public class Change_Asset_Controller implements Initializable {
     @FXML
     private Pane successChangePane;
 
-
     ObservableList<Integer> choiceChangeAssetObservableList = FXCollections.observableArrayList();
 
     @Override
@@ -80,8 +79,8 @@ public class Change_Asset_Controller implements Initializable {
                 setDepozitVisibility();
                 break;
             default:
-                String getOtherAssetsIDQuery = "SELECT assets._id_asset FROM assets INNER JOIN facturi ON assets.nr_factura = facturi.nr_factura WHERE facturi.tip_marfa = '"
-                        + tipActivChoice + "' ORDER BY assets._id_asset";
+                String getOtherAssetsIDQuery = "SELECT assets._id_asset FROM assets INNER JOIN facturi ON assets._id_asset = facturi.activ_id WHERE facturi.tip_marfa = '"
+                        + tipActivChoice + "' AND facturi.tip_intrare_iesire = 'Intrare' ORDER BY assets._id_asset";
                 getDataFromDB(getOtherAssetsIDQuery, "assets._id_asset");
                 otherAssetsVisibility();
                 break;
@@ -205,6 +204,8 @@ public class Change_Asset_Controller implements Initializable {
     }
 
     public void saveButtonOnAction(ActionEvent e){
+        Stream.of(invalidIdActiv,invalidTipActiv,firstInvalidText,secondInvalidText,thirdInvalidText,
+                fourthInvalidText).forEach(Text -> Text.setText(""));
         if(tipChangeActivComboBox.getSelectionModel().isEmpty()){
             invalidTipActiv.setText("Acest camp nu poate fi gol");
         }else{
@@ -252,7 +253,7 @@ public class Change_Asset_Controller implements Initializable {
 
     private boolean terenuriValidation(){
         if(firstTextField.getText().isBlank()){
-            firstTextField.setText("Campul nu poate fi gol");
+            firstInvalidText.setText("Campul nu poate fi gol");
             return false;
         }else if(secondTextField.getText().isBlank() || secondTextField.getText().length()<10){
             secondInvalidText.setText("Nr cadastral trebuie sa fie cel putin 10 numere");

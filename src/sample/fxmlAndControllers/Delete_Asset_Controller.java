@@ -52,8 +52,8 @@ public class Delete_Asset_Controller implements Initializable {
                 getDataFromDB(depozitGetIdQuery, "_id_depozit");
                 break;
             default:
-                String getOtherAssetsIDQuery = "SELECT assets._id_asset FROM assets INNER JOIN facturi ON assets.nr_factura = facturi.nr_factura WHERE facturi.tip_marfa = '"
-                        + tipActivChoice + "' ORDER BY assets._id_asset";
+                String getOtherAssetsIDQuery = "SELECT assets._id_asset FROM assets INNER JOIN facturi ON assets._id_asset = facturi.activ_id WHERE facturi.tip_marfa = '"
+                        + tipActivChoice + "'AND facturi.tip_intrare_iesire = 'Intrare' ORDER BY assets._id_asset";
                 getDataFromDB(getOtherAssetsIDQuery, "assets._id_asset");
                 break;
         }
