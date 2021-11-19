@@ -208,7 +208,7 @@ public class AppController implements Initializable {
         searchDepoziteInDB();
     }
 
-    //BUTTONS ON ACTION
+    //ASSETS BUTTONS
     public void addAssetButtonOnAction(ActionEvent e) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("New_Asset_FXML.fxml"));
         Stage addAssetStage = new Stage(StageStyle.DECORATED);
@@ -281,11 +281,20 @@ public class AppController implements Initializable {
         
     }
 
+    //PRODUCTS BUTTONS
     public void addProdusButtonOnAction(ActionEvent e) throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource("New_Product.fxml"));
         Stage addAssetStage = new Stage(StageStyle.DECORATED);
         addAssetStage.setScene(new Scene(root));
         addAssetStage.setTitle("Produs nou");
+        addAssetStage.show();
+    }
+
+    public void deleteProductButton(ActionEvent e) throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("Delete_Product.fxml"));
+        Stage addAssetStage = new Stage(StageStyle.DECORATED);
+        addAssetStage.setScene(new Scene(root));
+        addAssetStage.setTitle("Stergerea produsului");
         addAssetStage.show();
     }
 }
