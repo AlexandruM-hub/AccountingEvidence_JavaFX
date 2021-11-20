@@ -290,11 +290,19 @@ public class AppController implements Initializable {
         addAssetStage.show();
     }
 
-    public void deleteProductButton(ActionEvent e) throws IOException{
+    public void deleteProductButtonOnAction(ActionEvent e) throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource("Delete_Product.fxml"));
         Stage addAssetStage = new Stage(StageStyle.DECORATED);
         addAssetStage.setScene(new Scene(root));
         addAssetStage.setTitle("Stergerea produsului");
+        addAssetStage.show();
+    }
+
+    public void changeProductButtonOnAction() throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("Change_Product.fxml"));
+        Stage addAssetStage = new Stage(StageStyle.DECORATED);
+        addAssetStage.setScene(new Scene(root));
+        addAssetStage.setTitle("Modificare Produs");
         addAssetStage.show();
     }
 }
