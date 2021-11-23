@@ -18,7 +18,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import sample.Assets;
 import sample.DatabaseConnection;
-
+import sample.Produse;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -48,18 +48,46 @@ public class AppController implements Initializable {
     @FXML
     private TableColumn<Assets, Date> dataIntrareMijlocFix, dataIntrareAlteActive;
     @FXML
-    private TextField currentAssetsSearchTextField, mijloaceFixeSearchTextField, terenuriSearchTextField, depoziteSearchTextField;
+    private TextField currentAssetsSearchTextField, mijloaceFixeSearchTextField, terenuriSearchTextField, depoziteSearchTextField, produseSearchTextField;
+    @FXML
+    private TextField produseInDepozitSearchTextField;
+    @FXML
+    private TableColumn<Produse, Integer> idProdusTableColumn, terenGrupProdusTableColumn, anProdusTableColumn;
+    @FXML
+    private TableColumn<Produse, String> denumireProdusTableColumn;
+    @FXML
+    private TableColumn<Produse, Float> cantitateRecoltataProduseTableColumn, cantitateRamasaProduseTableColumn;
+    @FXML
+    private TableView<Produse> produseTableView, produseInDepozitTableView;
+    @FXML
+    private TableColumn<Produse, Integer> idProdusInDepozitTableColumn, idDepozitProduseInStockTableColumn;
+    @FXML
+    private TableColumn<Produse,String> denumireProdusStockTableColumn, localitateDepozitProduseStockTableColumn;
+    @FXML
+    private TableColumn<Produse, Float> cantitateProduseInDepozitTableColumn;
 
+
+    //OBSV ACTIVE
     ObservableList<Assets> depoziteObservableList = FXCollections.observableArrayList();
     ObservableList<Assets> terenuriObservableList = FXCollections.observableArrayList();
     ObservableList<Assets> mijloaceFixeObservableList = FXCollections.observableArrayList();
     ObservableList<Assets> otherAssetsObservableList = FXCollections.observableArrayList();
+
+    //OBSV PRODUSE
+    ObservableList<Produse> produseObservableList = FXCollections.observableArrayList();
+    ObservableList<Produse> produseInDepozitObservableList = FXCollections.observableArrayList();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        //ASSETS
         currentAssetsSearchTextField.textProperty().addListener((observableValue, s, t1) -> searchCurrentAssetsInDB());
         mijloaceFixeSearchTextField.textProperty().addListener((observableValue, s, t1) -> searchMijloaceFixeInDB());
         terenuriSearchTextField.textProperty().addListener((observableValue, s, t1) -> searchPamanturiInDB());
         depoziteSearchTextField.textProperty().addListener((observableValue, s, t1) -> searchDepoziteInDB());
+
+        //PRODUSE
+        produseSearchTextField.textProperty().addListener((ObservableValue, s, t1) -> searchProduseInDB());
+        produseInDepozitSearchTextField.textProperty().addListener((ObservableValue, s, t1) -> searchProduseInDepozitDB());
     }
 
     //SEARCH DATA IN ASSETS
@@ -159,6 +187,77 @@ public class AppController implements Initializable {
         loadDepoziteInTable();
     }
 
+    //SEARCH DATA IN PRODUSE
+    private void searchProduseInDB(){
+        produseObservableList.clear();
+        DatabaseConnection db = new DatabaseConnection();
+        Connection conn = db.getConnection();
+        String produseQuery = "SELECT _id_produs, denumire_produs, cantitate_recoltata, cantitate_ramasa, "
+                + "an, teren_grup FROM produse WHERE _id_produs LIKE '%" + produseSearchTextField.getText() +"%' OR "
+                + "denumire_produs LIKE '%" + produseSearchTextField.getText() + "%' OR cantitate_recoltata LIKE '%"
+                + produseSearchTextField.getText() + "%' OR cantitate_ramasa LIKE '%" + produseSearchTextField.getText()
+                + "%' OR an LIKE '%" + produseSearchTextField.getText() + "%' OR teren_grup LIKE '%"
+                + produseSearchTextField.getText() + "%'";
+        try{
+            ResultSet produseResultSet = conn.createStatement().executeQuery(produseQuery);
+            while(produseResultSet.next()){
+                produseObservableList.add( new Produse(produseResultSet.getInt("_id_produs"), produseResultSet.getString("denumire_produs"),
+                        produseResultSet.getFloat("cantitate_recoltata"), produseResultSet.getFloat("cantitate_ramasa"),
+                        produseResultSet.getInt("an"), produseResultSet.getInt("teren_grup")));
+            }
+            conn.close();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        loadProduseInTable();
+    }
+
+    private void searchProduseInDepozitDB(){
+        produseInDepozitObservableList.clear();
+        String produseSearch = produseInDepozitSearchTextField.getText();
+        DatabaseConnection db = new DatabaseConnection();
+        Connection conn = db.getConnection();
+        String produseStockQuery = "SELECT produse._id_produs, produse.denumire_produs, produse.cantitate_ramasa, depozite._id_depozit, "
+                +"depozite.localitate FROM produse INNER JOIN depozite ON produse.depozit_id = depozite._id_depozit WHERE produse.cantitate_ramasa > 0 "
+                +"AND (produse._id_produs LIKE '%" + produseSearch + "%' OR produse.denumire_produs LIKE '%" + produseSearch + "%' OR "
+                +" produse.cantitate_ramasa LIKE '%" + produseSearch + "%' OR depozite._id_depozit LIKE '%" + produseSearch + "%' OR "
+                +"depozite.localitate LIKE '%" + produseSearch +"%')";
+        try{
+            ResultSet produseInDepozitResultSet = conn.createStatement().executeQuery(produseStockQuery);
+            while(produseInDepozitResultSet.next()){
+                produseInDepozitObservableList.add(new Produse(produseInDepozitResultSet.getInt("produse._id_produs"),
+                        produseInDepozitResultSet.getString("produse.denumire_produs"),
+                        produseInDepozitResultSet.getFloat("produse.cantitate_ramasa"),
+                        produseInDepozitResultSet.getInt("depozite._id_depozit"),
+                        produseInDepozitResultSet.getString("depozite.localitate")));
+            }
+            conn.close();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        loadProduseDepozitInTable();
+    }
+
+    //LOAD DATA IN TABLES PRODUSE
+    private void loadProduseInTable(){
+        idProdusTableColumn.setCellValueFactory(new PropertyValueFactory<>("idProdus"));
+        denumireProdusTableColumn.setCellValueFactory(new PropertyValueFactory<>("denumireProdus"));
+        cantitateRecoltataProduseTableColumn.setCellValueFactory(new PropertyValueFactory<>("cantitateRecoltata"));
+        cantitateRamasaProduseTableColumn.setCellValueFactory(new PropertyValueFactory<>("cantitateDepozitata"));
+        anProdusTableColumn.setCellValueFactory(new PropertyValueFactory<>("anProdus"));
+        terenGrupProdusTableColumn.setCellValueFactory(new PropertyValueFactory<>("grupTeren"));
+        produseTableView.setItems(produseObservableList);
+    }
+
+    private void loadProduseDepozitInTable(){
+        idProdusInDepozitTableColumn.setCellValueFactory(new PropertyValueFactory<>("idProdus"));
+        denumireProdusStockTableColumn.setCellValueFactory(new PropertyValueFactory<>("denumireProdus"));
+        cantitateProduseInDepozitTableColumn.setCellValueFactory(new PropertyValueFactory<>("cantitateDepozitata"));
+        idDepozitProduseInStockTableColumn.setCellValueFactory(new PropertyValueFactory<>("idDepozit"));
+        localitateDepozitProduseStockTableColumn.setCellValueFactory(new PropertyValueFactory<>("localitateDepozit"));
+        produseInDepozitTableView.setItems(produseInDepozitObservableList);
+    }
+
     //LOAD DATA IN TABLES ASSETS
     private void loadTerenuriInTable(){
         terenID.setCellValueFactory(new PropertyValueFactory<>("idTeren"));
@@ -238,6 +337,7 @@ public class AppController implements Initializable {
         stage.close();
     }
 
+    //MENU BUTTONS
     public void menuButtonsOnAction(ActionEvent e){
         Stream.of(dashboardButton,transactionButton,incomesButton,costsButton,productsButton,assetsButton,claimsButton,debtsButton).forEach(Button -> Button.setStyle("menuButton"));
         if(e.getSource() == dashboardButton){
@@ -251,7 +351,6 @@ public class AppController implements Initializable {
         }
         else if(e.getSource() == incomesButton){
             incomesAnchor.toFront();
-            incomesButton.getStyleClass().clear();
             incomesButton.setStyle("-fx-text-fill: #cfcb5b; -fx-background-color: rgba(89,50,15,0.2)");
         }
         else if(e.getSource() == costsButton){
@@ -261,12 +360,14 @@ public class AppController implements Initializable {
         else if(e.getSource() == productsButton){
             productsAnchor.toFront();
             productsButton.setStyle("-fx-text-fill: #cfcb5b; -fx-background-color: rgba(89,50,15,0.2)");
+            searchProduseInDB();
+            searchProduseInDepozitDB();
         }
         else if(e.getSource() == assetsButton){
             assetsAnchor.toFront();
 
             assetsButton.setStyle("-fx-text-fill: #cfcb5b; -fx-background-color: rgba(89,50,15,0.2)");
-            //loadAllAssetsInAssetTableViews();
+
             loadAllAssetsInAssetTableViews();
 
         }
@@ -305,4 +406,5 @@ public class AppController implements Initializable {
         addAssetStage.setTitle("Modificare Produs");
         addAssetStage.show();
     }
+
 }
