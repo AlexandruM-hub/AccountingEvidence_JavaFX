@@ -332,54 +332,10 @@ public class AppController implements Initializable {
         DeleteAssetStage.show();
     }
 
+    /////?????
     public void exitButtonOnAction(ActionEvent e){
         Stage stage = (Stage) exitButton.getScene().getWindow();
         stage.close();
-    }
-
-    //MENU BUTTONS
-    public void menuButtonsOnAction(ActionEvent e){
-        Stream.of(dashboardButton,transactionButton,incomesButton,costsButton,productsButton,assetsButton,claimsButton,debtsButton).forEach(Button -> Button.setStyle("menuButton"));
-        if(e.getSource() == dashboardButton){
-            dashboardAnchor.toFront();
-            dashboardButton.setStyle("-fx-text-fill: #cfcb5b; -fx-background-color: rgba(89,50,15,0.2)");
-
-        }
-        else if(e.getSource() == transactionButton){
-            transactionAnchor.toFront();
-            transactionButton.setStyle("-fx-text-fill: #cfcb5b; -fx-background-color: rgba(89,50,15,0.2)");
-        }
-        else if(e.getSource() == incomesButton){
-            incomesAnchor.toFront();
-            incomesButton.setStyle("-fx-text-fill: #cfcb5b; -fx-background-color: rgba(89,50,15,0.2)");
-        }
-        else if(e.getSource() == costsButton){
-            costsAnchor.toFront();
-            costsButton.setStyle("-fx-text-fill: #cfcb5b; -fx-background-color: rgba(89,50,15,0.2)");
-        }
-        else if(e.getSource() == productsButton){
-            productsAnchor.toFront();
-            productsButton.setStyle("-fx-text-fill: #cfcb5b; -fx-background-color: rgba(89,50,15,0.2)");
-            searchProduseInDB();
-            searchProduseInDepozitDB();
-        }
-        else if(e.getSource() == assetsButton){
-            assetsAnchor.toFront();
-
-            assetsButton.setStyle("-fx-text-fill: #cfcb5b; -fx-background-color: rgba(89,50,15,0.2)");
-
-            loadAllAssetsInAssetTableViews();
-
-        }
-        else if(e.getSource() == claimsButton){
-            claimsAnchor.toFront();
-            claimsButton.setStyle("-fx-text-fill: #cfcb5b; -fx-background-color: rgba(89,50,15,0.2)");
-        }
-        else if(e.getSource() == debtsButton){
-            debtsAnchor.toFront();
-            debtsButton.setStyle("-fx-text-fill: #cfcb5b; -fx-background-color: rgba(89,50,15,0.2)");
-        }
-        
     }
 
     //PRODUCTS BUTTONS
@@ -414,4 +370,53 @@ public class AppController implements Initializable {
         sellProduct.setTitle("Comercializarea produsului");
         sellProduct.show();
     }
+
+    //CLAIMS & DEBTS BUTTONS
+    public void addDebtClaimButtonOnAction() throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("Creante_Datorii.fxml"));
+        Stage sellProduct = new Stage(StageStyle.DECORATED);
+        sellProduct.setScene(new Scene(root));
+        sellProduct.setTitle("Creanta/Datorie noua");
+        sellProduct.show();
+    }
+
+    //MENU BUTTONS
+    public void menuButtonsOnAction(ActionEvent e){
+        Stream.of(dashboardButton,transactionButton,incomesButton,costsButton,productsButton,assetsButton,claimsButton,debtsButton).forEach(Button -> Button.setStyle("menuButton"));
+        if(e.getSource() == dashboardButton){
+            dashboardAnchor.toFront();
+            dashboardButton.setStyle("-fx-text-fill: #cfcb5b; -fx-background-color: rgba(89,50,15,0.2)");
+
+        }
+        else if(e.getSource() == transactionButton){
+            transactionAnchor.toFront();
+            transactionButton.setStyle("-fx-text-fill: #cfcb5b; -fx-background-color: rgba(89,50,15,0.2)");
+        }
+        else if(e.getSource() == incomesButton){
+            incomesAnchor.toFront();
+            incomesButton.setStyle("-fx-text-fill: #cfcb5b; -fx-background-color: rgba(89,50,15,0.2)");
+        }
+        else if(e.getSource() == costsButton){
+            costsAnchor.toFront();
+            costsButton.setStyle("-fx-text-fill: #cfcb5b; -fx-background-color: rgba(89,50,15,0.2)");
+        }
+        else if(e.getSource() == productsButton){
+            productsAnchor.toFront();
+            productsButton.setStyle("-fx-text-fill: #cfcb5b; -fx-background-color: rgba(89,50,15,0.2)");
+            searchProduseInDB();
+            searchProduseInDepozitDB();
+        }
+        else if(e.getSource() == assetsButton){
+            assetsAnchor.toFront();
+            assetsButton.setStyle("-fx-text-fill: #cfcb5b; -fx-background-color: rgba(89,50,15,0.2)");
+            loadAllAssetsInAssetTableViews();
+        }
+        else if(e.getSource() == claimsButton){
+            claimsAnchor.toFront();
+            claimsButton.setStyle("-fx-text-fill: #cfcb5b; -fx-background-color: rgba(89,50,15,0.2)");
+        }
+    }
+
+
+
 }

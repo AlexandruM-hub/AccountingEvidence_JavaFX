@@ -32,7 +32,7 @@
                 <Font name="Bell MT Bold" size="21.0" />
             </font>
         </Text>
-        <Text fx:id="cantitateText" fill="#cfcb5b" layoutX="3.0" layoutY="290.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cantitate" textAlignment="CENTER" wrappingWidth="207.1123046875" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="227.8876953125" AnchorPane.topAnchor="272.33251953125">
+        <Text fill="#cfcb5b" layoutX="3.0" layoutY="290.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cantitate" textAlignment="CENTER" wrappingWidth="207.1123046875" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="227.8876953125" AnchorPane.topAnchor="272.33251953125">
             <font>
                 <Font name="Bell MT Bold" size="21.0" />
             </font>
