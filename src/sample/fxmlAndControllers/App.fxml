@@ -543,7 +543,7 @@
                   </Tab>
                </tabs>
             </TabPane>
-            <VBox prefHeight="366.0" prefWidth="158.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="38.0">
+            <VBox prefHeight="496.0" prefWidth="158.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="38.0">
                <children>
                   <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#addProdusButtonOnAction" prefHeight="122.0" prefWidth="159.0" styleClass="buttonsStyle" stylesheets="@../../css/login.css" text="Produs nou" textAlignment="CENTER">
                      <graphic>
@@ -565,6 +565,18 @@
                         <ImageView fitHeight="49.0" fitWidth="53.0">
                            <image>
                               <Image url="@../../css/change.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button contentDisplay="TOP" layoutX="10.0" layoutY="132.0" mnemonicParsing="false" onAction="#sellProductButtonOnAction" prefHeight="125.0" prefWidth="158.0" styleClass="buttonsStyle" stylesheets="@../../css/login.css" text="Vinde" textAlignment="CENTER">
+                     <font>
+                        <Font name="Bell MT Bold" size="17.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="58.0" fitWidth="59.0">
+                           <image>
+                              <Image url="@../../css/sellLogo.png" />
                            </image>
                         </ImageView>
                      </graphic>

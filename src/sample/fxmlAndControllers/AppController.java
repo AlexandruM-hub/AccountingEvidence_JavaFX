@@ -407,4 +407,11 @@ public class AppController implements Initializable {
         addAssetStage.show();
     }
 
+    public void sellProductButtonOnAction() throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("Sell_Product.fxml"));
+        Stage sellProduct = new Stage(StageStyle.DECORATED);
+        sellProduct.setScene(new Scene(root));
+        sellProduct.setTitle("Comercializarea produsului");
+        sellProduct.show();
+    }
 }

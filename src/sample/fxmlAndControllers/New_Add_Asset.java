@@ -355,7 +355,6 @@ public class New_Add_Asset implements Initializable {
         }catch (SQLException e){
             e.printStackTrace();
         }
-
     }
 
     //BUTTONS

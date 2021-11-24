@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="484.0" prefWidth="438.0" styleClass="addAssetBackground" stylesheets="@../../css/login.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.fxmlAndControllers.Sell_Product_Controller">
+    <children>
+        <Text fill="#cfcb5b" layoutX="39.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Introduceti datele facturii" textAlignment="CENTER" wrappingWidth="359.0" AnchorPane.leftAnchor="39.0" AnchorPane.rightAnchor="39.0" AnchorPane.topAnchor="31.0">
+            <font>
+                <Font name="Bell MT Bold" size="29.0" />
+            </font>
+        </Text>
+        <Text fill="#cfcb5b" layoutX="6.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nr. Facturii" textAlignment="CENTER" wrappingWidth="207.1123046875" AnchorPane.leftAnchor="5.1123046875" AnchorPane.rightAnchor="224.775390625" AnchorPane.topAnchor="98.0">
+            <font>
+                <Font name="Bell MT Bold" size="21.0" />
+            </font>
+        </Text>
+        <Text fill="#cfcb5b" layoutX="4.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contractant" textAlignment="CENTER" wrappingWidth="207.1123046875" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="226.8876953125" AnchorPane.topAnchor="139.33251953125">
+            <font>
+                <Font name="Bell MT Bold" size="21.0" />
+            </font>
+        </Text>
+        <Text fill="#cfcb5b" layoutX="4.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Data" textAlignment="CENTER" wrappingWidth="207.1123046875" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="226.8876953125" AnchorPane.topAnchor="183.33251953125">
+            <font>
+                <Font name="Bell MT Bold" size="21.0" />
+            </font>
+        </Text>
+        <Text fill="#cfcb5b" layoutX="3.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Denumire" textAlignment="CENTER" wrappingWidth="207.1123046875" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="227.8876953125" AnchorPane.topAnchor="228.33251953125">
+            <font>
+                <Font name="Bell MT Bold" size="21.0" />
+            </font>
+        </Text>
+        <Text fx:id="cantitateText" fill="#cfcb5b" layoutX="3.0" layoutY="290.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cantitate" textAlignment="CENTER" wrappingWidth="207.1123046875" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="227.8876953125" AnchorPane.topAnchor="272.33251953125">
+            <font>
+                <Font name="Bell MT Bold" size="21.0" />
+            </font>
+        </Text>
+        <Text fill="#cfcb5b" layoutX="3.0" layoutY="334.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pret" textAlignment="CENTER" wrappingWidth="207.1123046875" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="227.8876953125" AnchorPane.topAnchor="316.33251953125">
+            <font>
+                <Font name="Bell MT Bold" size="21.0" />
+            </font>
+        </Text>
+      <Text fill="#cfcb5b" layoutX="5.0" layoutY="377.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID Produs" textAlignment="CENTER" wrappingWidth="207.1123046875">
+         <font>
+            <Font name="Bell MT Bold" size="21.0" />
+         </font>
+      </Text>
+        <TextField fx:id="nrFacturiiTextField" layoutX="225.0" layoutY="98.0" prefHeight="25.0" prefWidth="195.0" promptText="Nr. Facturii" AnchorPane.leftAnchor="225.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="98.0" />
+        <TextField fx:id="contractantTextField" layoutX="224.0" layoutY="140.0" prefHeight="25.0" prefWidth="195.0" promptText="Contractant" AnchorPane.leftAnchor="224.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="140.0" />
+        <DatePicker fx:id="datePicker" layoutX="224.0" layoutY="184.0" prefHeight="25.0" prefWidth="195.0" promptText="Data intocmirii facturii" style="-fx-background-color: #ADADAD;" AnchorPane.leftAnchor="224.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="184.0" />
+        <TextField fx:id="denumireTextField" layoutX="223.0" layoutY="228.0" prefHeight="25.0" prefWidth="195.0" promptText="Denumire" AnchorPane.leftAnchor="223.0" AnchorPane.rightAnchor="19.0" />
+        <TextField fx:id="cantitateTextField" layoutX="223.0" layoutY="272.0" prefHeight="25.0" prefWidth="195.0" promptText="Cantitate" AnchorPane.leftAnchor="223.0" AnchorPane.rightAnchor="19.0" />
+        <TextField fx:id="pretTextField" layoutX="223.0" layoutY="316.0" prefHeight="25.0" prefWidth="195.0" promptText="Pret" AnchorPane.leftAnchor="223.0" AnchorPane.rightAnchor="19.0" />
+        <ComboBox fx:id="idProdusComboBox" layoutX="225.0" layoutY="359.0" prefHeight="25.0" prefWidth="195.0" promptText="ID Produs" AnchorPane.leftAnchor="225.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="359.0" />
+        <Text fx:id="invalidNrFacturii" fill="RED" layoutX="14.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="207.1123046875">
+            <font>
+                <Font name="Bell MT" size="14.0" />
+            </font></Text>
+        <Text fx:id="invalidContractant" fill="RED" layoutX="14.0" layoutY="177.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="207.1123046875">
+            <font>
+                <Font name="Bell MT" size="14.0" />
+            </font>
+        </Text>
+        <Text fx:id="invalidData" fill="RED" layoutX="14.0" layoutY="223.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="207.1123046875">
+            <font>
+                <Font name="Bell MT" size="14.0" />
+            </font>
+        </Text>
+        <Text fx:id="invalidDenumire" fill="RED" layoutX="14.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="207.1123046875">
+            <font>
+                <Font name="Bell MT" size="14.0" />
+            </font>
+        </Text>
+        <Text fx:id="invalidCantitate" fill="RED" layoutX="14.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="207.1123046875">
+            <font>
+                <Font name="Bell MT" size="14.0" />
+            </font>
+        </Text>
+        <Text fx:id="invalidPret" fill="RED" layoutX="14.0" layoutY="355.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="207.1123046875">
+            <font>
+                <Font name="Bell MT" size="14.0" />
+            </font>
+        </Text>
+        <Text fx:id="invalidIdProdus" fill="RED" layoutX="14.0" layoutY="399.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="207.1123046875">
+            <font>
+                <Font name="Bell MT" size="14.0" />
+            </font>
+        </Text>
+        <Pane fx:id="succesPane" layoutX="123.0" layoutY="141.0" prefHeight="200.0" prefWidth="200.0" styleClass="addSuccesfullyData" stylesheets="@../../css/login.css" visible="false" AnchorPane.topAnchor="141.0">
+            <children>
+                <ImageView fitHeight="95.0" fitWidth="108.0" layoutX="46.0" layoutY="32.0">
+                    <image>
+                        <Image url="@../../css/SuccesLogo.png" />
+                    </image>
+                </ImageView>
+                <Text fill="WHITE" layoutX="30.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Datele au fost salvate!" textAlignment="CENTER" wrappingWidth="140.0">
+                    <font>
+                        <Font name="Bell MT Bold" size="25.0" />
+                    </font>
+                </Text>
+            </children></Pane>
+        <Button layoutX="331.0" layoutY="494.0" mnemonicParsing="false" onAction="#saveButtonOnAction" prefHeight="41.0" prefWidth="82.0" styleClass="buttonsStyle" stylesheets="@../../css/login.css" text="Save" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="25.0">
+            <font>
+                <Font name="Bell MT Bold" size="17.0" />
+            </font></Button>
+        <Button layoutX="39.0" layoutY="494.0" mnemonicParsing="false" onAction="#cancelButtonOnAction" prefHeight="41.0" prefWidth="95.0" styleClass="buttonsStyle" text="Cancel" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="39.0">
+            <font>
+                <Font name="Bell MT Bold" size="17.0" />
+            </font></Button>
+    </children>
+</AnchorPane>
