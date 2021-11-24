@@ -3,7 +3,6 @@ package sample.fxmlAndControllers;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
@@ -37,6 +36,7 @@ public class Creante_Datorii_Controller  implements Initializable {
     private Pane succesPane;
 
     private float valoareMaxFactura;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         tipComboBox.getItems().addAll("Datorie", "Creanta");
@@ -82,7 +82,6 @@ public class Creante_Datorii_Controller  implements Initializable {
             }
         }));
     }
-
 
     //GET DATA FROM DB
     private void getElementIdFromDb(){
@@ -212,12 +211,14 @@ public class Creante_Datorii_Controller  implements Initializable {
         } else if (valoareTextField.getText().isBlank()){
             invalidValoare.setText("Campul este obligatoriu");
             return false;
-        }else{
+        } else{
             try{
-                if(aferentaComboBox.getValue().equals("Personal")){
-                    Float.parseFloat(valoareTextField.getText());
-                }else{
-                    float checkValoare = Float.parseFloat(valoareTextField.getText());
+                float checkValoare = Float.parseFloat(valoareTextField.getText());
+                if(checkValoare < 0){
+                    invalidValoare.setText("Valoare invalida");
+                    return false;
+                }
+                if(!aferentaComboBox.getValue().equals("Personal")){
                     if(checkValoare > valoareMaxFactura){
                         invalidValoare.setText("Valoare incorecta");
                         return false;
@@ -274,33 +275,4 @@ public class Creante_Datorii_Controller  implements Initializable {
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

@@ -380,6 +380,14 @@ public class AppController implements Initializable {
         sellProduct.show();
     }
 
+    public void changeDebtClaimButtonOnAction() throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("Change_Debts_Claims.fxml"));
+        Stage sellProduct = new Stage(StageStyle.DECORATED);
+        sellProduct.setScene(new Scene(root));
+        sellProduct.setTitle("Modificare Creanta / Datorie");
+        sellProduct.show();
+    }
+
     //MENU BUTTONS
     public void menuButtonsOnAction(ActionEvent e){
         Stream.of(dashboardButton,transactionButton,incomesButton,costsButton,productsButton,assetsButton,claimsButton,debtsButton).forEach(Button -> Button.setStyle("menuButton"));

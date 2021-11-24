@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="335.0" prefWidth="484.0" styleClass="addAssetBackground" stylesheets="@../../css/login.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.fxmlAndControllers.Change_Debts_Claims_Controller">
+    <children>
+        <Text fill="#cfcb5b" layoutX="63.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Introduceti datele" textAlignment="CENTER" wrappingWidth="359.0" AnchorPane.leftAnchor="63.0" AnchorPane.rightAnchor="62.0" AnchorPane.topAnchor="31.0">
+            <font>
+                <Font name="Bell MT Bold" size="29.0" />
+            </font>
+        </Text>
+        <Text fill="#cfcb5b" layoutX="12.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Data limita achitare" textAlignment="CENTER" wrappingWidth="215.1123046875" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="256.8876953125" AnchorPane.topAnchor="125.33251953125">
+            <font>
+                <Font name="Bell MT Bold" size="21.0" />
+            </font>
+        </Text>
+        <Text fill="#cfcb5b" layoutX="12.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Valoare" textAlignment="CENTER" wrappingWidth="207.1123046875" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="264.8876953125" AnchorPane.topAnchor="170.33251953125">
+            <font>
+                <Font name="Bell MT Bold" size="21.0" />
+            </font>
+        </Text>
+        <DatePicker fx:id="termenLimitaDatePicker" layoutX="235.0" layoutY="125.0" prefHeight="25.0" prefWidth="236.0" promptText="Data limita achitare" style="-fx-background-color: #ADADAD;" AnchorPane.leftAnchor="235.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="125.0" />
+        <TextField fx:id="valueTextField" layoutX="236.0" layoutY="170.0" prefHeight="25.0" prefWidth="236.0" promptText="Valoare" AnchorPane.leftAnchor="236.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="170.0" />
+        <Text fx:id="invalidValueText" fill="RED" layoutX="12.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="207.1123046875" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="193.2216796875">
+            <font>
+                <Font name="Bell MT" size="14.0" />
+            </font></Text>
+        <Button layoutX="331.0" layoutY="494.0" mnemonicParsing="false" onAction="#saveButtonOnAction" prefHeight="41.0" prefWidth="82.0" styleClass="buttonsStyle" stylesheets="@../../css/login.css" text="Save" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="25.0">
+            <font>
+                <Font name="Bell MT Bold" size="17.0" />
+            </font></Button>
+        <Button layoutX="39.0" layoutY="494.0" mnemonicParsing="false" onAction="#cancelButtonOnAction" prefHeight="41.0" prefWidth="95.0" styleClass="buttonsStyle" text="Cancel" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="39.0">
+            <font>
+                <Font name="Bell MT Bold" size="17.0" />
+            </font></Button>
+        <Text fill="#cfcb5b" layoutX="12.0" layoutY="231.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Data achitat" textAlignment="CENTER" wrappingWidth="207.1123046875" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="213.33251953125">
+            <font>
+                <Font name="Bell MT Bold" size="21.0" />
+            </font>
+        </Text>
+        <DatePicker fx:id="dataAchitatDatePicker" layoutX="235.0" layoutY="213.0" prefHeight="25.0" prefWidth="236.0" promptText="Data achitat" AnchorPane.leftAnchor="235.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="213.0" />
+      <Text fill="#cfcb5b" layoutX="12.0" layoutY="101.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Datorie / Creanta ID" textAlignment="CENTER" wrappingWidth="215.1123046875">
+         <font>
+            <Font name="Bell MT Bold" size="21.0" />
+         </font>
+      </Text>
+      <ComboBox fx:id="idDatorieCreantaComboBox" layoutX="235.0" layoutY="82.0" prefHeight="25.0" prefWidth="236.0" promptText="Datorie / Creanta ID" />
+      <Text fx:id="invalidIdDatorieCreanta" fill="RED" layoutX="16.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="207.1123046875">
+         <font>
+            <Font name="Bell MT" size="14.0" />
+         </font>
+      </Text>
+        <Pane fx:id="succesPane" layoutX="142.0" layoutY="32.0" prefHeight="200.0" prefWidth="200.0" styleClass="addSuccesfullyData" stylesheets="@../../css/login.css" visible="false" AnchorPane.topAnchor="32.0">
+            <children>
+                <ImageView fitHeight="95.0" fitWidth="108.0" layoutX="46.0" layoutY="32.0">
+                    <image>
+                        <Image url="@../../css/SuccesLogo.png" />
+                    </image>
+                </ImageView>
+                <Text fill="WHITE" layoutX="30.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Datele au fost salvate!" textAlignment="CENTER" wrappingWidth="140.0">
+                    <font>
+                        <Font name="Bell MT Bold" size="25.0" />
+                    </font>
+                </Text>
+            </children></Pane>
+    </children>
+</AnchorPane>
