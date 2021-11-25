@@ -5,10 +5,10 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="185.0" prefWidth="535.0" styleClass="addAssetBackground" stylesheets="@../../css/login.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.fxmlAndControllers.Delete_Product_Controller">
+<AnchorPane prefHeight="208.0" prefWidth="464.0" styleClass="addAssetBackground" stylesheets="@../../css/login.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.fxmlAndControllers.Delete_Debt_Claim_Controller">
     <children>
-        <ComboBox fx:id="idProdus" layoutX="323.0" layoutY="64.0" prefHeight="25.0" prefWidth="179.0" promptText="ID Produs" AnchorPane.leftAnchor="323.0" AnchorPane.rightAnchor="33.0" AnchorPane.topAnchor="64.0" />
-        <Text layoutX="14.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="textStyle" text="Alegeti ID-ul produsului" textAlignment="CENTER" wrappingWidth="281.96337890625" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="239.03662109375" AnchorPane.topAnchor="63.0">
+        <ComboBox fx:id="idCreantaDatorieComboBox" layoutX="323.0" layoutY="64.0" prefHeight="25.0" prefWidth="179.0" promptText="ID Creanta / Datorie" AnchorPane.leftAnchor="323.0" AnchorPane.rightAnchor="33.0" AnchorPane.topAnchor="64.0" />
+        <Text layoutX="14.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="textStyle" text="ID Creanta / Datorie" textAlignment="CENTER" wrappingWidth="281.96337890625" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="239.03662109375" AnchorPane.topAnchor="63.0">
             <font>
                 <Font name="Bell MT Bold" size="23.0" />
             </font>
@@ -30,7 +30,7 @@
                         <Font name="Bell MT Bold" size="23.0" />
                     </font>
                 </Text>
-                <Button layoutX="245.0" layoutY="136.0" mnemonicParsing="false" onAction="#daButtonOnAction" styleClass="buttonsStyle" stylesheets="@../../css/login.css" text="Da">
+                <Button layoutX="245.0" layoutY="136.0" mnemonicParsing="false" onAction="#confirmedDeletionButtonOnAction" styleClass="buttonsStyle" stylesheets="@../../css/login.css" text="Da">
                     <font>
                         <Font name="Bell MT Bold" size="18.0" />
                     </font>
@@ -40,7 +40,7 @@
                         <Font name="Bell MT Bold" size="18.0" />
                     </font>
                 </Button>
-                <Text layoutX="16.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="textStyle" text="ca doriti sa stergeti produsul?">
+                <Text layoutX="10.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="textStyle" text="ca doriti sa stergeti elementul?">
                     <font>
                         <Font name="Bell MT Bold" size="23.0" />
                     </font>
@@ -61,10 +61,10 @@
                 </Text>
             </children>
         </Pane>
-      <Text fx:id="invalidIdProdus" fill="RED" layoutX="29.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="266.13671875" AnchorPane.leftAnchor="29.0" AnchorPane.topAnchor="98.892578125">
-         <font>
-            <Font size="14.0" />
-         </font>
-      </Text>
+        <Text fx:id="invalidId" fill="RED" layoutX="29.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="266.13671875" AnchorPane.leftAnchor="29.0" AnchorPane.topAnchor="98.892578125">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Text>
     </children>
 </AnchorPane>
