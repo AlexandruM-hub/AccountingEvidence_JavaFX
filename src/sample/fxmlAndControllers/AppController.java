@@ -17,6 +17,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import sample.Assets;
+import sample.Claims_Debts;
 import sample.DatabaseConnection;
 import sample.Produse;
 import java.io.IOException;
@@ -34,7 +35,7 @@ public class AppController implements Initializable {
     @FXML
     private Button dashboardButton, transactionButton, incomesButton, costsButton, productsButton, assetsButton, claimsButton, debtsButton;
     @FXML
-    private AnchorPane dashboardAnchor, transactionAnchor, incomesAnchor, costsAnchor, productsAnchor, assetsAnchor, claimsAnchor, debtsAnchor;
+    private AnchorPane dashboardAnchor, transactionAnchor, incomesAnchor, costsAnchor, productsAnchor, assetsAnchor, claimsAnchor;
     @FXML
     private TableView<Assets> depoziteTableView, terenuriTableView, mijloaceFixeTableView, otherAssetsTableView;
     @FXML
@@ -50,7 +51,7 @@ public class AppController implements Initializable {
     @FXML
     private TextField currentAssetsSearchTextField, mijloaceFixeSearchTextField, terenuriSearchTextField, depoziteSearchTextField, produseSearchTextField;
     @FXML
-    private TextField produseInDepozitSearchTextField;
+    private TextField produseInDepozitSearchTextField, claimsSearchTextField, debtsSearchTextField;
     @FXML
     private TableColumn<Produse, Integer> idProdusTableColumn, terenGrupProdusTableColumn, anProdusTableColumn;
     @FXML
@@ -66,6 +67,29 @@ public class AppController implements Initializable {
     @FXML
     private TableColumn<Produse, Float> cantitateProduseInDepozitTableColumn;
 
+    //CLAIMS
+    @FXML
+    private TableColumn<Claims_Debts, Integer> idClaimTableColumn;
+    @FXML
+    private TableColumn<Claims_Debts, String> aferentClaimTableColumn, numeClaimTableColumn;
+    @FXML
+    private TableColumn<Claims_Debts, Date> termenAchitareClaimTableColumn, dataAchitatClaimTableColumn;
+    @FXML
+    private TableColumn<Claims_Debts, Float> valueClaimTableColumn;
+    @FXML
+    private TableView<Claims_Debts> claimsTableView;
+    
+    //DEBTS
+    @FXML
+    private TableColumn<Claims_Debts, Integer> idDebtTableColumn;
+    @FXML
+    private TableColumn<Claims_Debts, String> aferentDebtTableColumn, numeDebtTableColumn;
+    @FXML
+    private TableColumn<Claims_Debts, Date> termenAchitareDebtTableColumn, dataAchitatDebtTableColumn;
+    @FXML
+    private TableColumn<Claims_Debts, Float> valueDebtTableColumn;
+    @FXML
+    private TableView<Claims_Debts> debtsTableView;
 
     //OBSV ACTIVE
     ObservableList<Assets> depoziteObservableList = FXCollections.observableArrayList();
@@ -77,8 +101,11 @@ public class AppController implements Initializable {
     ObservableList<Produse> produseObservableList = FXCollections.observableArrayList();
     ObservableList<Produse> produseInDepozitObservableList = FXCollections.observableArrayList();
 
+    ObservableList<Claims_Debts> claimsObsList = FXCollections.observableArrayList();
+    ObservableList<Claims_Debts> debtsObsList = FXCollections.observableArrayList();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
         //ASSETS
         currentAssetsSearchTextField.textProperty().addListener((observableValue, s, t1) -> searchCurrentAssetsInDB());
         mijloaceFixeSearchTextField.textProperty().addListener((observableValue, s, t1) -> searchMijloaceFixeInDB());
@@ -88,6 +115,112 @@ public class AppController implements Initializable {
         //PRODUSE
         produseSearchTextField.textProperty().addListener((ObservableValue, s, t1) -> searchProduseInDB());
         produseInDepozitSearchTextField.textProperty().addListener((ObservableValue, s, t1) -> searchProduseInDepozitDB());
+
+        //CLAIMS
+        claimsSearchTextField.textProperty().addListener((observable, s, t1) -> searchClaims());
+        debtsSearchTextField.textProperty().addListener((observable, s, t1) -> searchDebts());
+
+    }
+
+    //GET DEBTS CLAIMS FROM DB
+    private void getClaimsDebtsFromDb(){
+        debtsObsList.clear();
+        claimsObsList.clear();
+        DatabaseConnection db = new DatabaseConnection();
+        Connection conn = db.getConnection();
+        String getClaimsFacturiQuery = "SELECT datorii_creante._id_datorie_creanta AS id, datorii_creante.aferenta AS aferenta, " +
+                "datorii_creante.termen_limita as termenlimita, datorii_creante.valoare AS valoare, " +
+                "datorii_creante.data_achitat AS dataachitat, facturi.contractant AS contractant FROM datorii_creante INNER JOIN facturi " +
+                "ON datorii_creante.element_id = facturi._id_factura WHERE datorii_creante.tip = " +
+                "'Creanta' AND datorii_creante.aferenta = 'Factura'";
+        String getClaimsPersonal = "SELECT datorii_creante._id_datorie_creanta AS id, datorii_creante.aferenta AS aferenta, " +
+                "datorii_creante.termen_limita AS termenlimita, datorii_creante.valoare AS valoare, " +
+                "datorii_creante.data_achitat AS dataachitat, personal.nume AS nume FROM datorii_creante INNER JOIN personal " +
+                "ON datorii_creante.element_id = personal._id_personal WHERE datorii_creante.tip = " +
+                "'Creanta' AND datorii_creante.aferenta = 'Personal'";
+        String getDebtsFacturiQuery = "SELECT datorii_creante._id_datorie_creanta AS id, datorii_creante.aferenta AS aferenta, " +
+                "datorii_creante.termen_limita as termenlimita, datorii_creante.valoare AS valoare, " +
+                "datorii_creante.data_achitat AS dataachitat, facturi.contractant AS contractant FROM datorii_creante INNER JOIN facturi " +
+                "ON datorii_creante.element_id = facturi._id_factura WHERE datorii_creante.tip = " +
+                "'Datorie' AND datorii_creante.aferenta = 'Factura'";
+        String getDebtsPersonalQuery = "SELECT datorii_creante._id_datorie_creanta AS id, datorii_creante.aferenta AS aferenta, " +
+                "datorii_creante.termen_limita AS termenlimita, datorii_creante.valoare AS valoare, " +
+                "datorii_creante.data_achitat AS dataachitat, personal.nume AS nume FROM datorii_creante INNER JOIN personal " +
+                "ON datorii_creante.element_id = personal._id_personal WHERE datorii_creante.tip = " +
+                "'Datorie' AND datorii_creante.aferenta = 'Personal'";
+        try{
+            ResultSet getFacturiClaimsResultSet = conn.createStatement().executeQuery(getClaimsFacturiQuery);
+            while(getFacturiClaimsResultSet.next()){
+                claimsObsList.add(new Claims_Debts(getFacturiClaimsResultSet.getInt("id"), getFacturiClaimsResultSet.getString("aferenta"),
+                        getFacturiClaimsResultSet.getDate("termenlimita"), getFacturiClaimsResultSet.getFloat("valoare"),
+                        getFacturiClaimsResultSet.getDate("dataachitat"), getFacturiClaimsResultSet.getString("contractant")));
+            }
+            ResultSet getPersonalClaimsResultSet = conn.createStatement().executeQuery(getClaimsPersonal);
+            while(getPersonalClaimsResultSet.next()){
+                claimsObsList.add(new Claims_Debts(getPersonalClaimsResultSet.getInt("id"), getPersonalClaimsResultSet.getString("aferenta"),
+                        getPersonalClaimsResultSet.getDate("termenlimita"), getPersonalClaimsResultSet.getFloat("valoare"),
+                        getPersonalClaimsResultSet.getDate("dataachitat"), getPersonalClaimsResultSet.getString("nume")));
+            }
+            //DEBTS
+            ResultSet getFacturiDebtsResultSet = conn.createStatement().executeQuery(getDebtsFacturiQuery);
+            while(getFacturiDebtsResultSet.next()){
+                debtsObsList.add(new Claims_Debts(getFacturiDebtsResultSet.getInt("id"), getFacturiDebtsResultSet.getString("aferenta"),
+                        getFacturiDebtsResultSet.getDate("termenlimita"), getFacturiDebtsResultSet.getFloat("valoare"),
+                        getFacturiDebtsResultSet.getDate("dataachitat"), getFacturiDebtsResultSet.getString("contractant")));
+            }
+            ResultSet getPersonalDebtsResultSet = conn.createStatement().executeQuery(getDebtsPersonalQuery);
+            while(getPersonalDebtsResultSet.next()){
+                debtsObsList.add(new Claims_Debts(getPersonalDebtsResultSet.getInt("id"), getPersonalDebtsResultSet.getString("aferenta"),
+                        getPersonalDebtsResultSet.getDate("termenlimita"), getPersonalDebtsResultSet.getFloat("valoare"),
+                        getPersonalDebtsResultSet.getDate("dataachitat"), getPersonalDebtsResultSet.getString("nume")));
+            }
+            conn.close();
+            loadClaimsInTable();
+            loadDebtsInTable();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    private void searchClaims(){
+        ObservableList<Claims_Debts> aux = FXCollections.observableArrayList();
+        for (Claims_Debts obj : claimsObsList){
+            if(obj.toString().toLowerCase().contains(claimsSearchTextField.getText().toLowerCase())){
+                aux.add(obj);
+            }
+        }
+        claimsTableView.setItems(aux);
+    }
+
+    private void searchDebts(){
+        ObservableList<Claims_Debts> aux = FXCollections.observableArrayList();
+        for (Claims_Debts x : debtsObsList){
+            if(x.toString().toLowerCase().contains(debtsSearchTextField.getText().toLowerCase())){
+                aux.add(x);
+            }
+        }
+        debtsTableView.setItems(aux);
+    }
+
+    //LOAD DEBTS CLAIMS IN TABLES
+    private void loadClaimsInTable(){
+        idClaimTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        aferentClaimTableColumn.setCellValueFactory(new PropertyValueFactory<>("aferenta"));
+        termenAchitareClaimTableColumn.setCellValueFactory(new PropertyValueFactory<>("termenAchitare"));
+        valueClaimTableColumn.setCellValueFactory(new PropertyValueFactory<>("valoare"));
+        dataAchitatClaimTableColumn.setCellValueFactory(new PropertyValueFactory<>("dataAchitat"));
+        numeClaimTableColumn.setCellValueFactory(new PropertyValueFactory<>("contractant"));
+        claimsTableView.setItems(claimsObsList);
+    }
+
+    private void loadDebtsInTable(){
+        idDebtTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        aferentDebtTableColumn.setCellValueFactory(new PropertyValueFactory<>("aferenta"));
+        termenAchitareDebtTableColumn.setCellValueFactory(new PropertyValueFactory<>("termenAchitare"));
+        valueDebtTableColumn.setCellValueFactory(new PropertyValueFactory<>("valoare"));
+        dataAchitatDebtTableColumn.setCellValueFactory(new PropertyValueFactory<>("dataAchitat"));
+        numeDebtTableColumn.setCellValueFactory(new PropertyValueFactory<>("contractant"));
+        debtsTableView.setItems(debtsObsList);
     }
 
     //SEARCH DATA IN ASSETS
@@ -307,6 +440,8 @@ public class AppController implements Initializable {
         searchDepoziteInDB();
     }
 
+
+
     //ASSETS BUTTONS
     public void addAssetButtonOnAction(ActionEvent e) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("New_Asset_FXML.fxml"));
@@ -398,7 +533,7 @@ public class AppController implements Initializable {
 
     //MENU BUTTONS
     public void menuButtonsOnAction(ActionEvent e){
-        Stream.of(dashboardButton,transactionButton,incomesButton,costsButton,productsButton,assetsButton,claimsButton,debtsButton).forEach(Button -> Button.setStyle("menuButton"));
+        Stream.of(dashboardButton,transactionButton,incomesButton,costsButton,productsButton,assetsButton,claimsButton).forEach(Button -> Button.setStyle("menuButton"));
         if(e.getSource() == dashboardButton){
             dashboardAnchor.toFront();
             dashboardButton.setStyle("-fx-text-fill: #cfcb5b; -fx-background-color: rgba(89,50,15,0.2)");
@@ -430,9 +565,7 @@ public class AppController implements Initializable {
         else if(e.getSource() == claimsButton){
             claimsAnchor.toFront();
             claimsButton.setStyle("-fx-text-fill: #cfcb5b; -fx-background-color: rgba(89,50,15,0.2)");
+            getClaimsDebtsFromDb();
         }
     }
-
-
-
 }

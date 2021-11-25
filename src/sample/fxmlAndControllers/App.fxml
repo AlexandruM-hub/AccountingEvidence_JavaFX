@@ -568,20 +568,20 @@
                      <content>
                         <AnchorPane cache="true" minHeight="0.0" minWidth="500.0" prefHeight="727.0" prefWidth="914.0">
                            <children>
-                              <TextField layoutX="355.0" layoutY="14.0" prefHeight="25.0" prefWidth="200.0" promptText="Search" AnchorPane.rightAnchor="181.0" AnchorPane.topAnchor="14.0" />
+                              <TextField fx:id="claimsSearchTextField" layoutX="355.0" layoutY="14.0" prefHeight="25.0" prefWidth="200.0" promptText="Search" AnchorPane.rightAnchor="181.0" AnchorPane.topAnchor="14.0" />
                               <ImageView fitHeight="24.0" fitWidth="32.0" layoutX="499.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="392.0" AnchorPane.topAnchor="15.0">
                                  <image>
                                     <Image url="@../../css/search.png" />
                                  </image>
                               </ImageView>
-                              <TableView fx:id="produseTableView1" editable="true" layoutX="31.0" layoutY="66.0" prefHeight="631.0" prefWidth="705.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="181.0" AnchorPane.topAnchor="66.0">
+                              <TableView fx:id="claimsTableView" editable="true" layoutX="31.0" layoutY="66.0" prefHeight="631.0" prefWidth="705.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="181.0" AnchorPane.topAnchor="66.0">
                                  <columns>
-                                    <TableColumn fx:id="idProdusTableColumn1" minWidth="20.0" text="ID_Creanta" />
-                                    <TableColumn fx:id="denumireProdusTableColumn1" minWidth="40.0" prefWidth="151.0" text="Aferentă" />
-                                    <TableColumn fx:id="cantitateRecoltataProduseTableColumn1" minWidth="40.0" prefWidth="178.0" text="Termen de achitare" />
-                                    <TableColumn fx:id="cantitateRamasaProduseTableColumn1" editable="false" minWidth="40.0" prefWidth="152.0" text="Valoare" />
-                                    <TableColumn fx:id="anProdusTableColumn1" minWidth="40.0" prefWidth="143.0" text="Data Achitat" />
-                                    <TableColumn fx:id="terenGrupProdusTableColumn1" minWidth="40.0" prefWidth="75.0" text="Fata de cine" />
+                                    <TableColumn fx:id="idClaimTableColumn" minWidth="20.0" text="ID_Creanta" />
+                                    <TableColumn fx:id="aferentClaimTableColumn" minWidth="40.0" prefWidth="151.0" text="Aferentă" />
+                                    <TableColumn fx:id="termenAchitareClaimTableColumn" minWidth="40.0" prefWidth="178.0" text="Termen de achitare" />
+                                    <TableColumn fx:id="valueClaimTableColumn" editable="false" minWidth="40.0" prefWidth="152.0" text="Valoare" />
+                                    <TableColumn fx:id="dataAchitatClaimTableColumn" minWidth="40.0" prefWidth="143.0" text="Data Achitat" />
+                                    <TableColumn fx:id="numeClaimTableColumn" minWidth="40.0" prefWidth="75.0" text="Fata de cine" />
                                  </columns>
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -598,20 +598,20 @@
                      <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="717.0" prefWidth="917.0">
                            <children>
-                              <TextField prefHeight="25.0" prefWidth="200.0" promptText="Search" AnchorPane.rightAnchor="181.0" AnchorPane.topAnchor="14.0" />
+                              <TextField fx:id="debtsSearchTextField" prefHeight="25.0" prefWidth="200.0" promptText="Search" AnchorPane.rightAnchor="181.0" AnchorPane.topAnchor="14.0" />
                               <ImageView fitHeight="24.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="392.0" AnchorPane.topAnchor="15.0">
                                  <image>
                                     <Image url="@../../css/search.png" />
                                  </image>
                               </ImageView>
-                              <TableView fx:id="produseTableView11" editable="true" prefHeight="631.0" prefWidth="705.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="181.0" AnchorPane.topAnchor="66.0">
+                              <TableView fx:id="debtsTableView" editable="true" prefHeight="631.0" prefWidth="705.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="181.0" AnchorPane.topAnchor="66.0">
                                  <columns>
-                                    <TableColumn fx:id="idProdusTableColumn11" minWidth="20.0" text="ID_Datorie" />
-                                    <TableColumn fx:id="denumireProdusTableColumn11" minWidth="40.0" prefWidth="151.0" text="Aferentă" />
-                                    <TableColumn fx:id="cantitateRecoltataProduseTableColumn11" minWidth="40.0" prefWidth="178.0" text="Termen de achitare" />
-                                    <TableColumn fx:id="cantitateRamasaProduseTableColumn11" editable="false" minWidth="40.0" prefWidth="152.0" text="Valoare" />
-                                    <TableColumn fx:id="anProdusTableColumn11" minWidth="40.0" prefWidth="143.0" text="Data Achitat" />
-                                    <TableColumn fx:id="terenGrupProdusTableColumn11" minWidth="40.0" prefWidth="75.0" text="Fata de cine" />
+                                    <TableColumn fx:id="idDebtTableColumn" minWidth="20.0" text="ID_Datorie" />
+                                    <TableColumn fx:id="aferentDebtTableColumn" minWidth="40.0" prefWidth="151.0" text="Aferentă" />
+                                    <TableColumn fx:id="termenAchitareDebtTableColumn" minWidth="40.0" prefWidth="178.0" text="Termen de achitare" />
+                                    <TableColumn fx:id="valueDebtTableColumn" editable="false" minWidth="40.0" prefWidth="152.0" text="Valoare" />
+                                    <TableColumn fx:id="dataAchitatDebtTableColumn" minWidth="40.0" prefWidth="143.0" text="Data Achitat" />
+                                    <TableColumn fx:id="numeDebtTableColumn" minWidth="40.0" prefWidth="75.0" text="Fata de cine" />
                                  </columns>
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
