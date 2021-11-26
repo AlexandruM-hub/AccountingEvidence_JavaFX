@@ -441,7 +441,6 @@ public class AppController implements Initializable {
     }
 
 
-
     //ASSETS BUTTONS
     public void addAssetButtonOnAction(ActionEvent e) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("New_Asset_FXML.fxml"));
@@ -531,13 +530,21 @@ public class AppController implements Initializable {
         deleteDebtClaim.show();
     }
 
+    //COSTS BUTTONS
+    public void addCostButtonOnAction() throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("New_Costs.fxml"));
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(new Scene(root));
+        stage.setTitle("Costuri de productie noi");
+        stage.show();
+    }
+
     //MENU BUTTONS
     public void menuButtonsOnAction(ActionEvent e){
         Stream.of(dashboardButton,transactionButton,incomesButton,costsButton,productsButton,assetsButton,claimsButton).forEach(Button -> Button.setStyle("menuButton"));
         if(e.getSource() == dashboardButton){
             dashboardAnchor.toFront();
             dashboardButton.setStyle("-fx-text-fill: #cfcb5b; -fx-background-color: rgba(89,50,15,0.2)");
-
         }
         else if(e.getSource() == transactionButton){
             transactionAnchor.toFront();
