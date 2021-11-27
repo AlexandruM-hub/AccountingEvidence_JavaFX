@@ -3,7 +3,6 @@ package sample.fxmlAndControllers;
 import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
@@ -12,7 +11,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import sample.DatabaseConnection;
-
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
