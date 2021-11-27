@@ -26,11 +26,11 @@ public class Costs_Delete_Controller implements Initializable {
 
     private float cantitate;
     private int idElement;
-    private String tip ="";
+    private String tip ="a";
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         getIdComboBox();
-        idCostsComboBox.getSelectionModel().selectedItemProperty().addListener(observable -> getCantitateFromAssets());
+        idCostsComboBox.getSelectionModel().selectedItemProperty().addListener((obs, s, t) -> getCantitateFromAssets());
     }
 
     private void getIdComboBox(){
@@ -83,8 +83,8 @@ public class Costs_Delete_Controller implements Initializable {
         try{
             conn.createStatement().execute(delitionQuery);
             if(tip.equals("Activ")){
-                String updateAssetsQuery = "UPDATE assets SET cantitate_stock += " + cantitate +
-                        " where _id_asset = " + idElement;
+                String updateAssetsQuery = "UPDATE assets SET cantitate_stock = (select cantitate_stock from assets where _id_asset = " +
+                        + idElement + ") + " + cantitate + " where _id_asset = " + idElement;
                 conn.createStatement().execute(updateAssetsQuery);
             }
             conn.close();

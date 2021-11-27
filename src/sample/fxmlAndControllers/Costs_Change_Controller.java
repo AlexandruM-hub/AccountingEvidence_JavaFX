@@ -110,7 +110,6 @@ public class Costs_Change_Controller implements Initializable {
             ResultSet getMaxValueResultSet = conn.createStatement().executeQuery(getMaxValueActive);
             if(getMaxValueResultSet.next()){
                 maxValue = getMaxValueResultSet.getFloat("valmax");
-                System.out.println(maxValue);
             }
             conn.close();
         } catch (SQLException e){
