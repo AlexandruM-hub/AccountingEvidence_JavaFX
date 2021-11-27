@@ -26,6 +26,7 @@ public class Costs_Change_Controller implements Initializable {
     @FXML
     private Text valoareText, invalidIdCost, invalidScop, invalidDate, invalidValoare;
     @FXML
+
     private Pane succesPane;
     private int idElement;
     private float maxValue;
@@ -103,13 +104,13 @@ public class Costs_Change_Controller implements Initializable {
     private void getMaxValueActive(){
         DatabaseConnection db = new DatabaseConnection();
         Connection conn = db.getConnection();
-        String getMaxValueActive = "SELECT cantitate_stock - coalesce((select sum(cantitate) from costul_productiei where tip_cost_id = " +
-                idElement + " and tip = 'Activ'), 0) + (select cantitate from costul_productiei where _id_cost = " +
+        String getMaxValueActive = "SELECT cantitate_stock  + (select cantitate from costul_productiei where _id_cost = " +
                 idCostComboBox.getValue()+ ") as valmax from assets where _id_asset = " + idElement;
         try{
             ResultSet getMaxValueResultSet = conn.createStatement().executeQuery(getMaxValueActive);
             if(getMaxValueResultSet.next()){
                 maxValue = getMaxValueResultSet.getFloat("valmax");
+                System.out.println(maxValue);
             }
             conn.close();
         } catch (SQLException e){
