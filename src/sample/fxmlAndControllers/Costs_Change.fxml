@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="348.0" prefWidth="551.0" styleClass="addAssetBackground" stylesheets="@../../css/login.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.fxmlAndControllers.Costs_Change_Controller">
+    <children>
+        <ComboBox fx:id="idCostComboBox" layoutX="325.0" layoutY="86.0" prefHeight="25.0" prefWidth="179.0" promptText="ID Cost" AnchorPane.leftAnchor="325.0" AnchorPane.rightAnchor="31.0" AnchorPane.topAnchor="86.0" />
+        <Text layoutX="32.0" layoutY="106.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="textStyle" text="Alegeti ID-ul costului" wrappingWidth="281.96337890625" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="237.03662109375" AnchorPane.topAnchor="85.0">
+            <font>
+                <Font name="Bell MT Bold" size="23.0" />
+            </font>
+        </Text>
+        <Button layoutX="405.0" layoutY="145.0" mnemonicParsing="false" onAction="#submitButtonOnAction" styleClass="buttonsStyle" stylesheets="@../../css/login.css" text="Submit" AnchorPane.bottomAnchor="32.0" AnchorPane.rightAnchor="33.0">
+            <font>
+                <Font name="Bell MT Bold" size="18.0" />
+            </font>
+        </Button>
+        <Button fx:id="cancelButton" layoutX="29.0" layoutY="145.0" mnemonicParsing="false" onAction="#cancelButtonOnAction" styleClass="buttonsStyle" stylesheets="@../../css/login.css" text="Cancel" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="29.0">
+            <font>
+                <Font name="Bell MT Bold" size="18.0" />
+            </font>
+        </Button>
+        <Text fx:id="invalidIdCost" fill="RED" layoutX="23.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="266.13671875" AnchorPane.leftAnchor="23.0" AnchorPane.topAnchor="110.892578125">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Text>
+        <Text layoutX="32.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="textStyle" text="Scop" wrappingWidth="281.96337890625" AnchorPane.leftAnchor="32.0">
+            <font>
+                <Font name="Bell MT Bold" size="23.0" />
+            </font>
+        </Text>
+        <Text layoutX="32.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="textStyle" text="Data efectuarii" wrappingWidth="281.96337890625" AnchorPane.leftAnchor="32.0" AnchorPane.topAnchor="167.0">
+            <font>
+                <Font name="Bell MT Bold" size="23.0" />
+            </font>
+        </Text>
+        <Text fx:id="valoareText" layoutX="32.0" layoutY="229.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="textStyle" text="Valoare" wrappingWidth="281.96337890625" AnchorPane.leftAnchor="32.0" AnchorPane.topAnchor="209.64990234375">
+            <font>
+                <Font name="Bell MT Bold" size="23.0" />
+            </font>
+        </Text>
+        <TextField fx:id="scopTextField" layoutX="325.0" layoutY="127.0" prefHeight="25.0" prefWidth="244.0" promptText="Scop" AnchorPane.leftAnchor="325.0" AnchorPane.rightAnchor="31.0" AnchorPane.topAnchor="127.0" />
+        <TextField fx:id="valoareTextField" layoutX="325.0" layoutY="211.0" prefHeight="25.0" prefWidth="244.0" promptText="Valoare" AnchorPane.leftAnchor="325.0" AnchorPane.rightAnchor="31.0" AnchorPane.topAnchor="211.0" />
+        <Text fx:id="invalidScop" fill="RED" layoutX="23.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="266.13671875">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Text>
+        <Text fx:id="invalidDate" fill="RED" layoutX="23.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="266.13671875">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Text>
+        <Text fx:id="invalidValoare" fill="RED" layoutX="23.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="266.13671875">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Text>
+      <DatePicker fx:id="datePicker" layoutX="325.0" layoutY="170.0" prefHeight="25.0" prefWidth="195.0" promptText="Data efectuarii" />
+      <Text layoutX="135.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="textStyle" text="Modificarea costurilor" textAlignment="CENTER" wrappingWidth="281.96337890625" AnchorPane.leftAnchor="135.0" AnchorPane.rightAnchor="134.03662109375" AnchorPane.topAnchor="32.0">
+         <font>
+            <Font name="Bell MT Bold" size="23.0" />
+         </font>
+      </Text>
+        <Pane fx:id="succesPane" layoutX="176.0" layoutY="74.0" prefHeight="200.0" prefWidth="200.0" styleClass="addSuccesfullyData" stylesheets="@../../css/login.css" visible="false">
+            <children>
+                <ImageView fitHeight="95.0" fitWidth="108.0" layoutX="46.0" layoutY="32.0">
+                    <image>
+                        <Image url="@../../css/SuccesLogo.png" />
+                    </image>
+                </ImageView>
+                <Text fill="WHITE" layoutX="30.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Datele au fost salvate!" textAlignment="CENTER" wrappingWidth="140.0">
+                    <font>
+                        <Font name="Bell MT Bold" size="25.0" />
+                    </font>
+                </Text>
+            </children>
+        </Pane>
+    </children>
+</AnchorPane>

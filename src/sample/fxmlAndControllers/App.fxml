@@ -679,7 +679,7 @@
                         <Font name="Bell MT Bold" size="17.0" />
                      </font>
                   </Button>
-                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#changeDebtClaimButtonOnAction" prefHeight="122.0" prefWidth="159.0" styleClass="buttonsStyle" stylesheets="@../../css/login.css" text="Change" textAlignment="CENTER">
+                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#changeCostButtonOnAction" prefHeight="122.0" prefWidth="159.0" styleClass="buttonsStyle" stylesheets="@../../css/login.css" text="Change" textAlignment="CENTER">
                      <font>
                         <Font name="Bell MT Bold" size="17.0" />
                      </font>
@@ -691,7 +691,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#deleteDebtClaimButtonOnAction" prefHeight="122.0" prefWidth="159.0" styleClass="buttonsStyle" stylesheets="@../../css/login.css" text="Delete" textAlignment="CENTER">
+                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#deleteCostButtonOnAction" prefHeight="122.0" prefWidth="159.0" styleClass="buttonsStyle" stylesheets="@../../css/login.css" text="Delete" textAlignment="CENTER">
                      <font>
                         <Font name="Bell MT Bold" size="17.0" />
                      </font>

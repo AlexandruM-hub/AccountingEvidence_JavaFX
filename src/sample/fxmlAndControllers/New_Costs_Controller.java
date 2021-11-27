@@ -61,7 +61,7 @@ public class New_Costs_Controller implements Initializable {
                 case "Remunerarea muncii":
                     String getIdPersonal = "SELECT _id_personal from personal";
                     getIdElemente(getIdPersonal, "_id_personal");
-                    maxValue = 2000;
+                    maxValue = 20000;
                     elementText.setText("ID Persoana");
                     elementIdComboBox.setPromptText("ID Persoana");
                     break;

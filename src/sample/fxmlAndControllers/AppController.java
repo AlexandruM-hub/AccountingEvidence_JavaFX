@@ -539,6 +539,22 @@ public class AppController implements Initializable {
         stage.show();
     }
 
+    public void changeCostButtonOnAction() throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("Costs_Change.fxml"));
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(new Scene(root));
+        stage.setTitle("Modificarea costurilor");
+        stage.show();
+    }
+
+    public void deleteCostButtonOnAction() throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("Costs_Delete.fxml"));
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(new Scene(root));
+        stage.setTitle("Stergerea costurilo");
+        stage.show();
+    }
+
     //MENU BUTTONS
     public void menuButtonsOnAction(ActionEvent e){
         Stream.of(dashboardButton,transactionButton,incomesButton,costsButton,productsButton,assetsButton,claimsButton).forEach(Button -> Button.setStyle("menuButton"));
