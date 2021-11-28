@@ -14,7 +14,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import sample.*;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -771,6 +770,15 @@ public class AppController implements Initializable {
         Stage stage = new Stage(StageStyle.DECORATED);
         stage.setScene(new Scene(root));
         stage.setTitle("Stergerea costurilo");
+        stage.show();
+    }
+
+    //INVOICES BUTTONS
+    public void newInvoiceButton() throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("New_Invoice.fxml"));
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(new Scene(root));
+        stage.setTitle("Factura noua");
         stage.show();
     }
 
