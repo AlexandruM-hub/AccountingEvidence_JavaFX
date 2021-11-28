@@ -37,7 +37,7 @@
                 <Font name="Bell MT Bold" size="21.0" />
             </font>
         </Text>
-        <Text fx:id="cantitateText" fill="#cfcb5b" layoutX="15.0" layoutY="289.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cantitate" wrappingWidth="207.1123046875" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="214.8876953125" AnchorPane.topAnchor="271.33251953125">
+        <Text fill="#cfcb5b" layoutX="15.0" layoutY="289.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cantitate" wrappingWidth="207.1123046875" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="214.8876953125" AnchorPane.topAnchor="271.33251953125">
             <font>
                 <Font name="Bell MT Bold" size="21.0" />
             </font>
@@ -76,7 +76,7 @@
                 <Font name="Bell MT" size="14.0" />
             </font>
         </Text>
-        <Button fx:id="cancelButton" layoutX="39.0" layoutY="518.0" mnemonicParsing="false" onAction="#cancelButtonOnAction" prefHeight="41.0" prefWidth="95.0" styleClass="buttonsStyle" text="Cancel" AnchorPane.bottomAnchor="23.0" AnchorPane.leftAnchor="39.0">
+        <Button layoutX="39.0" layoutY="518.0" mnemonicParsing="false" onAction="#cancelButtonOnAction" prefHeight="41.0" prefWidth="95.0" styleClass="buttonsStyle" text="Cancel" AnchorPane.bottomAnchor="23.0" AnchorPane.leftAnchor="39.0">
             <font>
                 <Font name="Bell MT Bold" size="17.0" />
             </font></Button>
@@ -85,7 +85,7 @@
             <Font name="Bell MT" size="14.0" />
          </font>
       </Text>
-        <Pane fx:id="succesValidationPane" layoutX="119.0" layoutY="109.0" prefHeight="200.0" prefWidth="200.0" styleClass="addSuccesfullyData" stylesheets="@../../css/login.css" visible="false" AnchorPane.topAnchor="109.0">
+        <Pane fx:id="succesPane" layoutX="119.0" layoutY="109.0" prefHeight="200.0" prefWidth="200.0" styleClass="addSuccesfullyData" stylesheets="@../../css/login.css" visible="false" AnchorPane.topAnchor="109.0">
             <children>
                 <ImageView fitHeight="95.0" fitWidth="108.0" layoutX="46.0" layoutY="32.0">
                     <image>

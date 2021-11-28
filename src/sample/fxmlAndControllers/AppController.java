@@ -1,5 +1,7 @@
 package sample.fxmlAndControllers;
 
+import javafx.animation.FadeTransition;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -11,8 +13,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 import sample.*;
 import java.io.IOException;
 import java.net.URL;
@@ -128,7 +132,10 @@ public class AppController implements Initializable {
     private TextField invoicesSearchTextField;
 
     private boolean checkTransitions = true;
-
+    @FXML
+    private ComboBox<String> newInvoiceComboBox;
+    @FXML
+            private Pane newInvoicePane;
     //OBSV ACTIVE
     ObservableList<Assets> depoziteObservableList = FXCollections.observableArrayList();
     ObservableList<Assets> terenuriObservableList = FXCollections.observableArrayList();
@@ -173,6 +180,24 @@ public class AppController implements Initializable {
 
         //INVOICES
         invoicesSearchTextField.textProperty().addListener(((observableValue, s, t1) -> searchInvoices()));
+        newInvoiceComboBox.getItems().addAll("Active", "Produse", "Alte");
+        newInvoiceComboBox.getSelectionModel().selectedItemProperty().addListener(((observableValue, s, t1) -> {
+            try{
+                switch (newInvoiceComboBox.getValue()) {
+                    case "Active":
+                        addAssetButtonOnAction();
+                        break;
+                    case "Produse":
+                        addProdusButtonOnAction();
+                        break;
+                    case "Alte":
+                        addNewInvoice();
+                        break;
+                }
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+        }));
     }
 
 
@@ -660,7 +685,7 @@ public class AppController implements Initializable {
 
 
     //ASSETS BUTTONS
-    public void addAssetButtonOnAction(ActionEvent e) throws IOException {
+    public void addAssetButtonOnAction() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("New_Asset_FXML.fxml"));
         Stage addAssetStage = new Stage(StageStyle.DECORATED);
         addAssetStage.setScene(new Scene(root));
@@ -668,7 +693,7 @@ public class AppController implements Initializable {
         addAssetStage.show();
     }
 
-    public void changeAssetButtonOnAction(ActionEvent e) throws IOException{
+    public void changeAssetButtonOnAction() throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource("Change_Asset_Stage.fxml"));
         Stage DeleteAssetStage = new Stage(StageStyle.DECORATED);
         DeleteAssetStage.setScene(new Scene(root));
@@ -676,7 +701,7 @@ public class AppController implements Initializable {
         DeleteAssetStage.show();
     }
 
-    public void deleteAssetButtonOnAction(ActionEvent e) throws IOException{
+    public void deleteAssetButtonOnAction() throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource("Delete_Asset_Stage.fxml"));
         Stage DeleteAssetStage = new Stage(StageStyle.DECORATED);
         DeleteAssetStage.setScene(new Scene(root));
@@ -691,7 +716,7 @@ public class AppController implements Initializable {
     }
 
     //PRODUCTS BUTTONS
-    public void addProdusButtonOnAction(ActionEvent e) throws IOException{
+    public void addProdusButtonOnAction() throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource("New_Product.fxml"));
         Stage addAssetStage = new Stage(StageStyle.DECORATED);
         addAssetStage.setScene(new Scene(root));
@@ -699,7 +724,7 @@ public class AppController implements Initializable {
         addAssetStage.show();
     }
 
-    public void deleteProductButtonOnAction(ActionEvent e) throws IOException{
+    public void deleteProductButtonOnAction() throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource("Delete_Product.fxml"));
         Stage addAssetStage = new Stage(StageStyle.DECORATED);
         addAssetStage.setScene(new Scene(root));
@@ -774,13 +799,28 @@ public class AppController implements Initializable {
     }
 
     //INVOICES BUTTONS
-    public void newInvoiceButton() throws IOException{
+    public void newInvoiceButton(){
+        newInvoicePane.setVisible(true);
+        FadeTransition ft = new FadeTransition(Duration.millis(500), newInvoicePane);
+        ft.setFromValue(0);
+        ft.setToValue(1);
+        ft.play();
+    }
+
+    public void closeNewInvoiceButtonOnAction(){
+        newInvoicePane.setOpacity(0);
+        newInvoicePane.setVisible(false);
+    }
+
+    private void addNewInvoice() throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource("New_Invoice.fxml"));
         Stage stage = new Stage(StageStyle.DECORATED);
         stage.setScene(new Scene(root));
         stage.setTitle("Factura noua");
         stage.show();
     }
+
+
 
     //MENU BUTTONS
     public void menuButtonsOnAction(ActionEvent e){

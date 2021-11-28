@@ -1,13 +1,16 @@
 package sample.fxmlAndControllers;
 
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import sample.DatabaseConnection;
 
 import java.net.URL;
@@ -29,7 +32,8 @@ public class New_Invoice_Controller implements Initializable {
     private ComboBox<Integer> idProdusComboBox;
     @FXML
     private CheckBox checkBox;
-
+    @FXML
+    private Pane succesPane;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         checkBox.selectedProperty().addListener(((observableValue, aBoolean, t1) -> {
@@ -119,6 +123,7 @@ public class New_Invoice_Controller implements Initializable {
             preparedStatement.setFloat(8,Float.parseFloat(pretTextField.getText()));
             preparedStatement.execute();
             conn.close();
+            successInsertion();
         } catch (SQLException e){
             e.printStackTrace();
         }
@@ -127,7 +132,6 @@ public class New_Invoice_Controller implements Initializable {
     private void insertDataInCosts(){
         DatabaseConnection db = new DatabaseConnection();
         Connection conn = db.getConnection();
-        String getIdFacturaQuery = "SELECT _id_factura from facturi ORDER by _id_factura DESC LIMIT 1;";
         String query = "INSERT INTO costul_productiei(tip, scop, data_cost," +
                 " valoare, tip_cost_id, produs_id) values(?,?,?,?,(SELECT _id_factura from facturi ORDER by _id_factura DESC LIMIT 1),?)";
         try{
@@ -142,6 +146,13 @@ public class New_Invoice_Controller implements Initializable {
         } catch (SQLException e){
             e.printStackTrace();
         }
+    }
+
+    private void successInsertion(){
+        succesPane.setVisible(true);
+        PauseTransition visiblePause = new PauseTransition(Duration.seconds(3));
+        visiblePause.setOnFinished(event -> succesPane.setVisible(false));
+        visiblePause.play();
     }
     //BUTTONS
     public void saveButtonOnAction(){

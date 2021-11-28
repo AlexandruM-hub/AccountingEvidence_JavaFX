@@ -124,6 +124,10 @@
   -fx-fill: #cfcb5b;
 }
 
+.newInvoiceBackground{
+  -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #200122, #6f0000);
+}
+
 /*        NEW STYLE FOR BUTTONS AND BACK
 .changeAssetBackground{
   -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #23074d, #cc5333);

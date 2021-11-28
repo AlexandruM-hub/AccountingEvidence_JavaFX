@@ -653,6 +653,21 @@
                   <Image url="@../../css/search.png" />
                </image>
             </ImageView>
+            <Pane fx:id="newInvoicePane" opacity="0.0" prefHeight="143.0" prefWidth="384.0" styleClass="newInvoiceBackground" stylesheets="@../../css/login.css" visible="false" AnchorPane.rightAnchor="181.0" AnchorPane.topAnchor="46.0">
+               <children>
+                  <Text fill="WHITE" layoutX="46.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Alegeti continutul facturii">
+                     <font>
+                        <Font name="Bell MT Bold" size="26.0" />
+                     </font>
+                  </Text>
+                  <ComboBox fx:id="newInvoiceComboBox" layoutX="46.0" layoutY="72.0" prefHeight="25.0" prefWidth="299.0" promptText="Active / Produse / Altele" />
+                  <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="358.0" layoutY="2.0" onMouseClicked="#closeNewInvoiceButtonOnAction">
+                     <image>
+                        <Image url="@../../css/CloseIcon.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
          </children>
       </AnchorPane>
    </children>
