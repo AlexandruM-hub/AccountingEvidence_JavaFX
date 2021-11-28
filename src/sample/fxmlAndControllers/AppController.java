@@ -1,5 +1,6 @@
 package sample.fxmlAndControllers;
 
+import javafx.beans.property.Property;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -16,10 +17,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import sample.Assets;
-import sample.Claims_Debts;
-import sample.DatabaseConnection;
-import sample.Produse;
+import sample.*;
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -51,7 +50,7 @@ public class AppController implements Initializable {
     @FXML
     private TextField currentAssetsSearchTextField, mijloaceFixeSearchTextField, terenuriSearchTextField, depoziteSearchTextField, produseSearchTextField;
     @FXML
-    private TextField produseInDepozitSearchTextField, claimsSearchTextField, debtsSearchTextField;
+    private TextField produseInDepozitSearchTextField, claimsSearchTextField, debtsSearchTextField, costsSearchTextField;
     @FXML
     private TableColumn<Produse, Integer> idProdusTableColumn, terenGrupProdusTableColumn, anProdusTableColumn;
     @FXML
@@ -91,6 +90,17 @@ public class AppController implements Initializable {
     @FXML
     private TableView<Claims_Debts> debtsTableView;
 
+    //COSTS
+    @FXML
+    private TableView<Costs> costsTableView;
+    @FXML
+    private TableColumn<Integer, Costs> idCostTableColumn, elementIdCostsTableColumn, produsIdCostsTableColumn;
+    @FXML
+    private TableColumn<String, Costs>  tipCostsTableColumn, scopCostsTableColumn;
+    @FXML
+    private TableColumn<Float, Costs> cantitateCostsTableColumn, valoareCostsTableColumn;
+    @FXML
+    private TableColumn<Date, Costs> dataCostsTableColumn;
     //OBSV ACTIVE
     ObservableList<Assets> depoziteObservableList = FXCollections.observableArrayList();
     ObservableList<Assets> terenuriObservableList = FXCollections.observableArrayList();
@@ -101,8 +111,12 @@ public class AppController implements Initializable {
     ObservableList<Produse> produseObservableList = FXCollections.observableArrayList();
     ObservableList<Produse> produseInDepozitObservableList = FXCollections.observableArrayList();
 
+    //OBSV CLAIMS & DEBTS
     ObservableList<Claims_Debts> claimsObsList = FXCollections.observableArrayList();
     ObservableList<Claims_Debts> debtsObsList = FXCollections.observableArrayList();
+
+    //OBSV COSTS
+    ObservableList<Costs> costsObservableList = FXCollections.observableArrayList();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -120,6 +134,51 @@ public class AppController implements Initializable {
         claimsSearchTextField.textProperty().addListener((observable, s, t1) -> searchClaims());
         debtsSearchTextField.textProperty().addListener((observable, s, t1) -> searchDebts());
 
+        //COSTS
+        costsSearchTextField.textProperty().addListener(((observableValue, s, t1) -> costsSearch()));
+    }
+
+    //GET COSTS FROM DB
+    private void getCostsFromDb(){
+        costsObservableList.clear();
+        DatabaseConnection db = new DatabaseConnection();
+        Connection conn = db.getConnection();
+        String getCostsFromDbQuery = "SELECT * FROM costul_productiei";
+        try{
+            ResultSet getCostsResultSet = conn.createStatement().executeQuery(getCostsFromDbQuery);
+            while(getCostsResultSet.next()){
+                costsObservableList.add(new Costs(getCostsResultSet.getInt("_id_cost"),
+                        getCostsResultSet.getString("tip"), getCostsResultSet.getString("scop"),
+                        getCostsResultSet.getDate("data_cost"), getCostsResultSet.getFloat("cantitate"), getCostsResultSet.getFloat("valoare"),
+                        getCostsResultSet.getInt("tip_cost_id"), getCostsResultSet.getInt("produs_id")));
+            }
+            conn.close();
+            loadCostsInTable();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    private void loadCostsInTable(){
+        idCostTableColumn.setCellValueFactory(new PropertyValueFactory<>("idCost"));
+        tipCostsTableColumn.setCellValueFactory(new PropertyValueFactory<>("tipCost"));
+        scopCostsTableColumn.setCellValueFactory(new PropertyValueFactory<>("scopCost"));
+        dataCostsTableColumn.setCellValueFactory(new PropertyValueFactory<>("dataCost"));
+        cantitateCostsTableColumn.setCellValueFactory(new PropertyValueFactory<>("cantitate"));
+        valoareCostsTableColumn.setCellValueFactory(new PropertyValueFactory<>("valoare"));
+        elementIdCostsTableColumn.setCellValueFactory(new PropertyValueFactory<>("idElement"));
+        produsIdCostsTableColumn.setCellValueFactory(new PropertyValueFactory<>("idProdus"));
+        costsTableView.setItems(costsObservableList);
+    }
+
+    private void costsSearch(){
+        ObservableList<Costs> aux = FXCollections.observableArrayList();
+        for(Costs x : costsObservableList){
+            if(x.toString().toLowerCase().contains(costsSearchTextField.getText().toLowerCase())){
+                aux.add(x);
+            }
+        }
+        costsTableView.setItems(aux);
     }
 
     //GET DEBTS CLAIMS FROM DB
@@ -182,6 +241,7 @@ public class AppController implements Initializable {
         }
     }
 
+    //SEARCH CLAIMS DEBTS
     private void searchClaims(){
         ObservableList<Claims_Debts> aux = FXCollections.observableArrayList();
         for (Claims_Debts obj : claimsObsList){
@@ -573,6 +633,7 @@ public class AppController implements Initializable {
         else if(e.getSource() == costsButton){
             costsAnchor.toFront();
             costsButton.setStyle("-fx-text-fill: #cfcb5b; -fx-background-color: rgba(89,50,15,0.2)");
+            getCostsFromDb();
         }
         else if(e.getSource() == productsButton){
             productsAnchor.toFront();
