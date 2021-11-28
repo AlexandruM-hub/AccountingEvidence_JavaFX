@@ -2,15 +2,16 @@ package sample;
 
 import java.util.Date;
 
-public class Incomes {
+public class Invoices {
     private int idFactura, idProdus;
-    private String nrFactura, cumparator, denumireProdus;
+    private String nrFactura, cumparator, denumireProdus, tipFactura, tipMarfa;
     private Date dataVanzare;
     private float cantitate, pret, valoare;
 
-    public Incomes(int idFactura, String nrFactura, String cumparator,
-                   Date dataVanzare, String denumireProdus, float cantitate,
-                   float pret, float valoare, int idProdus){
+
+    public Invoices(int idFactura, String nrFactura, String cumparator,
+                    Date dataVanzare, String denumireProdus, float cantitate,
+                    float pret, float valoare, int idProdus){
         this.idFactura = idFactura;
         this.nrFactura = nrFactura;
         this.cumparator = cumparator;
@@ -20,6 +21,22 @@ public class Incomes {
         this.pret = pret;
         this.valoare = valoare;
         this.idProdus = idProdus;
+    }
+
+    public Invoices(int idFactura, String nrFactura, String tipFactura, String cumparator,
+                    Date dataVanzare, String tipMarfa, String denumireProdus, float cantitate,
+                    float pret, float valoare, int idProdus){
+        this.idFactura = idFactura;
+        this.nrFactura = nrFactura;
+        this.cumparator = cumparator;
+        this.dataVanzare = dataVanzare;
+        this.denumireProdus = denumireProdus;
+        this.cantitate = cantitate;
+        this.pret = pret;
+        this.valoare = valoare;
+        this.idProdus = idProdus;
+        this.tipFactura = tipFactura;
+        this.tipMarfa = tipMarfa;
     }
 
     @Override
@@ -32,8 +49,26 @@ public class Incomes {
                 "" + dataVanzare +
                 "" + cantitate +
                 "" + pret +
-                "" + valoare;
+                "" + valoare +
+                "" + tipMarfa +
+                "" + tipFactura;
 
+    }
+
+    public String getTipFactura() {
+        return tipFactura;
+    }
+
+    public void setTipFactura(String tipFactura) {
+        this.tipFactura = tipFactura;
+    }
+
+    public String getTipMarfa() {
+        return tipMarfa;
+    }
+
+    public void setTipMarfa(String tipMarfa) {
+        this.tipMarfa = tipMarfa;
     }
 
     public int getIdFactura() {

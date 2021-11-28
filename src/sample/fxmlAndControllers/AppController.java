@@ -1,6 +1,5 @@
 package sample.fxmlAndControllers;
 
-import javafx.beans.property.Property;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -9,10 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -104,15 +100,35 @@ public class AppController implements Initializable {
 
     //INCOMES
     @FXML
-    private TableView<Incomes> incomesTableView;
+    private TableView<Invoices> incomesTableView;
     @FXML
-    private TableColumn<Integer, Incomes> idFacturaIncomesTableColumn, idProdusIncomesTableColumn;
+    private TableColumn<Integer, Invoices> idFacturaIncomesTableColumn, idProdusIncomesTableColumn;
     @FXML
-    private TableColumn<String, Incomes> nrFacturaIncomesTableColumn, cumparatorIncomesTableColumn, denumireProdusIncomesTableColumn;
+    private TableColumn<String, Invoices> nrFacturaIncomesTableColumn, cumparatorIncomesTableColumn, denumireProdusIncomesTableColumn;
     @FXML
-    private TableColumn<Date, Incomes> dataIncomesTableColumn;
+    private TableColumn<Date, Invoices> dataIncomesTableColumn;
     @FXML
-    private TableColumn<Float, Incomes> cantitateIncomesTableColumn, pretIncomesTableColumn, valoareIncomesTableColumn;
+    private TableColumn<Float, Invoices> cantitateIncomesTableColumn, pretIncomesTableColumn, valoareIncomesTableColumn;
+
+    //INVOICES
+    @FXML
+    private TableView<Invoices> invoicesTableView;
+    @FXML
+    private TableColumn<Integer, Invoices> idFacturaInvoicesTableColumn, idProdusInvoicesTableColumn;
+    @FXML
+    private TableColumn<Date, Invoices> invoicesDateTableColumn;
+    @FXML
+    private TableColumn<String, Invoices> nrFacturaInvoicesTableColumn, contractantInvoicesTableColumn, tipInvoiceTableColumn;
+    @FXML
+    private TableColumn<String, Invoices> tipMarfaInvoiceTableColumn, denumireMarfaInvoiceTableColumn;
+    @FXML
+    private TableColumn<Float, Invoices> cantitateInvoiceTableColumn, pretInvoiceTableColumn, valoareInvoiceTableColumn;
+    @FXML
+    private Tab transactionTab, inTab, outTab;
+    @FXML
+    private TextField invoicesSearchTextField;
+
+    private boolean checkTransitions = true;
 
     //OBSV ACTIVE
     ObservableList<Assets> depoziteObservableList = FXCollections.observableArrayList();
@@ -132,7 +148,7 @@ public class AppController implements Initializable {
     ObservableList<Costs> costsObservableList = FXCollections.observableArrayList();
 
     //INCOMES
-    ObservableList<Incomes> incomesObservableList = FXCollections.observableArrayList();
+    ObservableList<Invoices> invoicesObservableList = FXCollections.observableArrayList();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -155,6 +171,84 @@ public class AppController implements Initializable {
 
         //INCOMES
         incomesSearchTextField.textProperty().addListener(((observableValue, s, t1) -> searchIncomes()));
+
+        //INVOICES
+        invoicesSearchTextField.textProperty().addListener(((observableValue, s, t1) -> searchInvoices()));
+    }
+
+
+    public void transactionOnAction(){
+        transactionTab.setOnSelectionChanged(event -> {
+            if(transactionTab.isSelected()) {
+                String getAllInvoicesQuery = "SELECT *, cantitate * pret as valoare FROM facturi";
+                getInvoicesFromDb(getAllInvoicesQuery);
+            }
+        });
+        inTab.setOnSelectionChanged(event -> {
+            if(inTab.isSelected()) {
+                String getAllInvoicesQuery = "SELECT *, cantitate * pret as valoare FROM facturi where tip_intrare_iesire = 'Intrare'";
+                getInvoicesFromDb(getAllInvoicesQuery);
+            }
+        });
+        outTab.setOnSelectionChanged(event -> {
+            if(outTab.isSelected()){
+                String query = "SELECT *, cantitate * pret as valoare FROM facturi where tip_intrare_iesire = 'Iesire'";
+                getInvoicesFromDb(query);
+            }
+        });
+        //initializarea tranzactiilor
+        if(checkTransitions){
+            String getAllInvoicesQuery = "SELECT *, cantitate * pret as valoare FROM facturi";
+            getInvoicesFromDb(getAllInvoicesQuery);
+            checkTransitions = false;
+        }
+    }
+
+    //GET INVOICES FROM DB
+    private void getInvoicesFromDb(String query){
+        invoicesObservableList.clear();
+        DatabaseConnection db = new DatabaseConnection();
+        Connection conn = db.getConnection();
+        try{
+            ResultSet getAllInvoicesResultSet = conn.createStatement().executeQuery(query);
+            while(getAllInvoicesResultSet.next()){
+                invoicesObservableList.add(new Invoices(getAllInvoicesResultSet.getInt("_id_factura"),
+                        getAllInvoicesResultSet.getString("nr_factura"), getAllInvoicesResultSet.getString("tip_intrare_iesire"),
+                        getAllInvoicesResultSet.getString("contractant"), getAllInvoicesResultSet.getDate("data"),
+                        getAllInvoicesResultSet.getString("tip_marfa"), getAllInvoicesResultSet.getString("denumire_marfa"),
+                        getAllInvoicesResultSet.getFloat("cantitate"), getAllInvoicesResultSet.getFloat("pret"),
+                        getAllInvoicesResultSet.getFloat("valoare"), getAllInvoicesResultSet.getInt("activ_id")));
+            }
+            conn.close();
+            loadInvoicesInTable();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    private void loadInvoicesInTable(){
+        idFacturaInvoicesTableColumn.setCellValueFactory(new PropertyValueFactory<>("idFactura"));
+        nrFacturaInvoicesTableColumn.setCellValueFactory(new PropertyValueFactory<>("nrFactura"));
+        contractantInvoicesTableColumn.setCellValueFactory(new PropertyValueFactory<>("cumparator"));
+        invoicesDateTableColumn.setCellValueFactory(new PropertyValueFactory<>("dataVanzare"));
+        denumireMarfaInvoiceTableColumn.setCellValueFactory(new PropertyValueFactory<>("denumireProdus"));
+        cantitateInvoiceTableColumn.setCellValueFactory(new PropertyValueFactory<>("cantitate"));
+        pretInvoiceTableColumn.setCellValueFactory(new PropertyValueFactory<>("pret"));
+        valoareInvoiceTableColumn.setCellValueFactory(new PropertyValueFactory<>("valoare"));
+        idProdusInvoicesTableColumn.setCellValueFactory(new PropertyValueFactory<>("idProdus"));
+        tipInvoiceTableColumn.setCellValueFactory(new PropertyValueFactory<>("tipFactura"));
+        tipMarfaInvoiceTableColumn.setCellValueFactory(new PropertyValueFactory<>("tipMarfa"));
+        invoicesTableView.setItems(invoicesObservableList);
+    }
+
+    private void searchInvoices(){
+        ObservableList<Invoices> aux = FXCollections.observableArrayList();
+        for(Invoices x : invoicesObservableList){
+            if(x.toString().toLowerCase().contains(invoicesSearchTextField.getText().toLowerCase())){
+                aux.add(x);
+            }
+        }
+        invoicesTableView.setItems(aux);
     }
 
     //GET INCOMES FROM DB
@@ -166,7 +260,7 @@ public class AppController implements Initializable {
         try{
             ResultSet getIncomesResultSet = conn.createStatement().executeQuery(getIncomesQuery);
             while(getIncomesResultSet.next()){
-                incomesObservableList.add(new Incomes(getIncomesResultSet.getInt("_id_factura"), getIncomesResultSet.getString("nr_factura"),
+                invoicesObservableList.add(new Invoices(getIncomesResultSet.getInt("_id_factura"), getIncomesResultSet.getString("nr_factura"),
                         getIncomesResultSet.getString("contractant"), getIncomesResultSet.getDate("data"),
                         getIncomesResultSet.getString("denumire_marfa"), getIncomesResultSet.getFloat("cantitate"),
                         getIncomesResultSet.getFloat("pret"), getIncomesResultSet.getFloat("valoare"),
@@ -189,12 +283,12 @@ public class AppController implements Initializable {
         pretIncomesTableColumn.setCellValueFactory(new PropertyValueFactory<>("pret"));
         valoareIncomesTableColumn.setCellValueFactory(new PropertyValueFactory<>("valoare"));
         idProdusIncomesTableColumn.setCellValueFactory(new PropertyValueFactory<>("idProdus"));
-        incomesTableView.setItems(incomesObservableList);
+        incomesTableView.setItems(invoicesObservableList);
     }
 
     private void searchIncomes(){
-        ObservableList<Incomes> aux = FXCollections.observableArrayList();
-        for(Incomes x : incomesObservableList){
+        ObservableList<Invoices> aux = FXCollections.observableArrayList();
+        for(Invoices x : invoicesObservableList){
             if(x.toString().toLowerCase().contains(incomesSearchTextField.getText().toLowerCase())){
                 aux.add(x);
             }
@@ -690,6 +784,7 @@ public class AppController implements Initializable {
         else if(e.getSource() == transactionButton){
             transactionAnchor.toFront();
             transactionButton.setStyle("-fx-text-fill: #cfcb5b; -fx-background-color: rgba(89,50,15,0.2)");
+            transactionOnAction();
         }
         else if(e.getSource() == incomesButton){
             incomesAnchor.toFront();
