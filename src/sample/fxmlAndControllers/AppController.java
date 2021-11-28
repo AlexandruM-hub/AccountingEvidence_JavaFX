@@ -50,7 +50,7 @@ public class AppController implements Initializable {
     @FXML
     private TextField currentAssetsSearchTextField, mijloaceFixeSearchTextField, terenuriSearchTextField, depoziteSearchTextField, produseSearchTextField;
     @FXML
-    private TextField produseInDepozitSearchTextField, claimsSearchTextField, debtsSearchTextField, costsSearchTextField;
+    private TextField produseInDepozitSearchTextField, claimsSearchTextField, debtsSearchTextField, costsSearchTextField, incomesSearchTextField;
     @FXML
     private TableColumn<Produse, Integer> idProdusTableColumn, terenGrupProdusTableColumn, anProdusTableColumn;
     @FXML
@@ -101,6 +101,19 @@ public class AppController implements Initializable {
     private TableColumn<Float, Costs> cantitateCostsTableColumn, valoareCostsTableColumn;
     @FXML
     private TableColumn<Date, Costs> dataCostsTableColumn;
+
+    //INCOMES
+    @FXML
+    private TableView<Incomes> incomesTableView;
+    @FXML
+    private TableColumn<Integer, Incomes> idFacturaIncomesTableColumn, idProdusIncomesTableColumn;
+    @FXML
+    private TableColumn<String, Incomes> nrFacturaIncomesTableColumn, cumparatorIncomesTableColumn, denumireProdusIncomesTableColumn;
+    @FXML
+    private TableColumn<Date, Incomes> dataIncomesTableColumn;
+    @FXML
+    private TableColumn<Float, Incomes> cantitateIncomesTableColumn, pretIncomesTableColumn, valoareIncomesTableColumn;
+
     //OBSV ACTIVE
     ObservableList<Assets> depoziteObservableList = FXCollections.observableArrayList();
     ObservableList<Assets> terenuriObservableList = FXCollections.observableArrayList();
@@ -117,6 +130,9 @@ public class AppController implements Initializable {
 
     //OBSV COSTS
     ObservableList<Costs> costsObservableList = FXCollections.observableArrayList();
+
+    //INCOMES
+    ObservableList<Incomes> incomesObservableList = FXCollections.observableArrayList();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -136,7 +152,56 @@ public class AppController implements Initializable {
 
         //COSTS
         costsSearchTextField.textProperty().addListener(((observableValue, s, t1) -> costsSearch()));
+
+        //INCOMES
+        incomesSearchTextField.textProperty().addListener(((observableValue, s, t1) -> searchIncomes()));
     }
+
+    //GET INCOMES FROM DB
+    private void getIncomesFromDb(){
+        DatabaseConnection db = new DatabaseConnection();
+        Connection conn = db.getConnection();
+        String getIncomesQuery = "SELECT _id_factura, nr_factura, contractant, data, denumire_marfa, cantitate, pret, cantitate * pret as valoare, activ_id " +
+                "from facturi where tip_intrare_iesire = 'Iesire' and tip_marfa = 'Produse'";
+        try{
+            ResultSet getIncomesResultSet = conn.createStatement().executeQuery(getIncomesQuery);
+            while(getIncomesResultSet.next()){
+                incomesObservableList.add(new Incomes(getIncomesResultSet.getInt("_id_factura"), getIncomesResultSet.getString("nr_factura"),
+                        getIncomesResultSet.getString("contractant"), getIncomesResultSet.getDate("data"),
+                        getIncomesResultSet.getString("denumire_marfa"), getIncomesResultSet.getFloat("cantitate"),
+                        getIncomesResultSet.getFloat("pret"), getIncomesResultSet.getFloat("valoare"),
+                        getIncomesResultSet.getInt("activ_id")));
+            }
+            conn.close();
+            insertIncomesInTable();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    private void insertIncomesInTable(){
+        idFacturaIncomesTableColumn.setCellValueFactory(new PropertyValueFactory<>("idFactura"));
+        nrFacturaIncomesTableColumn.setCellValueFactory(new PropertyValueFactory<>("nrFactura"));
+        cumparatorIncomesTableColumn.setCellValueFactory(new PropertyValueFactory<>("cumparator"));
+        dataIncomesTableColumn.setCellValueFactory(new PropertyValueFactory<>("dataVanzare"));
+        denumireProdusIncomesTableColumn.setCellValueFactory(new PropertyValueFactory<>("denumireProdus"));
+        cantitateIncomesTableColumn.setCellValueFactory(new PropertyValueFactory<>("cantitate"));
+        pretIncomesTableColumn.setCellValueFactory(new PropertyValueFactory<>("pret"));
+        valoareIncomesTableColumn.setCellValueFactory(new PropertyValueFactory<>("valoare"));
+        idProdusIncomesTableColumn.setCellValueFactory(new PropertyValueFactory<>("idProdus"));
+        incomesTableView.setItems(incomesObservableList);
+    }
+
+    private void searchIncomes(){
+        ObservableList<Incomes> aux = FXCollections.observableArrayList();
+        for(Incomes x : incomesObservableList){
+            if(x.toString().toLowerCase().contains(incomesSearchTextField.getText().toLowerCase())){
+                aux.add(x);
+            }
+        }
+        incomesTableView.setItems(aux);
+    }
+
 
     //GET COSTS FROM DB
     private void getCostsFromDb(){
@@ -629,6 +694,7 @@ public class AppController implements Initializable {
         else if(e.getSource() == incomesButton){
             incomesAnchor.toFront();
             incomesButton.setStyle("-fx-text-fill: #cfcb5b; -fx-background-color: rgba(89,50,15,0.2)");
+            getIncomesFromDb();
         }
         else if(e.getSource() == costsButton){
             costsAnchor.toFront();
