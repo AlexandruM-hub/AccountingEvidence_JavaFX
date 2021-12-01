@@ -794,7 +794,7 @@ public class AppController implements Initializable {
         Parent root = FXMLLoader.load(getClass().getResource("Costs_Delete.fxml"));
         Stage stage = new Stage(StageStyle.DECORATED);
         stage.setScene(new Scene(root));
-        stage.setTitle("Stergerea costurilo");
+        stage.setTitle("Stergerea costurilor");
         stage.show();
     }
 
@@ -820,7 +820,14 @@ public class AppController implements Initializable {
         stage.show();
     }
 
-
+//clear la vanzari trebuie de facut
+    public void changeInvoiceButtonOnAction() throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("Change_Invoice.fxml"));
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(new Scene(root));
+        stage.setTitle("Modificarea facturii");
+        stage.show();
+    }
 
     //MENU BUTTONS
     public void menuButtonsOnAction(ActionEvent e){

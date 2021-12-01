@@ -603,7 +603,7 @@
                         <Font name="Bell MT Bold" size="17.0" />
                      </font>
                   </Button>
-                  <Button contentDisplay="TOP" mnemonicParsing="false" prefHeight="122.0" prefWidth="159.0" styleClass="buttonsStyle" stylesheets="@../../css/login.css" text="Change" textAlignment="CENTER">
+                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#changeInvoiceButtonOnAction" prefHeight="122.0" prefWidth="159.0" styleClass="buttonsStyle" stylesheets="@../../css/login.css" text="Change" textAlignment="CENTER">
                      <font>
                         <Font name="Bell MT Bold" size="17.0" />
                      </font>
