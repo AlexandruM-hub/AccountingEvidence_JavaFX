@@ -154,6 +154,9 @@ public class AppController implements Initializable {
     ObservableList<Costs> costsObservableList = FXCollections.observableArrayList();
 
     //INCOMES
+    ObservableList<Invoices> incomesObservableList = FXCollections.observableArrayList();
+
+    //INVOICES
     ObservableList<Invoices> invoicesObservableList = FXCollections.observableArrayList();
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -277,6 +280,7 @@ public class AppController implements Initializable {
 
     //GET INCOMES FROM DB
     private void getIncomesFromDb(){
+        incomesObservableList.clear();
         DatabaseConnection db = new DatabaseConnection();
         Connection conn = db.getConnection();
         String getIncomesQuery = "SELECT _id_factura, nr_factura, contractant, data, denumire_marfa, cantitate, pret, cantitate * pret as valoare, activ_id " +
@@ -284,7 +288,7 @@ public class AppController implements Initializable {
         try{
             ResultSet getIncomesResultSet = conn.createStatement().executeQuery(getIncomesQuery);
             while(getIncomesResultSet.next()){
-                invoicesObservableList.add(new Invoices(getIncomesResultSet.getInt("_id_factura"), getIncomesResultSet.getString("nr_factura"),
+                incomesObservableList.add(new Invoices(getIncomesResultSet.getInt("_id_factura"), getIncomesResultSet.getString("nr_factura"),
                         getIncomesResultSet.getString("contractant"), getIncomesResultSet.getDate("data"),
                         getIncomesResultSet.getString("denumire_marfa"), getIncomesResultSet.getFloat("cantitate"),
                         getIncomesResultSet.getFloat("pret"), getIncomesResultSet.getFloat("valoare"),
@@ -307,12 +311,12 @@ public class AppController implements Initializable {
         pretIncomesTableColumn.setCellValueFactory(new PropertyValueFactory<>("pret"));
         valoareIncomesTableColumn.setCellValueFactory(new PropertyValueFactory<>("valoare"));
         idProdusIncomesTableColumn.setCellValueFactory(new PropertyValueFactory<>("idProdus"));
-        incomesTableView.setItems(invoicesObservableList);
+        incomesTableView.setItems(incomesObservableList);
     }
 
     private void searchIncomes(){
         ObservableList<Invoices> aux = FXCollections.observableArrayList();
-        for(Invoices x : invoicesObservableList){
+        for(Invoices x : incomesObservableList){
             if(x.toString().toLowerCase().contains(incomesSearchTextField.getText().toLowerCase())){
                 aux.add(x);
             }
@@ -798,6 +802,7 @@ public class AppController implements Initializable {
         stage.show();
     }
 
+
     //INVOICES BUTTONS
     public void newInvoiceButton(){
         newInvoicePane.setVisible(true);
@@ -820,12 +825,19 @@ public class AppController implements Initializable {
         stage.show();
     }
 
-//clear la vanzari trebuie de facut
     public void changeInvoiceButtonOnAction() throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource("Change_Invoice.fxml"));
         Stage stage = new Stage(StageStyle.DECORATED);
         stage.setScene(new Scene(root));
         stage.setTitle("Modificarea facturii");
+        stage.show();
+    }
+
+    public void deleteInvoiceButtonOnAction() throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource("Delete_Invoice.fxml"));
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(new Scene(root));
+        stage.setTitle("Stergerea Facturilor");
         stage.show();
     }
 
@@ -842,6 +854,7 @@ public class AppController implements Initializable {
             transactionOnAction();
         }
         else if(e.getSource() == incomesButton){
+
             incomesAnchor.toFront();
             incomesButton.setStyle("-fx-text-fill: #cfcb5b; -fx-background-color: rgba(89,50,15,0.2)");
             getIncomesFromDb();
@@ -868,4 +881,5 @@ public class AppController implements Initializable {
             getClaimsDebtsFromDb();
         }
     }
+
 }
