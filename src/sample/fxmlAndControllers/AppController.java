@@ -1,8 +1,6 @@
 package sample.fxmlAndControllers;
 
 import javafx.animation.FadeTransition;
-import javafx.animation.Timeline;
-import javafx.beans.property.Property;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -30,9 +28,11 @@ import java.util.stream.Stream;
 
 public class AppController implements Initializable {
     @FXML
-    private Button exitButton, changeAssetButton;
+    private Button exitButton, changeAssetButton, staffButton;
     @FXML
     private Button dashboardButton, transactionButton, incomesButton, costsButton, productsButton, assetsButton, claimsButton, debtsButton;
+    @FXML
+    private AnchorPane staffAnchorPane;
     @FXML
     private AnchorPane dashboardAnchor, transactionAnchor, incomesAnchor, costsAnchor, productsAnchor, assetsAnchor, claimsAnchor;
     @FXML
@@ -144,6 +144,16 @@ public class AppController implements Initializable {
     @FXML
     private Pane newInvoicePane;
 
+    //STAFF
+    @FXML
+    private TableColumn<String, Staff> numeStaffTableColumn, prenumeStaffTableColumn, emailStaffTablecolumn, telefonStaffTableColumn;
+    @FXML
+    private TableColumn<Integer, Staff> idPersoanaStaffTableColumn;
+    @FXML
+    private TableColumn<Date, Staff> dataNasterePersoanaTableColumn, dataAngajarePersoanaTableColumn;
+    @FXML
+    private TableView<Staff> staffTableView;
+
     //OBSV ACTIVE
     ObservableList<Assets> depoziteObservableList = FXCollections.observableArrayList();
     ObservableList<Assets> terenuriObservableList = FXCollections.observableArrayList();
@@ -166,6 +176,10 @@ public class AppController implements Initializable {
 
     //INVOICES
     ObservableList<Invoices> invoicesObservableList = FXCollections.observableArrayList();
+
+    //STAFF
+    ObservableList<Staff> staffObservableList = FXCollections.observableArrayList();
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -209,6 +223,39 @@ public class AppController implements Initializable {
                 e.printStackTrace();
             }
         }));
+        loadStaffInTable();
+    }
+
+    //STAFF
+    private void getStaffFromDb(){
+        staffObservableList.clear();
+        DatabaseConnection db = new DatabaseConnection();
+        Connection conn = db.getConnection();
+        String getStaffQuery = "SELECT _id_personal, nume, prenume, telefon, data_nastere," +
+                " email, data_angajare from personal";
+        try{
+            ResultSet getStaffResultSet = conn.createStatement().executeQuery(getStaffQuery);
+            while(getStaffResultSet.next()){
+                staffObservableList.add(new Staff(getStaffResultSet.getInt("_id_personal"), getStaffResultSet.getString("nume"),
+                        getStaffResultSet.getString("prenume"), getStaffResultSet.getString("telefon"),
+                        getStaffResultSet.getDate("data_nastere"), getStaffResultSet.getString("email"),
+                        getStaffResultSet.getDate("data_angajare")));
+            }
+            staffTableView.setItems(staffObservableList);
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+
+    private void loadStaffInTable(){
+        idPersoanaStaffTableColumn.setCellValueFactory(new PropertyValueFactory<>("idPersoana"));
+        numeStaffTableColumn.setCellValueFactory(new PropertyValueFactory<>("nume"));
+        prenumeStaffTableColumn.setCellValueFactory(new PropertyValueFactory<>("prenume"));
+        telefonStaffTableColumn.setCellValueFactory(new PropertyValueFactory<>("telefon"));
+        dataNasterePersoanaTableColumn.setCellValueFactory(new PropertyValueFactory<>("dataNastere"));
+        emailStaffTablecolumn.setCellValueFactory(new PropertyValueFactory<>("email"));
+        dataAngajarePersoanaTableColumn.setCellValueFactory(new PropertyValueFactory<>("dataAngajare"));
     }
 
 
@@ -262,7 +309,6 @@ public class AppController implements Initializable {
             e.printStackTrace();
         }
     }
-
 
     private void loadInvoicesInTable(){
         idFacturaInvoicesTableColumn.setCellValueFactory(new PropertyValueFactory<>("idFactura"));
@@ -338,7 +384,6 @@ public class AppController implements Initializable {
         incomesTableView.setItems(aux);
     }
 
-
     //GET COSTS FROM DB
     private void getCostsFromDb(){
         costsObservableList.clear();
@@ -364,8 +409,6 @@ public class AppController implements Initializable {
         }
     }
 
-
-
     private void loadCostsInTable(){
         idCostTableColumn.setCellValueFactory(new PropertyValueFactory<>("idCost"));
         tipCostsTableColumn.setCellValueFactory(new PropertyValueFactory<>("tipCost"));
@@ -389,10 +432,6 @@ public class AppController implements Initializable {
         }
         costsTableView.setItems(aux);
     }
-
-
-
-
 
     //GET DEBTS CLAIMS FROM DB
     private void getClaimsDebtsFromDb(){
@@ -594,15 +633,6 @@ public class AppController implements Initializable {
         loadDepoziteInTable();
     }
 
-
-
-
-
-
-
-
-
-
     //SEARCH DATA IN PRODUSE
     private void searchProduseInDB(){
         produseObservableList.clear();
@@ -653,11 +683,6 @@ public class AppController implements Initializable {
         }
         loadProduseDepozitInTable();
     }
-
-
-
-
-
 
 
     //LOAD DATA IN TABLES PRODUSE
@@ -730,22 +755,6 @@ public class AppController implements Initializable {
         searchPamanturiInDB();
         searchDepoziteInDB();
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     //ASSETS BUTTONS
     public void addAssetButtonOnAction() throws IOException {
@@ -902,7 +911,8 @@ public class AppController implements Initializable {
 
     //MENU BUTTONS
     public void menuButtonsOnAction(ActionEvent e){
-        Stream.of(dashboardButton,transactionButton,incomesButton,costsButton,productsButton,assetsButton,claimsButton).forEach(Button -> Button.setStyle("menuButton"));
+        Stream.of(dashboardButton,transactionButton,incomesButton,costsButton,productsButton,assetsButton,
+                claimsButton, staffButton).forEach(Button -> Button.setStyle("menuButton"));
         if(e.getSource() == dashboardButton){
             dashboardAnchor.toFront();
             dashboardButton.setStyle("-fx-text-fill: #cfcb5b; -fx-background-color: rgba(89,50,15,0.2)");
@@ -938,6 +948,11 @@ public class AppController implements Initializable {
             claimsAnchor.toFront();
             claimsButton.setStyle("-fx-text-fill: #cfcb5b; -fx-background-color: rgba(89,50,15,0.2)");
             getClaimsDebtsFromDb();
+        }
+        else if(e.getSource() == staffButton){
+            staffAnchorPane.toFront();
+            staffButton.setStyle("-fx-text-fill: #cfcb5b; -fx-background-color: rgba(89,50,15,0.2)");
+            getStaffFromDb();
         }
     }
 
