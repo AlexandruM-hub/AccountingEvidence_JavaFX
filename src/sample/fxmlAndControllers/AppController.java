@@ -2,6 +2,7 @@ package sample.fxmlAndControllers;
 
 import javafx.animation.FadeTransition;
 import javafx.animation.Timeline;
+import javafx.beans.property.Property;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -46,6 +47,8 @@ public class AppController implements Initializable {
     private TableColumn<Assets,Float> cantitateStocMijlocFix, valoareActivMijlocFix, terenSuprafata, cantitateAlteActive, pretAlteActive, valoareAlteActive;
     @FXML
     private TableColumn<Assets, Date> dataIntrareMijlocFix, dataIntrareAlteActive;
+    @FXML
+    private TableColumn<Assets, String> stareDepoziteTableColumn, stareTerenuriTableColumn;
     @FXML
     private TextField currentAssetsSearchTextField, mijloaceFixeSearchTextField, terenuriSearchTextField, depoziteSearchTextField, produseSearchTextField;
     @FXML
@@ -100,6 +103,8 @@ public class AppController implements Initializable {
     private TableColumn<Float, Costs> cantitateCostsTableColumn, valoareCostsTableColumn;
     @FXML
     private TableColumn<Date, Costs> dataCostsTableColumn;
+    @FXML
+    private TableColumn<Integer, Costs> persoanaIdTableColumn, activIdTableColumn;
 
     //INCOMES
     @FXML
@@ -130,12 +135,15 @@ public class AppController implements Initializable {
     private Tab transactionTab, inTab, outTab;
     @FXML
     private TextField invoicesSearchTextField;
+    @FXML
+    private TableColumn<Integer, Invoices> idTerenInvoicesTableColumn, idDepozitInvoiceTableColumn, idAssetInvoicesTableColumn;
 
     private boolean checkTransitions = true;
     @FXML
     private ComboBox<String> newInvoiceComboBox;
     @FXML
-            private Pane newInvoicePane;
+    private Pane newInvoicePane;
+
     //OBSV ACTIVE
     ObservableList<Assets> depoziteObservableList = FXCollections.observableArrayList();
     ObservableList<Assets> terenuriObservableList = FXCollections.observableArrayList();
@@ -244,7 +252,9 @@ public class AppController implements Initializable {
                         getAllInvoicesResultSet.getString("contractant"), getAllInvoicesResultSet.getDate("data"),
                         getAllInvoicesResultSet.getString("tip_marfa"), getAllInvoicesResultSet.getString("denumire_marfa"),
                         getAllInvoicesResultSet.getFloat("cantitate"), getAllInvoicesResultSet.getFloat("pret"),
-                        getAllInvoicesResultSet.getFloat("valoare"), getAllInvoicesResultSet.getInt("activ_id")));
+                        getAllInvoicesResultSet.getFloat("valoare"), getAllInvoicesResultSet.getInt("activ_id"),
+                        getAllInvoicesResultSet.getInt("depozit_id"), getAllInvoicesResultSet.getInt("teren_id"),
+                        getAllInvoicesResultSet.getInt("produse_id")));
             }
             conn.close();
             loadInvoicesInTable();
@@ -252,6 +262,7 @@ public class AppController implements Initializable {
             e.printStackTrace();
         }
     }
+
 
     private void loadInvoicesInTable(){
         idFacturaInvoicesTableColumn.setCellValueFactory(new PropertyValueFactory<>("idFactura"));
@@ -265,6 +276,9 @@ public class AppController implements Initializable {
         idProdusInvoicesTableColumn.setCellValueFactory(new PropertyValueFactory<>("idProdus"));
         tipInvoiceTableColumn.setCellValueFactory(new PropertyValueFactory<>("tipFactura"));
         tipMarfaInvoiceTableColumn.setCellValueFactory(new PropertyValueFactory<>("tipMarfa"));
+        idTerenInvoicesTableColumn.setCellValueFactory(new PropertyValueFactory<>("idTeren"));
+        idDepozitInvoiceTableColumn.setCellValueFactory(new PropertyValueFactory<>("idDepozit"));
+        idAssetInvoicesTableColumn.setCellValueFactory(new PropertyValueFactory<>("idActiv"));
         invoicesTableView.setItems(invoicesObservableList);
     }
 
@@ -283,7 +297,7 @@ public class AppController implements Initializable {
         incomesObservableList.clear();
         DatabaseConnection db = new DatabaseConnection();
         Connection conn = db.getConnection();
-        String getIncomesQuery = "SELECT _id_factura, nr_factura, contractant, data, denumire_marfa, cantitate, pret, cantitate * pret as valoare, activ_id " +
+        String getIncomesQuery = "SELECT _id_factura, nr_factura, contractant, data, denumire_marfa, cantitate, pret, cantitate * pret as valoare, produse_id " +
                 "from facturi where tip_intrare_iesire = 'Iesire' and tip_marfa = 'Produse'";
         try{
             ResultSet getIncomesResultSet = conn.createStatement().executeQuery(getIncomesQuery);
@@ -292,7 +306,7 @@ public class AppController implements Initializable {
                         getIncomesResultSet.getString("contractant"), getIncomesResultSet.getDate("data"),
                         getIncomesResultSet.getString("denumire_marfa"), getIncomesResultSet.getFloat("cantitate"),
                         getIncomesResultSet.getFloat("pret"), getIncomesResultSet.getFloat("valoare"),
-                        getIncomesResultSet.getInt("activ_id")));
+                        getIncomesResultSet.getInt("produse_id")));
             }
             conn.close();
             insertIncomesInTable();
@@ -330,14 +344,18 @@ public class AppController implements Initializable {
         costsObservableList.clear();
         DatabaseConnection db = new DatabaseConnection();
         Connection conn = db.getConnection();
-        String getCostsFromDbQuery = "SELECT * FROM costul_productiei";
+        String getCostsFromDbQuery = "SELECT *, (select assets._id_asset from assets INNER JOIN " +
+                "facturi ON assets._id_asset = facturi.activ_id where _id_factura = factura_id) as " +
+                "activ_id from costul_productiei;";
         try{
             ResultSet getCostsResultSet = conn.createStatement().executeQuery(getCostsFromDbQuery);
             while(getCostsResultSet.next()){
                 costsObservableList.add(new Costs(getCostsResultSet.getInt("_id_cost"),
                         getCostsResultSet.getString("tip"), getCostsResultSet.getString("scop"),
-                        getCostsResultSet.getDate("data_cost"), getCostsResultSet.getFloat("cantitate"), getCostsResultSet.getFloat("valoare"),
-                        getCostsResultSet.getInt("tip_cost_id"), getCostsResultSet.getInt("produs_id")));
+                        getCostsResultSet.getDate("data_cost"), getCostsResultSet.getFloat("cantitate"),
+                        getCostsResultSet.getFloat("valoare"), getCostsResultSet.getInt("factura_id"),
+                        getCostsResultSet.getInt("persoana_id"), getCostsResultSet.getInt("produs_id"),
+                        getCostsResultSet.getInt("activ_id")));
             }
             conn.close();
             loadCostsInTable();
@@ -345,6 +363,8 @@ public class AppController implements Initializable {
             e.printStackTrace();
         }
     }
+
+
 
     private void loadCostsInTable(){
         idCostTableColumn.setCellValueFactory(new PropertyValueFactory<>("idCost"));
@@ -354,7 +374,9 @@ public class AppController implements Initializable {
         cantitateCostsTableColumn.setCellValueFactory(new PropertyValueFactory<>("cantitate"));
         valoareCostsTableColumn.setCellValueFactory(new PropertyValueFactory<>("valoare"));
         elementIdCostsTableColumn.setCellValueFactory(new PropertyValueFactory<>("idElement"));
+        persoanaIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("idPersoana"));
         produsIdCostsTableColumn.setCellValueFactory(new PropertyValueFactory<>("idProdus"));
+        activIdTableColumn.setCellValueFactory(new PropertyValueFactory<>("idActiv"));
         costsTableView.setItems(costsObservableList);
     }
 
@@ -368,55 +390,59 @@ public class AppController implements Initializable {
         costsTableView.setItems(aux);
     }
 
+
+
+
+
     //GET DEBTS CLAIMS FROM DB
     private void getClaimsDebtsFromDb(){
         debtsObsList.clear();
         claimsObsList.clear();
         DatabaseConnection db = new DatabaseConnection();
         Connection conn = db.getConnection();
-        String getClaimsFacturiQuery = "SELECT datorii_creante._id_datorie_creanta AS id, datorii_creante.aferenta AS aferenta, " +
+        String getClaimsFacturiQuery = "SELECT datorii_creante._id_datorie_creanta AS id, " +
                 "datorii_creante.termen_limita as termenlimita, datorii_creante.valoare AS valoare, " +
                 "datorii_creante.data_achitat AS dataachitat, facturi.contractant AS contractant FROM datorii_creante INNER JOIN facturi " +
-                "ON datorii_creante.element_id = facturi._id_factura WHERE datorii_creante.tip = " +
-                "'Creanta' AND datorii_creante.aferenta = 'Factura'";
-        String getClaimsPersonal = "SELECT datorii_creante._id_datorie_creanta AS id, datorii_creante.aferenta AS aferenta, " +
+                "ON datorii_creante.factura_id = facturi._id_factura WHERE datorii_creante.tip = " +
+                "'Creanta'";
+        String getClaimsPersonal = "SELECT datorii_creante._id_datorie_creanta AS id, " +
                 "datorii_creante.termen_limita AS termenlimita, datorii_creante.valoare AS valoare, " +
                 "datorii_creante.data_achitat AS dataachitat, personal.nume AS nume FROM datorii_creante INNER JOIN personal " +
-                "ON datorii_creante.element_id = personal._id_personal WHERE datorii_creante.tip = " +
-                "'Creanta' AND datorii_creante.aferenta = 'Personal'";
-        String getDebtsFacturiQuery = "SELECT datorii_creante._id_datorie_creanta AS id, datorii_creante.aferenta AS aferenta, " +
+                "ON datorii_creante.persoana_id = personal._id_personal WHERE datorii_creante.tip = " +
+                "'Creanta'";
+        String getDebtsFacturiQuery = "SELECT datorii_creante._id_datorie_creanta AS id, " +
                 "datorii_creante.termen_limita as termenlimita, datorii_creante.valoare AS valoare, " +
                 "datorii_creante.data_achitat AS dataachitat, facturi.contractant AS contractant FROM datorii_creante INNER JOIN facturi " +
-                "ON datorii_creante.element_id = facturi._id_factura WHERE datorii_creante.tip = " +
-                "'Datorie' AND datorii_creante.aferenta = 'Factura'";
-        String getDebtsPersonalQuery = "SELECT datorii_creante._id_datorie_creanta AS id, datorii_creante.aferenta AS aferenta, " +
+                "ON datorii_creante.factura_id = facturi._id_factura WHERE datorii_creante.tip = " +
+                "'Datorie'";
+        String getDebtsPersonalQuery = "SELECT datorii_creante._id_datorie_creanta AS id, " +
                 "datorii_creante.termen_limita AS termenlimita, datorii_creante.valoare AS valoare, " +
                 "datorii_creante.data_achitat AS dataachitat, personal.nume AS nume FROM datorii_creante INNER JOIN personal " +
-                "ON datorii_creante.element_id = personal._id_personal WHERE datorii_creante.tip = " +
-                "'Datorie' AND datorii_creante.aferenta = 'Personal'";
+                "ON datorii_creante.persoana_id = personal._id_personal WHERE datorii_creante.tip = " +
+                "'Datorie'";
         try{
             ResultSet getFacturiClaimsResultSet = conn.createStatement().executeQuery(getClaimsFacturiQuery);
             while(getFacturiClaimsResultSet.next()){
-                claimsObsList.add(new Claims_Debts(getFacturiClaimsResultSet.getInt("id"), getFacturiClaimsResultSet.getString("aferenta"),
+                claimsObsList.add(new Claims_Debts(getFacturiClaimsResultSet.getInt("id"), "Factura",
                         getFacturiClaimsResultSet.getDate("termenlimita"), getFacturiClaimsResultSet.getFloat("valoare"),
                         getFacturiClaimsResultSet.getDate("dataachitat"), getFacturiClaimsResultSet.getString("contractant")));
             }
             ResultSet getPersonalClaimsResultSet = conn.createStatement().executeQuery(getClaimsPersonal);
             while(getPersonalClaimsResultSet.next()){
-                claimsObsList.add(new Claims_Debts(getPersonalClaimsResultSet.getInt("id"), getPersonalClaimsResultSet.getString("aferenta"),
+                claimsObsList.add(new Claims_Debts(getPersonalClaimsResultSet.getInt("id"), "Persoana",
                         getPersonalClaimsResultSet.getDate("termenlimita"), getPersonalClaimsResultSet.getFloat("valoare"),
                         getPersonalClaimsResultSet.getDate("dataachitat"), getPersonalClaimsResultSet.getString("nume")));
             }
             //DEBTS
             ResultSet getFacturiDebtsResultSet = conn.createStatement().executeQuery(getDebtsFacturiQuery);
             while(getFacturiDebtsResultSet.next()){
-                debtsObsList.add(new Claims_Debts(getFacturiDebtsResultSet.getInt("id"), getFacturiDebtsResultSet.getString("aferenta"),
+                debtsObsList.add(new Claims_Debts(getFacturiDebtsResultSet.getInt("id"), "Factura",
                         getFacturiDebtsResultSet.getDate("termenlimita"), getFacturiDebtsResultSet.getFloat("valoare"),
                         getFacturiDebtsResultSet.getDate("dataachitat"), getFacturiDebtsResultSet.getString("contractant")));
             }
             ResultSet getPersonalDebtsResultSet = conn.createStatement().executeQuery(getDebtsPersonalQuery);
             while(getPersonalDebtsResultSet.next()){
-                debtsObsList.add(new Claims_Debts(getPersonalDebtsResultSet.getInt("id"), getPersonalDebtsResultSet.getString("aferenta"),
+                debtsObsList.add(new Claims_Debts(getPersonalDebtsResultSet.getInt("id"), "Persoana",
                         getPersonalDebtsResultSet.getDate("termenlimita"), getPersonalDebtsResultSet.getFloat("valoare"),
                         getPersonalDebtsResultSet.getDate("dataachitat"), getPersonalDebtsResultSet.getString("nume")));
             }
@@ -476,13 +502,13 @@ public class AppController implements Initializable {
         DatabaseConnection db = new DatabaseConnection();
         Connection conn = db.getConnection();
         String checkForCurrentAssetsQuery = "SELECT assets._id_asset,facturi.nr_factura, facturi.contractant, facturi.data, facturi.tip_marfa, "
-                +"facturi.denumire_marfa, facturi.cantitate, facturi.pret, assets.cantitate_stock * facturi.pret AS valoareActive, "
+                +"facturi.denumire_marfa, assets.cantitate_stock, facturi.pret, assets.cantitate_stock * facturi.pret AS valoareActive, "
                 +"assets.depozit_id FROM assets INNER JOIN facturi ON assets._id_asset = facturi.activ_id WHERE facturi.tip_marfa <> 'Mijloc Fix' AND "
                 +"facturi.tip_intrare_iesire = 'Intrare' AND facturi.tip_marfa <> 'Depozit'";
         String currentAssetsSearchQuery = " AND (facturi.tip_marfa LIKE '%" + currentAssetsSearchTextField.getText() +"%' OR assets._id_asset LIKE '%"
                 + currentAssetsSearchTextField.getText() +"%' OR facturi.nr_factura LIKE '%" + currentAssetsSearchTextField.getText() + "%' OR "
                 +"facturi.contractant LIKE '%" + currentAssetsSearchTextField.getText() +"%' OR facturi.data LIKE '%" + currentAssetsSearchTextField.getText() + "%' OR "
-                + "facturi.denumire_marfa LIKE '%" + currentAssetsSearchTextField.getText() + "%' OR facturi.cantitate LIKE '%" +currentAssetsSearchTextField.getText()
+                + "facturi.denumire_marfa LIKE '%" + currentAssetsSearchTextField.getText() + "%' OR assets.cantitate_stock LIKE '%" +currentAssetsSearchTextField.getText()
                 +"%' OR facturi.pret LIKE '%" + currentAssetsSearchTextField.getText() + "%' OR assets.cantitate_stock * facturi.pret LIKE '%"
                 + currentAssetsSearchTextField.getText() + "%' OR assets.depozit_id LIKE '%" +currentAssetsSearchTextField.getText() +"%')";
         try{
@@ -490,10 +516,9 @@ public class AppController implements Initializable {
             while(otherAssetsResultSet.next()){
                 otherAssetsObservableList.add(new Assets(otherAssetsResultSet.getInt("_id_asset"), otherAssetsResultSet.getString("nr_factura"),
                         otherAssetsResultSet.getString("contractant"), otherAssetsResultSet.getDate("data"), otherAssetsResultSet.getString("tip_marfa"),
-                        otherAssetsResultSet.getString("denumire_marfa"), otherAssetsResultSet.getFloat("cantitate"), otherAssetsResultSet.getFloat("pret"),
+                        otherAssetsResultSet.getString("denumire_marfa"), otherAssetsResultSet.getFloat("cantitate_stock"), otherAssetsResultSet.getFloat("pret"),
                         otherAssetsResultSet.getFloat("valoareActive"), otherAssetsResultSet.getInt("depozit_id")));
             }
-            conn.close();
         }catch (SQLException e){
             e.printStackTrace();
         }
@@ -534,12 +559,13 @@ public class AppController implements Initializable {
         String terenuriSearchQuery = " WHERE _id_teren LIKE '%" + terenuriSearchTextField.getText() + "%' OR teren_grup LIKE '%"
                 + terenuriSearchTextField.getText() +"%' OR nr_cadastral LIKE '%" + terenuriSearchTextField.getText() + "%'"
                 +" OR suprafata LIKE '%" + terenuriSearchTextField.getText() +"%' OR localitate LIKE '%"
-                + terenuriSearchTextField.getText() +"%'";
+                + terenuriSearchTextField.getText() +"%' OR stare LIKE '%" + terenuriSearchTextField.getText() + "%'";
         try{
             ResultSet rs_terenuri = conn.createStatement().executeQuery(terenuriQuery +terenuriSearchQuery);
             while(rs_terenuri.next()){
                 terenuriObservableList.add(new Assets(rs_terenuri.getInt("_id_teren"), rs_terenuri.getInt("teren_grup"),
-                        rs_terenuri.getString("nr_cadastral"), rs_terenuri.getFloat("suprafata"), rs_terenuri.getString("localitate")));
+                        rs_terenuri.getString("nr_cadastral"), rs_terenuri.getFloat("suprafata"), rs_terenuri.getString("localitate"),
+                        rs_terenuri.getString("stare")));
             }
             conn.close();
         }catch (SQLException e){
@@ -552,13 +578,14 @@ public class AppController implements Initializable {
         DatabaseConnection db = new DatabaseConnection();
         Connection conn = db.getConnection();
         depoziteObservableList.clear();
-        String getDepoziteQuery = "SELECT _id_depozit, localitate FROM depozite";
+        String getDepoziteQuery = "SELECT _id_depozit, localitate, stare FROM depozite";
         String depoziteSearchQuery = " WHERE _id_depozit LIKE '%" + depoziteSearchTextField.getText() + "%' OR localitate LIKE '%"
-                + depoziteSearchTextField.getText() + "%'";
+                + depoziteSearchTextField.getText() + "%' OR stare LIKE '%" + depoziteSearchTextField.getText() + "%'";
         try{
             ResultSet rs_depozite = conn.createStatement().executeQuery(getDepoziteQuery + depoziteSearchQuery);
             while(rs_depozite.next()){
-                depoziteObservableList.add(new Assets(rs_depozite.getInt("_id_depozit"),rs_depozite.getString("localitate")));
+                depoziteObservableList.add(new Assets(rs_depozite.getInt("_id_depozit"),rs_depozite.getString("localitate"),
+                        rs_depozite.getString("stare")));
             }
             conn.close();
         }catch (SQLException e){
@@ -566,6 +593,15 @@ public class AppController implements Initializable {
         }
         loadDepoziteInTable();
     }
+
+
+
+
+
+
+
+
+
 
     //SEARCH DATA IN PRODUSE
     private void searchProduseInDB(){
@@ -618,6 +654,12 @@ public class AppController implements Initializable {
         loadProduseDepozitInTable();
     }
 
+
+
+
+
+
+
     //LOAD DATA IN TABLES PRODUSE
     private void loadProduseInTable(){
         idProdusTableColumn.setCellValueFactory(new PropertyValueFactory<>("idProdus"));
@@ -645,6 +687,7 @@ public class AppController implements Initializable {
         terenSuprafata.setCellValueFactory(new PropertyValueFactory<>("suprafata"));
         terenLocalitate.setCellValueFactory(new PropertyValueFactory<>("localitate"));
         terenGrup.setCellValueFactory(new PropertyValueFactory<>("grupTeren"));
+        stareTerenuriTableColumn.setCellValueFactory(new PropertyValueFactory<>("stare"));
         terenuriTableView.setItems(terenuriObservableList);
     }
 
@@ -662,6 +705,7 @@ public class AppController implements Initializable {
     private void loadDepoziteInTable(){
         id_depozit.setCellValueFactory(new PropertyValueFactory<>("id_depozit"));
         depozit_localitate.setCellValueFactory(new PropertyValueFactory<>("localitate"));
+        stareDepoziteTableColumn.setCellValueFactory(new PropertyValueFactory<>("stare"));
         depoziteTableView.setItems(depoziteObservableList);
     }
 
@@ -686,6 +730,21 @@ public class AppController implements Initializable {
         searchPamanturiInDB();
         searchDepoziteInDB();
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     //ASSETS BUTTONS

@@ -17,7 +17,7 @@
                 <Font name="Bell MT Bold" size="21.0" />
             </font>
         </Text>
-        <Text fill="#cfcb5b" layoutX="4.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contractant" textAlignment="CENTER" wrappingWidth="207.1123046875" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="226.8876953125" AnchorPane.topAnchor="139.33251953125">
+        <Text fill="#cfcb5b" layoutX="4.0" layoutY="244.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contractant" textAlignment="CENTER" wrappingWidth="207.1123046875" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="226.8876953125" AnchorPane.topAnchor="226.33251953125">
             <font>
                 <Font name="Bell MT Bold" size="21.0" />
             </font>
@@ -27,38 +27,38 @@
                 <Font name="Bell MT Bold" size="21.0" />
             </font>
         </Text>
-        <Text fill="#cfcb5b" layoutX="3.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Denumire" textAlignment="CENTER" wrappingWidth="207.1123046875" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="227.8876953125" AnchorPane.topAnchor="228.33251953125">
+        <Text fill="#cfcb5b" layoutX="3.0" layoutY="286.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Denumire" textAlignment="CENTER" wrappingWidth="207.1123046875" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="227.8876953125" AnchorPane.topAnchor="268.33251953125">
             <font>
                 <Font name="Bell MT Bold" size="21.0" />
             </font>
         </Text>
-        <Text fill="#cfcb5b" layoutX="3.0" layoutY="290.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cantitate" textAlignment="CENTER" wrappingWidth="207.1123046875" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="227.8876953125" AnchorPane.topAnchor="272.33251953125">
+        <Text fill="#cfcb5b" layoutX="3.0" layoutY="330.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cantitate" textAlignment="CENTER" wrappingWidth="207.1123046875" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="227.8876953125" AnchorPane.topAnchor="312.33251953125">
             <font>
                 <Font name="Bell MT Bold" size="21.0" />
             </font>
         </Text>
-        <Text fill="#cfcb5b" layoutX="3.0" layoutY="334.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pret" textAlignment="CENTER" wrappingWidth="207.1123046875" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="227.8876953125" AnchorPane.topAnchor="316.33251953125">
+        <Text fill="#cfcb5b" layoutX="3.0" layoutY="374.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pret" textAlignment="CENTER" wrappingWidth="207.1123046875" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="227.8876953125" AnchorPane.topAnchor="356.33251953125">
             <font>
                 <Font name="Bell MT Bold" size="21.0" />
             </font>
         </Text>
-      <Text fill="#cfcb5b" layoutX="5.0" layoutY="377.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID Produs" textAlignment="CENTER" wrappingWidth="207.1123046875">
+      <Text fill="#cfcb5b" layoutX="4.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID Produs" textAlignment="CENTER" wrappingWidth="207.1123046875">
          <font>
             <Font name="Bell MT Bold" size="21.0" />
          </font>
       </Text>
         <TextField fx:id="nrFacturiiTextField" layoutX="225.0" layoutY="98.0" prefHeight="25.0" prefWidth="195.0" promptText="Nr. Facturii" AnchorPane.leftAnchor="225.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="98.0" />
-        <TextField fx:id="contractantTextField" layoutX="224.0" layoutY="140.0" prefHeight="25.0" prefWidth="195.0" promptText="Contractant" AnchorPane.leftAnchor="224.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="140.0" />
+        <TextField fx:id="contractantTextField" layoutX="224.0" layoutY="227.0" prefHeight="25.0" prefWidth="195.0" promptText="Contractant" AnchorPane.leftAnchor="224.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="227.0" />
         <DatePicker fx:id="datePicker" layoutX="224.0" layoutY="184.0" prefHeight="25.0" prefWidth="195.0" promptText="Data intocmirii facturii" style="-fx-background-color: #ADADAD;" AnchorPane.leftAnchor="224.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="184.0" />
-        <TextField fx:id="denumireTextField" layoutX="223.0" layoutY="228.0" prefHeight="25.0" prefWidth="195.0" promptText="Denumire" AnchorPane.leftAnchor="223.0" AnchorPane.rightAnchor="19.0" />
-        <TextField fx:id="cantitateTextField" layoutX="223.0" layoutY="272.0" prefHeight="25.0" prefWidth="195.0" promptText="Cantitate" AnchorPane.leftAnchor="223.0" AnchorPane.rightAnchor="19.0" />
-        <TextField fx:id="pretTextField" layoutX="223.0" layoutY="316.0" prefHeight="25.0" prefWidth="195.0" promptText="Pret" AnchorPane.leftAnchor="223.0" AnchorPane.rightAnchor="19.0" />
-        <ComboBox fx:id="idProdusComboBox" layoutX="225.0" layoutY="359.0" prefHeight="25.0" prefWidth="195.0" promptText="ID Produs" AnchorPane.leftAnchor="225.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="359.0" />
+        <TextField fx:id="denumireTextField" layoutX="223.0" layoutY="268.0" prefHeight="25.0" prefWidth="195.0" promptText="Denumire" AnchorPane.leftAnchor="223.0" AnchorPane.rightAnchor="19.0" />
+        <TextField fx:id="cantitateTextField" layoutX="223.0" layoutY="312.0" prefHeight="25.0" prefWidth="195.0" promptText="Cantitate" AnchorPane.leftAnchor="223.0" AnchorPane.rightAnchor="19.0" />
+        <TextField fx:id="pretTextField" layoutX="223.0" layoutY="356.0" prefHeight="25.0" prefWidth="195.0" promptText="Pret" AnchorPane.leftAnchor="223.0" AnchorPane.rightAnchor="19.0" />
+        <ComboBox fx:id="idProdusComboBox" layoutX="224.0" layoutY="140.0" prefHeight="25.0" prefWidth="195.0" promptText="ID Produs" AnchorPane.leftAnchor="224.0" AnchorPane.rightAnchor="18.0" AnchorPane.topAnchor="140.0" />
         <Text fx:id="invalidNrFacturii" fill="RED" layoutX="14.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="207.1123046875">
             <font>
                 <Font name="Bell MT" size="14.0" />
             </font></Text>
-        <Text fx:id="invalidContractant" fill="RED" layoutX="14.0" layoutY="177.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="207.1123046875">
+        <Text fx:id="invalidContractant" fill="RED" layoutX="14.0" layoutY="264.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="207.1123046875">
             <font>
                 <Font name="Bell MT" size="14.0" />
             </font>
@@ -68,22 +68,22 @@
                 <Font name="Bell MT" size="14.0" />
             </font>
         </Text>
-        <Text fx:id="invalidDenumire" fill="RED" layoutX="14.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="207.1123046875">
+        <Text fx:id="invalidDenumire" fill="RED" layoutX="14.0" layoutY="307.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="207.1123046875">
             <font>
                 <Font name="Bell MT" size="14.0" />
             </font>
         </Text>
-        <Text fx:id="invalidCantitate" fill="RED" layoutX="14.0" layoutY="310.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="207.1123046875">
+        <Text fx:id="invalidCantitate" fill="RED" layoutX="14.0" layoutY="350.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="207.1123046875">
             <font>
                 <Font name="Bell MT" size="14.0" />
             </font>
         </Text>
-        <Text fx:id="invalidPret" fill="RED" layoutX="14.0" layoutY="355.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="207.1123046875">
+        <Text fx:id="invalidPret" fill="RED" layoutX="14.0" layoutY="395.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="207.1123046875">
             <font>
                 <Font name="Bell MT" size="14.0" />
             </font>
         </Text>
-        <Text fx:id="invalidIdProdus" fill="RED" layoutX="14.0" layoutY="399.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="207.1123046875">
+        <Text fx:id="invalidIdProdus" fill="RED" layoutX="13.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="207.1123046875">
             <font>
                 <Font name="Bell MT" size="14.0" />
             </font>

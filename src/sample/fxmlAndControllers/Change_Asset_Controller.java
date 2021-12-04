@@ -89,6 +89,7 @@ public class Change_Asset_Controller implements Initializable {
 
     // ASSETS VISIBILITY
     private void setDepozitVisibility(){
+        idDepozitComboBox.setVisible(false);
         firstTextField.setVisible(true);
         secondTextField.setVisible(false);
         thirdTextField.setVisible(false);

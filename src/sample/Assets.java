@@ -10,7 +10,7 @@ public class Assets {
     private String nrCadastral;
     private float suprafata;
     private int idAsset;
-
+    private  String stare;
     private int idFactura;
     private String nrFactura;
     private String Contractant;
@@ -23,17 +23,21 @@ public class Assets {
     String denumireActiv;
     float pretActiv;
 
-    public Assets(int id_depozit, String localitate) {
+    //depozit
+    public Assets(int id_depozit, String localitate, String stare) {
         this.id_depozit = id_depozit;
         this.localitate = localitate;
+        this.stare = stare;
     }
 
-    public Assets (int idTeren, int grupTeren, String nrCadastral, float suprafata, String localitate){
+    //pamant
+    public Assets (int idTeren, int grupTeren, String nrCadastral, float suprafata, String localitate, String stare){
         this.idTeren = idTeren;
         this.grupTeren = grupTeren;
         this.nrCadastral = nrCadastral;
         this.suprafata = suprafata;
         this.localitate = localitate;
+        this.stare = stare;
     }
 
     public Assets(int idFactura, String nrFactura, String contractant, Date data, String denumireMijlocFix, float cantitateStock, float valoareaActiv ){
@@ -59,6 +63,14 @@ public class Assets {
         this.valoareaActiv = valoareaActiv;
         this.id_depozit = id_depozit;
 
+    }
+
+    public String getStare() {
+        return stare;
+    }
+
+    public void setStare(String stare) {
+        this.stare = stare;
     }
 
     public int getId_depozit() {

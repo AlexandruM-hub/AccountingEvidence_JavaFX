@@ -319,15 +319,23 @@ public class New_Add_Asset implements Initializable {
         DatabaseConnection db = new DatabaseConnection();
         Connection conn = db.getConnection();
         String getIdActiv = "SELECT MAX(" + column + ") FROM " + table + "";
-        String facturaQueryIntrare = "INSERT INTO facturi(nr_factura, tip_intrare_iesire, contractant,"
-                + "data, tip_marfa, denumire_marfa, cantitate, pret, activ_id) VALUES(?,?,?,?,?,?,?,?,?)";
         String ContinutTeren;
         if (tipMarfaComboBox.getValue().equals("Teren") || tipMarfaComboBox.getValue().equals("Depozit")) {
             ContinutTeren = "1";
         } else {
             ContinutTeren = cantitateTextField.getText();
         }
-
+        String facturaQueryIntrare;
+        if(tipMarfaComboBox.getValue().equals("Depozit")){
+            facturaQueryIntrare = "INSERT INTO facturi(nr_factura, tip_intrare_iesire, contractant,"
+                    + "data, tip_marfa, denumire_marfa, cantitate, pret, depozit_id) VALUES(?,?,?,?,?,?,?,?,?)";
+        } else if(tipMarfaComboBox.getValue().equals("Teren")){
+            facturaQueryIntrare = "INSERT INTO facturi(nr_factura, tip_intrare_iesire, contractant,"
+                    + "data, tip_marfa, denumire_marfa, cantitate, pret, teren_id) VALUES(?,?,?,?,?,?,?,?,?)";
+        } else {
+            facturaQueryIntrare = "INSERT INTO facturi(nr_factura, tip_intrare_iesire, contractant,"
+                    + "data, tip_marfa, denumire_marfa, cantitate, pret, activ_id) VALUES(?,?,?,?,?,?,?,?,?)";
+        }
         try{
             int id;
             if(tipFacturaComboBox.getValue().equals("Intrare")){
@@ -370,13 +378,13 @@ public class New_Add_Asset implements Initializable {
             if(tipMarfaComboBox.getValue().equals("Depozit")){
                 if(depozitCaseValidation()){
                     if(tipFacturaComboBox.getValue().equals("Intrare")){
-                        String addInDBDepozitQuery = "INSERT INTO depozite (localitate) VALUES('"
-                                + firstTextField.getText() +"')";
+                        String addInDBDepozitQuery = "INSERT INTO depozite (localitate, stare) VALUES('"
+                                + firstTextField.getText() +"', 'In proprietate')";
                         saveDataInDB(addInDBDepozitQuery);
                     }else {
-                        String deleteFromDbDepozit = "DELETE FROM depozite WHERE _id_depozit ='"
-                                + idActiveIesireComboBox.getValue() +"'";
-                        saveDataInDB(deleteFromDbDepozit);
+                        String updateStareDepozit = "UPDATE depozite SET stare = 'vandut' where _id_depozit = '"+
+                                idActiveIesireComboBox.getValue()+"'";
+                        saveDataInDB(updateStareDepozit);
                     }
                     saveFacturaInDB("depozite", "_id_depozit");
                     successAddAssets();
@@ -385,15 +393,15 @@ public class New_Add_Asset implements Initializable {
                 if(terenCaseValidation()){
                     if(tipFacturaComboBox.getValue().equals("Intrare")){
                         String addTerenInDBQuery = "INSERT INTO terenuri_agricole("
-                                + "teren_grup, nr_cadastral, suprafata, localitate) VALUES ('"
+                                + "teren_grup, nr_cadastral, suprafata, localitate, stare) VALUES ('"
                                 + cantitateTextField.getText() + "', '" + secondTextField.getText()
-                                + "', '" + thirdTextField.getText() + "', '" + firstTextField.getText() +"')";
+                                + "', '" + thirdTextField.getText() + "', '" + firstTextField.getText() +"', 'In proprietate')";
                         saveDataInDB(addTerenInDBQuery);
 
                     }else{
-                        String sellTerenFromDBQuery = "DELETE FROM terenuri_agricole WHERE _id_teren ='"
-                                +idActiveIesireComboBox.getValue() + "'";
-                        saveDataInDB(sellTerenFromDBQuery);
+                        String updateStareTerenuri = "update terenuri_agricole SET stare = 'vandut' where _id_teren = '"+
+                                idActiveIesireComboBox.getValue() + "'";
+                        saveDataInDB(updateStareTerenuri);
                     }
                     saveFacturaInDB("terenuri_agricole", "_id_teren");
                     successAddAssets();

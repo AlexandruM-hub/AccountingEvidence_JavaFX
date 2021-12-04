@@ -116,8 +116,8 @@ public class Creante_Datorii_Controller  implements Initializable {
         DatabaseConnection db = new DatabaseConnection();
         Connection conn = db.getConnection();
         String getValoareMaxQuery = "SELECT cantitate * pret AS valoare FROM facturi where _id_factura = '" + elementIdComboBox.getValue()+"'";
-        String getTotalSumFromDatoriiCreanteQuery = "SELECT SUM(valoare) AS suma FROM datorii_creante WHERE aferenta = 'factura' AND "
-                +"element_id = '" + elementIdComboBox.getValue() +"'";
+        String getTotalSumFromDatoriiCreanteQuery = "SELECT SUM(valoare) AS suma FROM datorii_creante WHERE "
+                +"factura_id = '" + elementIdComboBox.getValue() +"'";
         try{
             ResultSet getValoareMaxResultSet = conn.createStatement().executeQuery(getValoareMaxQuery);
             if(getValoareMaxResultSet.next()){
@@ -142,7 +142,7 @@ public class Creante_Datorii_Controller  implements Initializable {
         produsIdComboBox.getItems().clear();
         DatabaseConnection db = new DatabaseConnection();
         Connection conn = db.getConnection();
-        String getIdProduseQuery = "SELECT _id_produs FROM produse";
+        String getIdProduseQuery = "SELECT _id_produs FROM produse order by _id_produs";
         try {
             ResultSet getIdProduseResultSet = conn.createStatement().executeQuery(getIdProduseQuery);
             while(getIdProduseResultSet.next()){
@@ -158,29 +158,36 @@ public class Creante_Datorii_Controller  implements Initializable {
     private void insertFacturiData(){
         DatabaseConnection db = new DatabaseConnection();
         Connection conn = db.getConnection();
-        String insertionQuery = "INSERT INTO datorii_creante(aferenta, tip, "
-                +"termen_limita, valoare, data_achitat, element_id) VALUES"
-                +"(?,?,?,?,?,?)";
+        String insertionQuery;
+        if(aferentaComboBox.getValue().equals("Factura")){
+            insertionQuery = "INSERT INTO datorii_creante(tip, "
+                    +"termen_limita, valoare, data_achitat, factura_id) VALUES"
+                    +"(?,?,?,?,?)";
+        }else {
+            insertionQuery = "INSERT INTO datorii_creante(tip, "
+                    +"termen_limita, valoare, data_achitat, persoana_id) VALUES"
+                    +"(?,?,?,?,?)";
+        }
+
         try{
             PreparedStatement preparedStatement = conn.prepareStatement(insertionQuery);
-            preparedStatement.setString(1, aferentaComboBox.getValue());
-            preparedStatement.setString(2, tipComboBox.getValue());
+            preparedStatement.setString(1, tipComboBox.getValue());
             try{
-                preparedStatement.setDate(3, Date.valueOf(termenLimitaDatePicke.getValue()));
+                preparedStatement.setDate(2, Date.valueOf(termenLimitaDatePicke.getValue()));
             } catch (NullPointerException e){
-                preparedStatement.setDate(3, null);
+                preparedStatement.setDate(2, null);
             }
-            preparedStatement.setFloat(4, Float.parseFloat(valoareTextField.getText()));
+            preparedStatement.setFloat(3, Float.parseFloat(valoareTextField.getText()));
             try{
-                preparedStatement.setDate(5, Date.valueOf(dataAchitatDatePiker.getValue()));
+                preparedStatement.setDate(4, Date.valueOf(dataAchitatDatePiker.getValue()));
             } catch (NullPointerException e){
-                preparedStatement.setDate(5, null);
+                preparedStatement.setDate(4, null);
             }
-            preparedStatement.setInt(6, elementIdComboBox.getValue());
+            preparedStatement.setInt(5, elementIdComboBox.getValue());
             preparedStatement.execute();
 
             if(tipComboBox.getValue().equals("Datorie") && aferentaComboBox.getValue().equals("Personal")){
-                String addCostQuery = "INSERT INTO costul_productiei(tip, scop, valoare, tip_cost_id, produs_id) "
+                String addCostQuery = "INSERT INTO costul_productiei(tip, scop, valoare, persoana_id, produs_id) " //?????
                         + "VALUES (?,?,?,?,?)";
                 PreparedStatement costuriPreparedStatemen = conn.prepareStatement(addCostQuery);
                 costuriPreparedStatemen.setString(1,"Remunerarea muncii");

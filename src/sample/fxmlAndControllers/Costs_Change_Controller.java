@@ -49,9 +49,9 @@ public class Costs_Change_Controller implements Initializable {
                 if(tipElement.equals("Remunerarea muncii")){
                     maxValue = 20000;
                 } else{
-                    String alteCosturiGetMaxQuery = "SELECT cantitate * pret - (SELECT SUM(valoare) from costul_productiei where" +
-                            " tip_cost_id = " + idElement + " and tip = 'Alte costuri') + (select valoare from costul_productiei where " +
-                            "_id_cost = "+ idCostComboBox.getValue() +  ") as valmax from facturi where _id_factura = " + idElement;
+                    String alteCosturiGetMaxQuery = "SELECT cantitate * pret - (SELECT coalesce(SUM(valoare),0) from costul_productiei where" +
+                            " factura_id = " + idElement + ") + (select valoare from costul_productiei where " +
+                            "_id_cost = "+ idCostComboBox.getValue() + ") as valmax from facturi where _id_factura = " + idElement;
                     getMaxValueOtherCase(alteCosturiGetMaxQuery);
                 }
             }
@@ -63,7 +63,7 @@ public class Costs_Change_Controller implements Initializable {
     private void getIdCost(){
         DatabaseConnection db = new DatabaseConnection();
         Connection conn = db.getConnection();
-        String getIdCostsQuery = "SELECT _id_cost from costul_productiei";
+        String getIdCostsQuery = "SELECT _id_cost from costul_productiei order by _id_cost";
         try{
             ResultSet getIdResultSet = conn.createStatement().executeQuery(getIdCostsQuery);
             while(getIdResultSet.next()){
@@ -78,15 +78,19 @@ public class Costs_Change_Controller implements Initializable {
     private void getCostsInformationFromDb(){
         DatabaseConnection db = new DatabaseConnection();
         Connection conn = db.getConnection();
-        String getDataAboutCostQuery = "SELECT tip, scop, data_cost, cantitate, valoare, tip_cost_id from costul_productiei " +
+        String getDataAboutCostQuery = "SELECT tip, scop, data_cost, cantitate, valoare, factura_id, persoana_id from costul_productiei " +
                 "where _id_cost = " + idCostComboBox.getValue();
         try{
             ResultSet getDataResultSet = conn.createStatement().executeQuery(getDataAboutCostQuery);
             if (getDataResultSet.next()){
                 scopTextField.setText(getDataResultSet.getString("scop"));
                 datePicker.getEditor().setText(String.valueOf(getDataResultSet.getDate("data_cost")));
-                idElement = getDataResultSet.getInt("tip_cost_id");
                 tipElement = getDataResultSet.getString("tip");
+                if(tipElement.equals("Remunerarea muncii")){
+                    idElement = getDataResultSet.getInt("persoana_id");
+                }else{
+                    idElement = getDataResultSet.getInt("factura_id");
+                }
                 if(tipElement.equals("Activ")){
                     flag = true;
                     valoareTextField.setText(getDataResultSet.getString("cantitate"));
@@ -105,7 +109,8 @@ public class Costs_Change_Controller implements Initializable {
         DatabaseConnection db = new DatabaseConnection();
         Connection conn = db.getConnection();
         String getMaxValueActive = "SELECT cantitate_stock  + (select cantitate from costul_productiei where _id_cost = " +
-                idCostComboBox.getValue()+ ") as valmax from assets where _id_asset = " + idElement;
+                idCostComboBox.getValue()+ ") as valmax from assets where _id_asset = (select activ_id from facturi where _id_factura = "
+                + idElement + ")";
         try{
             ResultSet getMaxValueResultSet = conn.createStatement().executeQuery(getMaxValueActive);
             if(getMaxValueResultSet.next()){
@@ -180,7 +185,7 @@ public class Costs_Change_Controller implements Initializable {
         Connection conn = db.getConnection();
         String updateCostsQuery = "update assets set cantitate_stock = " +
                 (maxValue - Float.parseFloat(valoareTextField.getText())) +
-                " where _id_asset = " +idElement;
+                " where _id_asset = (select activ_id from facturi where _id_factura = " +idElement +")";
         try {
             conn.createStatement().execute(updateCostsQuery);
             conn.close();
@@ -200,8 +205,8 @@ public class Costs_Change_Controller implements Initializable {
             } else {
                 query ="UPDATE costul_productiei SET scop = ?, " +
                         "data_cost = ?,cantitate = ?, valoare = " + valoareTextField.getText() +
-                        " * (select pret from facturi where activ_id = " + idElement + " and (tip_marfa = 'Materiale' OR " +
-                        "tip_marfa = 'OMVSD') and tip_intrare_iesire = 'Intrare') where _id_cost = " + idCostComboBox.getValue();
+                        " * (select pret from facturi where _id_factura = " + idElement +
+                        ") where _id_cost = " + idCostComboBox.getValue();
                 updateActive();
             }
             updateCosts(query);

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
@@ -23,7 +24,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="transactionButton" layoutY="63.0" mnemonicParsing="false" onAction="#menuButtonsOnAction" prefHeight="63.0" prefWidth="317.0" styleClass="menuButton" stylesheets="@../../css/login.css" text="  Transactions       " textFill="WHITE">
+            <Button fx:id="transactionButton" layoutY="63.0" mnemonicParsing="false" onAction="#menuButtonsOnAction" prefHeight="63.0" prefWidth="317.0" styleClass="menuButton" stylesheets="@../../css/login.css" text="      Facturi                  " textFill="WHITE">
                <font>
                   <Font name="Bell MT Bold" size="24.0" />
                </font>
@@ -95,164 +96,6 @@
                   </ImageView>
                </graphic>
             </Button>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="dashboardAnchor" layoutX="315.0" layoutY="26.0" prefHeight="763.0" prefWidth="685.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="315.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="26.0">
-         <children>
-            <AnchorPane layoutX="58.0" layoutY="82.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ccc;" />
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="assetsAnchor" layoutX="355.0" layoutY="66.0" prefHeight="762.0" prefWidth="685.0" style="-fx-background-color: #ccc;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="315.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
-         <children>
-            <TabPane layoutY="-1.0" prefHeight="764.0" prefWidth="685.0" stylesheets="@../../css/login.css" tabClosingPolicy="UNAVAILABLE" tabMinHeight="30.0" tabMinWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-              <tabs>
-                <Tab text="Current Assets">
-                  <content>
-                    <AnchorPane cache="true" minHeight="0.0" minWidth="500.0" prefHeight="180.0" prefWidth="200.0" styleClass="tabsBackground" stylesheets="@../../css/login.css">
-                           <children>
-                              <TextField fx:id="currentAssetsSearchTextField" layoutX="355.0" layoutY="14.0" prefHeight="25.0" prefWidth="200.0" promptText="Search" AnchorPane.rightAnchor="181.0" AnchorPane.topAnchor="14.0" />
-                              <ImageView fitHeight="24.0" fitWidth="32.0" layoutX="499.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="392.0" AnchorPane.topAnchor="15.0">
-                                 <image>
-                                    <Image url="@../../css/search.png" />
-                                 </image>
-                              </ImageView>
-                              <TableView fx:id="otherAssetsTableView" layoutX="31.0" layoutY="66.0" prefHeight="631.0" prefWidth="705.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="181.0" AnchorPane.topAnchor="66.0">
-                                <columns>
-                                  <TableColumn fx:id="idAsset" minWidth="50.0" prefWidth="57.0" text="ID_Activ" />
-                                    <TableColumn fx:id="nrFacturaAlteActive" minWidth="70.0" prefWidth="75.0" text="Nr. Factura" />
-                                  <TableColumn fx:id="contractantAlteActive" minWidth="100.0" prefWidth="114.0" text="Furnizor" />
-                                    <TableColumn fx:id="dataIntrareAlteActive" minWidth="80.0" prefWidth="93.0" text="Data Procurare" />
-                                    <TableColumn fx:id="tipAlteActive" minWidth="100.0" prefWidth="76.0" text="Tip" />
-                                    <TableColumn fx:id="denumireAlteActive" minWidth="130.0" prefWidth="195.0" text="Denumire" />
-                                    <TableColumn fx:id="cantitateAlteActive" minWidth="50.0" prefWidth="101.0" text="Cantitate in stock" />
-                                    <TableColumn fx:id="pretAlteActive" minWidth="50.0" prefWidth="68.0" text="Pret" />
-                                    <TableColumn fx:id="valoareAlteActive" minWidth="70.0" prefWidth="61.0" text="Valoare" />
-                                    <TableColumn fx:id="idDepozitAlteActive" minWidth="50.0" prefWidth="75.0" text="Depozit" />
-                                </columns>
-                                 <columnResizePolicy>
-                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                 </columnResizePolicy>
-                              </TableView>
-                           </children>
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                        </AnchorPane>
-                  </content>
-                </Tab>
-                <Tab text="Fixed Assets">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="tabsBackground" stylesheets="@../../css/login.css">
-                           <children>
-                              <TextField fx:id="mijloaceFixeSearchTextField" layoutX="539.0" layoutY="13.0" prefHeight="25.0" prefWidth="200.0" promptText="Search" AnchorPane.rightAnchor="181.0" AnchorPane.topAnchor="14.0" />
-                              <ImageView fitHeight="24.0" fitWidth="32.0" layoutX="501.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="392.0" AnchorPane.topAnchor="15.0">
-                                 <image>
-                                    <Image url="@../../css/search.png" />
-                                 </image>
-                              </ImageView>
-                              <TableView fx:id="mijloaceFixeTableView" layoutX="57.0" layoutY="93.0" prefHeight="200.0" prefWidth="664.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="196.0" AnchorPane.topAnchor="66.0">
-                                <columns>
-                                  <TableColumn fx:id="id_facturaMF" prefWidth="75.0" text="ID_Activ" />
-                                    <TableColumn fx:id="nrFacturaMijlocFix" minWidth="50.0" prefWidth="75.0" text="Nr. Factura" />
-                                  <TableColumn fx:id="contractantMijlocFix" prefWidth="75.0" text="Furnizor" />
-                                    <TableColumn fx:id="dataIntrareMijlocFix" prefWidth="152.0" text="Data procurare" />
-                                    <TableColumn fx:id="denumireMijlocFix" prefWidth="189.0" text="Denumire" />
-                                    <TableColumn fx:id="cantitateStocMijlocFix" prefWidth="117.0" text="Cantitate" />
-                                    <TableColumn fx:id="valoareActivMijlocFix" prefWidth="81.0" text="Valoare" />
-                                </columns>
-                                 <columnResizePolicy>
-                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                 </columnResizePolicy>
-                              </TableView>
-                           </children></AnchorPane>
-                  </content>
-                </Tab>
-                  <Tab text="Lands">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="tabsBackground" stylesheets="@../../css/login.css">
-                           <children>
-                              <ImageView fitHeight="24.0" fitWidth="32.0" layoutX="470.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="392.0" AnchorPane.topAnchor="15.0">
-                                 <image>
-                                    <Image url="@../../css/search.png" />
-                                 </image>
-                              </ImageView>
-                              <TextField fx:id="terenuriSearchTextField" layoutX="545.0" layoutY="20.0" prefHeight="25.0" prefWidth="200.0" promptText="Search" AnchorPane.rightAnchor="181.0" AnchorPane.topAnchor="14.0" />
-                              <TableView fx:id="terenuriTableView" layoutX="48.0" layoutY="89.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="196.0" AnchorPane.topAnchor="66.0">
-                                <columns>
-                                    <TableColumn fx:id="terenID" prefWidth="163.0" text="Teren_ID" />
-                                  <TableColumn fx:id="terenNrCadastral" prefWidth="127.0" text="Nr. Cadastral" />
-                                    <TableColumn fx:id="terenSuprafata" prefWidth="190.0" text="Suprafata" />
-                                  <TableColumn fx:id="terenLocalitate" prefWidth="181.0" text="Localitate" />
-                                    <TableColumn fx:id="terenGrup" prefWidth="75.0" text="Grup teren" />
-                                </columns>
-                                 <columnResizePolicy>
-                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                 </columnResizePolicy>
-                              </TableView>
-                           </children></AnchorPane>
-                    </content>
-                  </Tab>
-                  <Tab text="Deposits">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="717.0" prefWidth="917.0" styleClass="tabsBackground" stylesheets="@../../css/login.css">
-                           <children>
-                              <TextField fx:id="depoziteSearchTextField" prefHeight="25.0" prefWidth="200.0" promptText="Search" AnchorPane.rightAnchor="181.0" AnchorPane.topAnchor="14.0" />
-                              <ImageView fitHeight="24.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="392.0" AnchorPane.topAnchor="15.0">
-                                 <image>
-                                    <Image url="@../../css/search.png" />
-                                 </image>
-                              </ImageView>
-                              <TableView fx:id="depoziteTableView" layoutX="52.0" layoutY="83.0" prefHeight="628.0" prefWidth="705.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="181.0" AnchorPane.topAnchor="66.0">
-                                <columns>
-                                  <TableColumn fx:id="id_depozit" prefWidth="104.0" text="ID_depozit" />
-                                  <TableColumn fx:id="depozit_localitate" prefWidth="173.0" text="Localitate" />
-                                </columns>
-                              </TableView>
-                           </children></AnchorPane>
-                    </content>
-                  </Tab>
-              </tabs>
-            </TabPane>
-            <VBox prefHeight="366.0" prefWidth="158.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="38.0">
-               <children>
-                  <Button fx:id="addAssetButton" contentDisplay="TOP" mnemonicParsing="false" onAction="#addAssetButtonOnAction" prefHeight="122.0" prefWidth="159.0" styleClass="buttonsStyle" stylesheets="@../../css/login.css" text="Add Asset" textAlignment="CENTER">
-                     <graphic>
-                        <ImageView fitHeight="57.0" fitWidth="64.0">
-                           <image>
-                              <Image url="@../../css/addIcon.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <font>
-                        <Font name="Bell MT Bold" size="17.0" />
-                     </font>
-                  </Button>
-                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#changeAssetButtonOnAction" prefHeight="122.0" prefWidth="159.0" styleClass="buttonsStyle" stylesheets="@../../css/login.css" text="Change" textAlignment="CENTER">
-                     <font>
-                        <Font name="Bell MT Bold" size="17.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="49.0" fitWidth="53.0">
-                           <image>
-                              <Image url="@../../css/change.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#deleteAssetButtonOnAction" prefHeight="122.0" prefWidth="159.0" styleClass="buttonsStyle" stylesheets="@../../css/login.css" text="Delete" textAlignment="CENTER">
-                     <font>
-                        <Font name="Bell MT Bold" size="17.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="45.0" fitWidth="48.0">
-                           <image>
-                              <Image url="@../../css/delete.jpg" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-               </children>
-            </VBox>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="productsAnchor" layoutX="345.0" layoutY="56.0" prefHeight="762.0" prefWidth="685.0" style="-fx-background-color: #ccc;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="315.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
@@ -396,70 +239,6 @@
                </columnResizePolicy>
             </TableView>
          </children></AnchorPane>
-      <AnchorPane fx:id="costsAnchor" layoutX="335.0" layoutY="46.0" prefHeight="762.0" prefWidth="685.0" styleClass="tabsBackground" stylesheets="@../../css/login.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="315.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
-         <children>
-            <VBox layoutX="759.0" prefHeight="366.0" prefWidth="158.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
-                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#addCostButtonOnAction" prefHeight="122.0" prefWidth="159.0" styleClass="buttonsStyle" stylesheets="@../../css/login.css" text="Cost nou" textAlignment="CENTER">
-                     <graphic>
-                        <ImageView fitHeight="57.0" fitWidth="64.0">
-                           <image>
-                              <Image url="@../../css/addIcon.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <font>
-                        <Font name="Bell MT Bold" size="17.0" />
-                     </font>
-                  </Button>
-                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#changeCostButtonOnAction" prefHeight="122.0" prefWidth="159.0" styleClass="buttonsStyle" stylesheets="@../../css/login.css" text="Modifica" textAlignment="CENTER">
-                     <font>
-                        <Font name="Bell MT Bold" size="17.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="49.0" fitWidth="53.0">
-                           <image>
-                              <Image url="@../../css/change.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#deleteCostButtonOnAction" prefHeight="122.0" prefWidth="159.0" styleClass="buttonsStyle" stylesheets="@../../css/login.css" text="Sterge" textAlignment="CENTER">
-                     <font>
-                        <Font name="Bell MT Bold" size="17.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="45.0" fitWidth="48.0">
-                           <image>
-                              <Image url="@../../css/delete.jpg" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-               </children>
-            </VBox>
-            <ImageView fitHeight="24.0" fitWidth="32.0" layoutX="510.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="383.0" AnchorPane.topAnchor="25.0">
-               <image>
-                  <Image url="@../../css/search.png" />
-               </image>
-            </ImageView>
-            <TextField fx:id="costsSearchTextField" layoutX="544.0" layoutY="24.0" prefHeight="25.0" prefWidth="200.0" promptText="Search" AnchorPane.rightAnchor="173.0" AnchorPane.topAnchor="24.0" />
-            <TableView fx:id="costsTableView" editable="true" layoutX="39.0" layoutY="67.0" prefHeight="674.0" prefWidth="705.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="181.0" AnchorPane.topAnchor="66.0">
-               <columns>
-                  <TableColumn fx:id="idCostTableColumn" minWidth="20.0" text="ID_Cost" />
-                  <TableColumn fx:id="tipCostsTableColumn" minWidth="40.0" prefWidth="151.0" text="Tip" />
-                  <TableColumn fx:id="scopCostsTableColumn" minWidth="40.0" prefWidth="178.0" text="Scop" />
-                  <TableColumn fx:id="dataCostsTableColumn" prefWidth="75.0" text="Data" />
-                  <TableColumn fx:id="cantitateCostsTableColumn" minWidth="40.0" prefWidth="143.0" text="Cantitate" />
-                  <TableColumn fx:id="valoareCostsTableColumn" editable="false" minWidth="40.0" prefWidth="152.0" text="Valoare" />
-                  <TableColumn fx:id="elementIdCostsTableColumn" minWidth="40.0" prefWidth="75.0" text="Activ / Factura/ Personal ID" />
-                  <TableColumn fx:id="produsIdCostsTableColumn" minWidth="40.0" prefWidth="75.0" text="Produs_ID" />
-               </columns>
-               <columnResizePolicy>
-                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-               </columnResizePolicy>
-            </TableView>
-         </children></AnchorPane>
       <AnchorPane fx:id="claimsAnchor" layoutX="365.0" layoutY="76.0" prefHeight="762.0" prefWidth="685.0" style="-fx-background-color: #ccc;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="315.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
          <children>
             <TabPane prefHeight="764.0" prefWidth="917.0" styleClass="tabsBackground" stylesheets="@../../css/login.css" tabClosingPolicy="UNAVAILABLE" tabMinHeight="30.0" tabMinWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -564,6 +343,247 @@
                </children>
             </VBox>
          </children></AnchorPane>
+      <AnchorPane fx:id="dashboardAnchor" layoutX="315.0" layoutY="26.0" prefHeight="763.0" prefWidth="685.0" styleClass="tabsBackground" stylesheets="@../../css/login.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="315.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="26.0">
+         <children>
+            <PieChart layoutX="90.0" layoutY="431.0" prefHeight="300.0" prefWidth="361.0" styleClass="newInvoiceBackground" stylesheets="@../../css/login.css" />
+            <AreaChart layoutX="14.0" layoutY="14.0">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" upperBound="10000.0">
+                     <tickLabelFont>
+                        <Font size="16.0" />
+                     </tickLabelFont>
+                  </NumberAxis>
+              </yAxis>
+            </AreaChart>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="assetsAnchor" layoutX="355.0" layoutY="66.0" prefHeight="762.0" prefWidth="685.0" style="-fx-background-color: #ccc;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="315.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
+         <children>
+            <TabPane layoutY="-1.0" prefHeight="764.0" prefWidth="685.0" stylesheets="@../../css/login.css" tabClosingPolicy="UNAVAILABLE" tabMinHeight="30.0" tabMinWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <tabs>
+                <Tab text="Current Assets">
+                  <content>
+                    <AnchorPane cache="true" minHeight="0.0" minWidth="500.0" prefHeight="180.0" prefWidth="200.0" styleClass="tabsBackground" stylesheets="@../../css/login.css">
+                           <children>
+                              <TextField fx:id="currentAssetsSearchTextField" layoutX="355.0" layoutY="14.0" prefHeight="25.0" prefWidth="200.0" promptText="Search" AnchorPane.rightAnchor="181.0" AnchorPane.topAnchor="14.0" />
+                              <ImageView fitHeight="24.0" fitWidth="32.0" layoutX="499.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="392.0" AnchorPane.topAnchor="15.0">
+                                 <image>
+                                    <Image url="@../../css/search.png" />
+                                 </image>
+                              </ImageView>
+                              <TableView fx:id="otherAssetsTableView" layoutX="31.0" layoutY="66.0" prefHeight="631.0" prefWidth="705.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="181.0" AnchorPane.topAnchor="66.0">
+                                <columns>
+                                  <TableColumn fx:id="idAsset" minWidth="50.0" prefWidth="57.0" text="ID_Activ" />
+                                    <TableColumn fx:id="nrFacturaAlteActive" minWidth="70.0" prefWidth="75.0" text="Nr. Factura" />
+                                  <TableColumn fx:id="contractantAlteActive" minWidth="100.0" prefWidth="114.0" text="Furnizor" />
+                                    <TableColumn fx:id="dataIntrareAlteActive" minWidth="80.0" prefWidth="93.0" text="Data Procurare" />
+                                    <TableColumn fx:id="tipAlteActive" minWidth="100.0" prefWidth="76.0" text="Tip" />
+                                    <TableColumn fx:id="denumireAlteActive" minWidth="130.0" prefWidth="195.0" text="Denumire" />
+                                    <TableColumn fx:id="cantitateAlteActive" minWidth="50.0" prefWidth="101.0" text="Cantitate in stock" />
+                                    <TableColumn fx:id="pretAlteActive" minWidth="50.0" prefWidth="68.0" text="Pret" />
+                                    <TableColumn fx:id="valoareAlteActive" minWidth="70.0" prefWidth="61.0" text="Valoare" />
+                                    <TableColumn fx:id="idDepozitAlteActive" minWidth="50.0" prefWidth="75.0" text="Depozit" />
+                                </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TableView>
+                           </children>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab text="Fixed Assets">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="tabsBackground" stylesheets="@../../css/login.css">
+                           <children>
+                              <TextField fx:id="mijloaceFixeSearchTextField" layoutX="539.0" layoutY="13.0" prefHeight="25.0" prefWidth="200.0" promptText="Search" AnchorPane.rightAnchor="181.0" AnchorPane.topAnchor="14.0" />
+                              <ImageView fitHeight="24.0" fitWidth="32.0" layoutX="501.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="392.0" AnchorPane.topAnchor="15.0">
+                                 <image>
+                                    <Image url="@../../css/search.png" />
+                                 </image>
+                              </ImageView>
+                              <TableView fx:id="mijloaceFixeTableView" layoutX="57.0" layoutY="93.0" prefHeight="200.0" prefWidth="664.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="196.0" AnchorPane.topAnchor="66.0">
+                                <columns>
+                                  <TableColumn fx:id="id_facturaMF" prefWidth="75.0" text="ID_Activ" />
+                                    <TableColumn fx:id="nrFacturaMijlocFix" minWidth="50.0" prefWidth="75.0" text="Nr. Factura" />
+                                  <TableColumn fx:id="contractantMijlocFix" prefWidth="75.0" text="Furnizor" />
+                                    <TableColumn fx:id="dataIntrareMijlocFix" prefWidth="152.0" text="Data procurare" />
+                                    <TableColumn fx:id="denumireMijlocFix" prefWidth="189.0" text="Denumire" />
+                                    <TableColumn fx:id="cantitateStocMijlocFix" prefWidth="117.0" text="Cantitate" />
+                                    <TableColumn fx:id="valoareActivMijlocFix" prefWidth="81.0" text="Valoare" />
+                                </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TableView>
+                           </children></AnchorPane>
+                  </content>
+                </Tab>
+                  <Tab text="Lands">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="tabsBackground" stylesheets="@../../css/login.css">
+                           <children>
+                              <ImageView fitHeight="24.0" fitWidth="32.0" layoutX="470.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="392.0" AnchorPane.topAnchor="15.0">
+                                 <image>
+                                    <Image url="@../../css/search.png" />
+                                 </image>
+                              </ImageView>
+                              <TextField fx:id="terenuriSearchTextField" layoutX="545.0" layoutY="20.0" prefHeight="25.0" prefWidth="200.0" promptText="Search" AnchorPane.rightAnchor="181.0" AnchorPane.topAnchor="14.0" />
+                              <TableView fx:id="terenuriTableView" layoutX="48.0" layoutY="89.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="196.0" AnchorPane.topAnchor="66.0">
+                                <columns>
+                                    <TableColumn fx:id="terenID" prefWidth="163.0" text="Teren_ID" />
+                                  <TableColumn fx:id="terenNrCadastral" prefWidth="127.0" text="Nr. Cadastral" />
+                                    <TableColumn fx:id="terenSuprafata" prefWidth="190.0" text="Suprafata" />
+                                  <TableColumn fx:id="terenLocalitate" prefWidth="181.0" text="Localitate" />
+                                    <TableColumn fx:id="terenGrup" prefWidth="75.0" text="Grup teren" />
+                                    <TableColumn fx:id="stareTerenuriTableColumn" minWidth="30.0" prefWidth="75.0" text="Stare" />
+                                </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TableView>
+                           </children></AnchorPane>
+                    </content>
+                  </Tab>
+                  <Tab text="Deposits">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="717.0" prefWidth="917.0" styleClass="tabsBackground" stylesheets="@../../css/login.css">
+                           <children>
+                              <TextField fx:id="depoziteSearchTextField" prefHeight="25.0" prefWidth="200.0" promptText="Search" AnchorPane.rightAnchor="181.0" AnchorPane.topAnchor="14.0" />
+                              <ImageView fitHeight="24.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="392.0" AnchorPane.topAnchor="15.0">
+                                 <image>
+                                    <Image url="@../../css/search.png" />
+                                 </image>
+                              </ImageView>
+                              <TableView fx:id="depoziteTableView" layoutX="52.0" layoutY="83.0" prefHeight="628.0" prefWidth="705.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="181.0" AnchorPane.topAnchor="66.0">
+                                <columns>
+                                  <TableColumn fx:id="id_depozit" minWidth="100.0" prefWidth="104.0" text="ID_depozit" />
+                                  <TableColumn fx:id="depozit_localitate" minWidth="150.0" prefWidth="173.0" text="Localitate" />
+                                    <TableColumn fx:id="stareDepoziteTableColumn" minWidth="100.0" prefWidth="75.0" text="Stare" />
+                                </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TableView>
+                           </children></AnchorPane>
+                    </content>
+                  </Tab>
+              </tabs>
+            </TabPane>
+            <VBox prefHeight="366.0" prefWidth="158.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="38.0">
+               <children>
+                  <Button fx:id="addAssetButton" contentDisplay="TOP" mnemonicParsing="false" onAction="#addAssetButtonOnAction" prefHeight="122.0" prefWidth="159.0" styleClass="buttonsStyle" stylesheets="@../../css/login.css" text="Add Asset" textAlignment="CENTER">
+                     <graphic>
+                        <ImageView fitHeight="57.0" fitWidth="64.0">
+                           <image>
+                              <Image url="@../../css/addIcon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Bell MT Bold" size="17.0" />
+                     </font>
+                  </Button>
+                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#changeAssetButtonOnAction" prefHeight="122.0" prefWidth="159.0" styleClass="buttonsStyle" stylesheets="@../../css/login.css" text="Change" textAlignment="CENTER">
+                     <font>
+                        <Font name="Bell MT Bold" size="17.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="49.0" fitWidth="53.0">
+                           <image>
+                              <Image url="@../../css/change.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#deleteAssetButtonOnAction" prefHeight="122.0" prefWidth="159.0" styleClass="buttonsStyle" stylesheets="@../../css/login.css" text="Delete" textAlignment="CENTER">
+                     <font>
+                        <Font name="Bell MT Bold" size="17.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="45.0" fitWidth="48.0">
+                           <image>
+                              <Image url="@../../css/delete.jpg" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="costsAnchor" layoutX="335.0" layoutY="46.0" prefHeight="762.0" prefWidth="685.0" styleClass="tabsBackground" stylesheets="@../../css/login.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="315.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
+         <children>
+            <VBox layoutX="759.0" prefHeight="366.0" prefWidth="158.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#addCostButtonOnAction" prefHeight="122.0" prefWidth="159.0" styleClass="buttonsStyle" stylesheets="@../../css/login.css" text="Cost nou" textAlignment="CENTER">
+                     <graphic>
+                        <ImageView fitHeight="57.0" fitWidth="64.0">
+                           <image>
+                              <Image url="@../../css/addIcon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Bell MT Bold" size="17.0" />
+                     </font>
+                  </Button>
+                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#changeCostButtonOnAction" prefHeight="122.0" prefWidth="159.0" styleClass="buttonsStyle" stylesheets="@../../css/login.css" text="Modifica" textAlignment="CENTER">
+                     <font>
+                        <Font name="Bell MT Bold" size="17.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="49.0" fitWidth="53.0">
+                           <image>
+                              <Image url="@../../css/change.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#deleteCostButtonOnAction" prefHeight="122.0" prefWidth="159.0" styleClass="buttonsStyle" stylesheets="@../../css/login.css" text="Sterge" textAlignment="CENTER">
+                     <font>
+                        <Font name="Bell MT Bold" size="17.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="45.0" fitWidth="48.0">
+                           <image>
+                              <Image url="@../../css/delete.jpg" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </VBox>
+            <ImageView fitHeight="24.0" fitWidth="32.0" layoutX="510.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="383.0" AnchorPane.topAnchor="25.0">
+               <image>
+                  <Image url="@../../css/search.png" />
+               </image>
+            </ImageView>
+            <TextField fx:id="costsSearchTextField" layoutX="544.0" layoutY="24.0" prefHeight="25.0" prefWidth="200.0" promptText="Search" AnchorPane.rightAnchor="173.0" AnchorPane.topAnchor="24.0" />
+            <TableView fx:id="costsTableView" editable="true" layoutX="39.0" layoutY="67.0" prefHeight="674.0" prefWidth="705.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="181.0" AnchorPane.topAnchor="66.0">
+               <columns>
+                  <TableColumn fx:id="idCostTableColumn" minWidth="20.0" text="ID_Cost" />
+                  <TableColumn fx:id="tipCostsTableColumn" minWidth="40.0" prefWidth="151.0" text="Tip" />
+                  <TableColumn fx:id="scopCostsTableColumn" minWidth="40.0" prefWidth="178.0" text="Scop" />
+                  <TableColumn fx:id="dataCostsTableColumn" prefWidth="75.0" text="Data" />
+                  <TableColumn fx:id="cantitateCostsTableColumn" minWidth="40.0" prefWidth="143.0" text="Cantitate" />
+                  <TableColumn fx:id="valoareCostsTableColumn" editable="false" minWidth="40.0" prefWidth="152.0" text="Valoare" />
+                  <TableColumn fx:id="elementIdCostsTableColumn" minWidth="40.0" prefWidth="75.0" text="ID Factura" />
+                  <TableColumn fx:id="activIdTableColumn" minWidth="30.0" prefWidth="75.0" text="ID Activ" />
+                  <TableColumn fx:id="persoanaIdTableColumn" minWidth="30.0" prefWidth="75.0" text="ID Persoana" />
+                  <TableColumn fx:id="produsIdCostsTableColumn" minWidth="40.0" prefWidth="75.0" text="ID Produs" />
+               </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+         </children></AnchorPane>
       <AnchorPane fx:id="transactionAnchor" layoutX="315.0" layoutY="25.0" prefHeight="772.0" prefWidth="917.0" style="-fx-background-color: #ccc;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="315.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
          <children>
             <TabPane prefHeight="764.0" prefWidth="917.0" styleClass="tabsBackground" stylesheets="@../../css/login.css" tabClosingPolicy="UNAVAILABLE" tabMinHeight="30.0" tabMinWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -642,6 +662,9 @@
                   <TableColumn fx:id="pretInvoiceTableColumn" minWidth="20.0" prefWidth="48.0" text="Pret" />
                   <TableColumn fx:id="valoareInvoiceTableColumn" minWidth="40.0" prefWidth="75.0" text="Valoare" />
                   <TableColumn fx:id="idProdusInvoicesTableColumn" minWidth="20.0" prefWidth="75.0" text="ID Activ" />
+                  <TableColumn fx:id="idDepozitInvoiceTableColumn" prefWidth="75.0" text="ID Depozit" />
+                  <TableColumn fx:id="idTerenInvoicesTableColumn" prefWidth="75.0" text="ID Teren" />
+                  <TableColumn fx:id="idAssetInvoicesTableColumn" prefWidth="75.0" text="ID Produs" />
                </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

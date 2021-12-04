@@ -12,7 +12,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import sample.DatabaseConnection;
-
 import java.net.URL;
 import java.sql.*;
 import java.time.format.DateTimeParseException;
@@ -53,7 +52,7 @@ public class New_Invoice_Controller implements Initializable {
         DatabaseConnection db = new DatabaseConnection();
         Connection conn = db.getConnection();
         try{
-            ResultSet resultSet = conn.createStatement().executeQuery("SELECT _id_produs from produse");
+            ResultSet resultSet = conn.createStatement().executeQuery("SELECT _id_produs from produse order by _id_produs");
             while(resultSet.next()){
                 idProdusComboBox.getItems().add(resultSet.getInt("_id_produs"));
             }
@@ -62,6 +61,7 @@ public class New_Invoice_Controller implements Initializable {
             e.printStackTrace();
         }
     }
+
     private boolean validation(){
         if(nrFacturiiTextField.getText().length() < 5){
             invalidNrFacturii.setText("Sunt necesare minim 5 caractere");
@@ -122,7 +122,6 @@ public class New_Invoice_Controller implements Initializable {
             preparedStatement.setFloat(7,Float.parseFloat(cantitateTextField.getText()));
             preparedStatement.setFloat(8,Float.parseFloat(pretTextField.getText()));
             preparedStatement.execute();
-            conn.close();
             successInsertion();
         } catch (SQLException e){
             e.printStackTrace();
@@ -133,7 +132,7 @@ public class New_Invoice_Controller implements Initializable {
         DatabaseConnection db = new DatabaseConnection();
         Connection conn = db.getConnection();
         String query = "INSERT INTO costul_productiei(tip, scop, data_cost," +
-                " valoare, tip_cost_id, produs_id) values(?,?,?,?,(SELECT _id_factura from facturi ORDER by _id_factura DESC LIMIT 1),?)";
+                " valoare, factura_id, produs_id) values(?,?,?,?,(SELECT _id_factura from facturi ORDER by _id_factura DESC LIMIT 1),?)";
         try{
             PreparedStatement preparedStatement = conn.prepareStatement(query);
             preparedStatement.setString(1,"Alte costuri");
@@ -142,7 +141,6 @@ public class New_Invoice_Controller implements Initializable {
             preparedStatement.setFloat(4,Float.parseFloat(cantitateTextField.getText())*Float.parseFloat(pretTextField.getText()));
             preparedStatement.setInt(5,idProdusComboBox.getValue());
             preparedStatement.execute();
-            conn.close();
         } catch (SQLException e){
             e.printStackTrace();
         }

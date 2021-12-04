@@ -103,5 +103,10 @@
             <Font size="14.0" />
          </font>
       </Text>
+      <Text fx:id="invalidGrupTeren" fill="RED" layoutX="14.0" layoutY="315.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="266.13671875">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
     </children>
 </AnchorPane>

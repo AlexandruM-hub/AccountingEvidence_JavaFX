@@ -59,6 +59,7 @@ public class Delete_Asset_Controller implements Initializable {
         }
     }
 
+
     private void getDataFromDB(String getIdQuery, String columnNameInDB){
         DatabaseConnection db = new DatabaseConnection();
         Connection conn = db.getConnection();

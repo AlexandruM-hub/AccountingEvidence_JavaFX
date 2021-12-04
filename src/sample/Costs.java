@@ -3,12 +3,12 @@ package sample;
 import java.util.Date;
 
 public class Costs {
-    private int idCost, idElement, idProdus;
+    private int idCost, idElement, idProdus, idPersoana, idActiv;
     private String tipCost, scopCost;
     private Date dataCost;
     private float cantitate, valoare;
 
-    public Costs(int idCost, String tipCost, String scopCost, Date dataCost, float cantitate, float valoare, int idElement, int idProdus){
+    public Costs(int idCost, String tipCost, String scopCost, Date dataCost, float cantitate, float valoare, int idElement, int idPersoana, int idProdus, int idActiv){
         this.idCost = idCost;
         this.tipCost = tipCost;
         this.scopCost = scopCost;
@@ -16,7 +16,25 @@ public class Costs {
         this.cantitate = cantitate;
         this.valoare = valoare;
         this.idElement = idElement;
+        this.idPersoana = idPersoana;
         this.idProdus = idProdus;
+        this.idActiv = idActiv;
+    }
+
+    public int getIdActiv() {
+        return idActiv;
+    }
+
+    public void setIdActiv(int idActiv) {
+        this.idActiv = idActiv;
+    }
+
+    public int getIdPersoana() {
+        return idPersoana;
+    }
+
+    public void setIdPersoana(int idPersoana) {
+        this.idPersoana = idPersoana;
     }
 
     public int getIdCost() {

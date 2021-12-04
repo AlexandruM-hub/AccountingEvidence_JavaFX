@@ -11,7 +11,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import sample.DatabaseConnection;
-
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
@@ -80,7 +79,7 @@ public class Sell_Product_Controller implements Initializable {
         try{
             PreparedStatement preparedStatement = conn.prepareStatement("INSERT INTO facturi(nr_factura, tip_intrare_iesire,"
             +" contractant, data, tip_marfa, denumire_marfa, cantitate, "
-            +"pret, activ_id) VALUES(?,?,?,?,?,?,?,?,?)");
+            +"pret, produse_id) VALUES(?,?,?,?,?,?,?,?,?)");
             preparedStatement.setString(1,nrFacturiiTextField.getText());
             preparedStatement.setString(2,"Iesire");
             preparedStatement.setString(3,contractantTextField.getText());

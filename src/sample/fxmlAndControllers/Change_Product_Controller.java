@@ -11,6 +11,7 @@ import javafx.util.Duration;
 import sample.DatabaseConnection;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
@@ -26,6 +27,8 @@ public class Change_Product_Controller implements Initializable {
     private Text invalidIdProdus, invalidDenumireProdus, invalidCantitateRecoltata, invalidCantitateDepozitata, invalidAn, invalidIdDepozit;
     @FXML
     private Pane succesPane;
+    @FXML
+    private Text invalidGrupTeren;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         getIdProdus();
@@ -57,7 +60,7 @@ public class Change_Product_Controller implements Initializable {
         DatabaseConnection db = new DatabaseConnection();
         Connection conn = db.getConnection();
         String dataAboutProductQuery = "SELECT denumire_produs, cantitate_recoltata, "
-                +"cantitate_ramasa, an, depozit_id, teren_grup FROM produse WHERE _id_produs = '"
+                +"cantitate_ramasa, coalesce(an,0) as an FROM produse WHERE _id_produs = '"
                 + idProdusComboBox.getValue() +"'";
         try{
             ResultSet getDataAboutProduct = conn.createStatement().executeQuery(dataAboutProductQuery);
@@ -66,10 +69,6 @@ public class Change_Product_Controller implements Initializable {
                 cantitateRecoltataTextField.setText(getDataAboutProduct.getString("cantitate_recoltata"));
                 cantitateDepozitataTextField.setText(getDataAboutProduct.getString("cantitate_ramasa"));
                 anProducereTextField.setText(getDataAboutProduct.getString("an"));
-                idDepozitcomboBox.getItems().add(getDataAboutProduct.getInt("depozit_id"));
-                grupTerenComboBox.getItems().add(getDataAboutProduct.getInt("teren_grup"));
-                idDepozitcomboBox.getSelectionModel().selectFirst();
-                grupTerenComboBox.getSelectionModel().selectFirst();
             }
             conn.close();
         }catch (SQLException e){
@@ -101,10 +100,7 @@ public class Change_Product_Controller implements Initializable {
 
     //VALIDATION
     private boolean validareDenumire(){
-        if(denumireTextField.getText().isBlank()){
-            invalidDenumireProdus.setText("Campul nu poate fi gol");
-            return false;
-        }else if(denumireTextField.getText().length() < 5){
+        if(denumireTextField.getText().length() < 5){
             invalidDenumireProdus.setText("Sunte necesare minim 5 caractere");
             return false;
         }
@@ -161,10 +157,7 @@ public class Change_Product_Controller implements Initializable {
     }
 
     private boolean validareAnProdus(){
-        if(anProducereTextField.getText().isBlank()){
-            invalidAn.setText("Campul nu poate fi gol");
-            return false;
-        }else if(anProducereTextField.getText().length() != 4){
+        if(anProducereTextField.getText().length() != 4 || anProducereTextField.getText().isBlank()){
             invalidAn.setText("Campul trebuie sa 4 cifre");
             return false;
         }else{
@@ -185,8 +178,11 @@ public class Change_Product_Controller implements Initializable {
 
     private boolean checkIdDepozit(){
         if(Float.parseFloat(cantitateDepozitataTextField.getText()) > 0
-        && idDepozitcomboBox.getValue() == 0 ){
+        && idDepozitcomboBox.getSelectionModel().isEmpty() ){
             invalidIdDepozit.setText("Este necesara alegerea depozitului!");
+            return false;
+        } else if(grupTerenComboBox.getSelectionModel().isEmpty()){
+            invalidGrupTeren.setText("Alegeti terenul!");
             return false;
         }
         return true;
@@ -199,12 +195,10 @@ public class Change_Product_Controller implements Initializable {
         String updateProductQuery = "UPDATE produse SET denumire_produs = '" + denumireTextField.getText() + "', "
                 + "cantitate_recoltata = '" + cantitateRecoltataTextField.getText() + "', cantitate_ramasa = '"
                 + cantitateDepozitataTextField.getText() + "', an = '" + anProducereTextField.getText() + "', "
-                + "depozit_id = '" + idDepozitcomboBox.getValue() + "', teren_grup = '" + grupTerenComboBox.getValue() + "' WHERE "
+                + "depozit_id = " + idDepozitcomboBox.getValue() + ", teren_grup = '" + grupTerenComboBox.getValue() + "' WHERE "
                 + "_id_produs = '" + idProdusComboBox.getValue() + "'";
-
         try{
             conn.createStatement().execute(updateProductQuery);
-            conn.close();
             return true;
         } catch (SQLException e){
             e.printStackTrace();

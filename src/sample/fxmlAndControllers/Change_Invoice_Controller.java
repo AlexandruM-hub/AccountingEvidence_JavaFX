@@ -58,7 +58,7 @@ public class Change_Invoice_Controller implements Initializable {
     private void getDataById(){
         DatabaseConnection db = new DatabaseConnection();
         Connection conn = db.getConnection();
-        String getDataByIdQuery = "SELECT nr_factura, contractant, data, tip_marfa, denumire_marfa, cantitate, pret, activ_id " +
+        String getDataByIdQuery = "SELECT nr_factura, contractant, data, tip_marfa, denumire_marfa, cantitate, pret, activ_id, produse_id " +
                 "from facturi where _id_factura = " + idFacturaComboBox.getValue();
         try{
             ResultSet getDataByIdResultSet = conn.createStatement().executeQuery(getDataByIdQuery);
@@ -70,7 +70,11 @@ public class Change_Invoice_Controller implements Initializable {
                 pretTextField.setText(getDataByIdResultSet.getString("pret"));
                 datePicker.getEditor().setText(getDataByIdResultSet.getString("data"));
                 tipMarfa = getDataByIdResultSet.getString("tip_marfa");
-                activId = getDataByIdResultSet.getInt("activ_id");
+                if(tipMarfa.equals("Produse")){
+                    activId = getDataByIdResultSet.getInt("produse_id");
+                }else if(tipMarfa.equals("Materiale") || tipMarfa.equals("OMVSD") || tipMarfa.equals("Mijloc Fix")){
+                    activId = getDataByIdResultSet.getInt("activ_id");
+                }
             }
             if(tipMarfa.equals("Produse")){
                 String getMaxValueProduseQuery = "select cantitate_ramasa from produse where _id_produs = " + activId;

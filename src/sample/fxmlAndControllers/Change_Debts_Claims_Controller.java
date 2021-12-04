@@ -30,6 +30,7 @@ public class Change_Debts_Claims_Controller implements Initializable {
     private Pane succesPane;
     private boolean facturaCheck = true;
     private float maxValue;
+    private int facturaId;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         getIdDatorieCreanta();
@@ -44,12 +45,15 @@ public class Change_Debts_Claims_Controller implements Initializable {
     private void getDataAboutDatorieCreanta(){
         DatabaseConnection db = new DatabaseConnection();
         Connection conn = db.getConnection();
-        String getDataAboutClaimDebtQuery = "SELECT termen_limita, valoare, data_achitat, aferenta FROM datorii_creante WHERE _id_datorie_creanta ="
+        String getDataAboutClaimDebtQuery = "SELECT termen_limita, valoare, data_achitat, factura_id FROM datorii_creante WHERE _id_datorie_creanta ="
                 +idDatorieCreantaComboBox.getValue();
         try{
             ResultSet getDataResultSet = conn.createStatement().executeQuery(getDataAboutClaimDebtQuery);
             if(getDataResultSet.next()){
-                facturaCheck = getDataResultSet.getString("aferenta").equals("Factura");
+                facturaCheck = getDataResultSet.getString("factura_id") != null;
+                if(facturaCheck){
+                    facturaId = getDataResultSet.getInt("factura_id");
+                }
                 valueTextField.setText(getDataResultSet.getString("valoare"));
                 termenLimitaDatePicker.getEditor().setText(getDataResultSet.getString("termen_limita"));
                 dataAchitatDatePicker.getEditor().setText(getDataResultSet.getString("data_achitat"));
@@ -79,24 +83,18 @@ public class Change_Debts_Claims_Controller implements Initializable {
     private void getMaxValueFromDb(){
         DatabaseConnection db = new DatabaseConnection();
         Connection conn = db.getConnection();
-        String getSumFromDb = "SELECT SUM(valoare) as maxsum FROM datorii_creante WHERE aferenta = 'Factura' AND _id_datorie_creanta <> "
-                + idDatorieCreantaComboBox.getValue() + " AND element_id = "
-                + "(SELECT element_id FROM datorii_creante WHERE _id_datorie_creanta = " + idDatorieCreantaComboBox.getValue() + ")";
-        String getValueFromFactura = "SELECT DISTINCT facturi.cantitate * facturi.pret AS valoare FROM facturi INNER JOIN datorii_creante ON"
-                + " datorii_creante.element_id = facturi._id_factura WHERE datorii_creante.aferenta = 'Factura'";
+        String getSumFromDb = "SELECT coalesce(SUM(valoare), 0) as maxsum FROM datorii_creante WHERE _id_datorie_creanta <> "
+                + idDatorieCreantaComboBox.getValue() + " AND factura_id = "
+                + facturaId;
+        String getValueFromFactura = "SELECT cantitate * pret AS valoare FROM facturi where _id_factura = " + facturaId;
         try{
             ResultSet getValueFromFacturiResultSet = conn.createStatement().executeQuery(getValueFromFactura);
             if(getValueFromFacturiResultSet.next()){
                 maxValue = Float.parseFloat(getValueFromFacturiResultSet.getString("valoare"));
-                System.out.println(maxValue);
+
                 ResultSet getSumResultSet = conn.createStatement().executeQuery(getSumFromDb);
                 if(getSumResultSet.next()){
-                    try{
-                        System.out.println(getSumResultSet.getString("maxsum"));
-                        maxValue -= Float.parseFloat(getSumResultSet.getString("maxsum"));
-                    } catch (NullPointerException e){
-
-                    }
+                    maxValue -= Float.parseFloat(getSumResultSet.getString("maxsum"));
                 }
             }
             conn.close();

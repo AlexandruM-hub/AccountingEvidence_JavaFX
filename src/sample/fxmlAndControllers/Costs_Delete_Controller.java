@@ -26,7 +26,7 @@ public class Costs_Delete_Controller implements Initializable {
 
     private float cantitate;
     private int idElement;
-    private String tip ="a";
+    private String tip;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         getIdComboBox();
@@ -36,7 +36,7 @@ public class Costs_Delete_Controller implements Initializable {
     private void getIdComboBox(){
         DatabaseConnection db = new DatabaseConnection();
         Connection conn = db.getConnection();
-        String getIdQuery = "SELECT _id_cost from costul_productiei";
+        String getIdQuery = "SELECT _id_cost from costul_productiei order by _id_cost";
         try{
             ResultSet idCostResultSet = conn.createStatement().executeQuery(getIdQuery);
             while(idCostResultSet.next()){
@@ -51,7 +51,7 @@ public class Costs_Delete_Controller implements Initializable {
     private void getCantitateFromAssets(){
         DatabaseConnection db = new DatabaseConnection();
         Connection conn = db.getConnection();
-        String query = "SELECT tip, cantitate, tip_cost_id from costul_productiei where _id_cost = " +
+        String query = "SELECT tip, cantitate, factura_id, persoana_id from costul_productiei where _id_cost = " +
                 idCostsComboBox.getValue();
         try{
             ResultSet resultSet = conn.createStatement().executeQuery(query);
@@ -59,7 +59,9 @@ public class Costs_Delete_Controller implements Initializable {
                tip = resultSet.getString("tip");
                if(tip.equals("Activ")){
                    cantitate = resultSet.getFloat("cantitate");
-                   idElement = resultSet.getInt("tip_cost_id");
+                   idElement = resultSet.getInt("factura_id");
+               }else if(tip.equals("Remunerarea muncii")){
+                   idElement = resultSet.getInt("persoana_id");
                }
             }
             conn.close();
@@ -84,10 +86,11 @@ public class Costs_Delete_Controller implements Initializable {
             conn.createStatement().execute(delitionQuery);
             if(tip.equals("Activ")){
                 String updateAssetsQuery = "UPDATE assets SET cantitate_stock = (select cantitate_stock from assets where _id_asset = " +
-                        + idElement + ") + " + cantitate + " where _id_asset = " + idElement;
+                        "(select activ_id from facturi where _id_factura = "+ idElement + ")) + " + cantitate + " where _id_asset = "
+                        +"(select activ_id from facturi where _id_factura = "+ idElement+")";
                 conn.createStatement().execute(updateAssetsQuery);
             }
-            conn.close();
+            succesValidation();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -111,6 +114,9 @@ public class Costs_Delete_Controller implements Initializable {
 
     public void daButtonOnAction(){
         stergereaCostului();
+    }
+
+    private void succesValidation(){
         confirmationPane.setVisible(false);
         succesPane.setVisible(true);
         PauseTransition visiblePause = new PauseTransition(Duration.seconds(3));

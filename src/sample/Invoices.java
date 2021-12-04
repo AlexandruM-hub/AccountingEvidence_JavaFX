@@ -3,7 +3,7 @@ package sample;
 import java.util.Date;
 
 public class Invoices {
-    private int idFactura, idProdus;
+    private int idFactura, idProdus, idActiv, idDepozit, idTeren;
     private String nrFactura, cumparator, denumireProdus, tipFactura, tipMarfa;
     private Date dataVanzare;
     private float cantitate, pret, valoare;
@@ -25,7 +25,7 @@ public class Invoices {
 
     public Invoices(int idFactura, String nrFactura, String tipFactura, String cumparator,
                     Date dataVanzare, String tipMarfa, String denumireProdus, float cantitate,
-                    float pret, float valoare, int idProdus){
+                    float pret, float valoare, int idProdus, int idDepozit, int idTeren, int idActiv){
         this.idFactura = idFactura;
         this.nrFactura = nrFactura;
         this.cumparator = cumparator;
@@ -37,6 +37,9 @@ public class Invoices {
         this.idProdus = idProdus;
         this.tipFactura = tipFactura;
         this.tipMarfa = tipMarfa;
+        this.idDepozit = idDepozit;
+        this.idTeren = idTeren;
+        this.idActiv = idActiv;
     }
 
     @Override
@@ -51,8 +54,35 @@ public class Invoices {
                 "" + pret +
                 "" + valoare +
                 "" + tipMarfa +
-                "" + tipFactura;
+                "" + tipFactura+
+                "" + idDepozit+
+                "" + idTeren+
+                "" + idActiv;
 
+    }
+
+    public int getIdActiv() {
+        return idActiv;
+    }
+
+    public void setIdActiv(int idActiv) {
+        this.idActiv = idActiv;
+    }
+
+    public int getIdDepozit() {
+        return idDepozit;
+    }
+
+    public void setIdDepozit(int idDepozit) {
+        this.idDepozit = idDepozit;
+    }
+
+    public int getIdTeren() {
+        return idTeren;
+    }
+
+    public void setIdTeren(int idTeren) {
+        this.idTeren = idTeren;
     }
 
     public String getTipFactura() {

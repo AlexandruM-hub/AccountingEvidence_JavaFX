@@ -71,7 +71,7 @@ public class New_Costs_Controller implements Initializable {
                     String getIdAlteElementeQuery = "SELECT _id_factura FROM facturi WHERE tip_marfa <> 'Produse' and " +
                             "tip_marfa <> 'Mijloc Fix' and tip_marfa <> 'OMVSD' and tip_marfa <> 'Depozit' " +
                             "and tip_marfa <> 'Materiale' and pret > COALESCE((select sum(valoare) from costul_productiei " +
-                            "where tip = 'Alte costuri' and tip_cost_id = _id_factura), 0);";
+                            "where factura_id = _id_factura), 0);";
                     getIdElemente(getIdAlteElementeQuery, "_id_factura");
                     break;
                 default:
@@ -92,15 +92,18 @@ public class New_Costs_Controller implements Initializable {
                         break;
                     case "Amortizare MF":
                         String getMaxValueQuery = "SELECT pret * (select cantitate_stock from assets where _id_asset = " +
-                                +elementIdComboBox.getValue() + ") - coalesce((select sum(valoare) from costul_productiei where tip_cost_id = "
-                                + elementIdComboBox.getValue() + " and tip = 'Amortizare MF'), 0) as valoaremax from facturi where activ_id = "
+                                +elementIdComboBox.getValue() + ") - coalesce((select sum(valoare) from costul_productiei where factura_id = " +
+                                "(select factura_id from facturi where tip_intrare_iesire = 'Intrare' and activ_id = "
+                                + elementIdComboBox.getValue() + " )), 0) as valoaremax from facturi where activ_id = "
                                 + elementIdComboBox.getValue() + " and tip_intrare_iesire = 'Intrare'";
                         //coalesce in caz ca returneaza null
                         getMaxValueFactura(getMaxValueQuery, "valoaremax");
                         break;
                     case "Alte costuri":
-                        String getMaxValueAlteCosturiQuery = "SELECT pret - COALESCE((select sum(valoare) from costul_productiei where tip = " +
-                                "'Alte costuri' and tip_cost_id = _id_factura), 0) as valmax from facturi WHERE _id_factura = " + elementIdComboBox.getValue();
+                        String getMaxValueAlteCosturiQuery = "SELECT pret - COALESCE((select sum(valoare) from costul_productiei where " +
+                                " factura_id ="+ elementIdComboBox.getValue() +"), 0) as valmax from facturi " +
+                                "WHERE _id_factura = " + elementIdComboBox.getValue();
+
                         getMaxValueFactura(getMaxValueAlteCosturiQuery, "valmax");
                         break;
                 }
@@ -114,7 +117,7 @@ public class New_Costs_Controller implements Initializable {
         produsIdComboBox.getItems().clear();
         DatabaseConnection db = new DatabaseConnection();
         Connection conn = db.getConnection();
-        String getIdProduseQuery = "SELECT _id_produs FROM produse";
+        String getIdProduseQuery = "SELECT _id_produs FROM produse order by _id_produs";
         try {
             ResultSet getIdProduseResultSet = conn.createStatement().executeQuery(getIdProduseQuery);
             while(getIdProduseResultSet.next()){
@@ -135,7 +138,6 @@ public class New_Costs_Controller implements Initializable {
             while(getId.next()){
                 elementIdComboBox.getItems().add(getId.getInt(column));
             }
-            conn.close();
         } catch (SQLException e){
             e.printStackTrace();
         }
@@ -151,7 +153,6 @@ public class New_Costs_Controller implements Initializable {
             if(getMaxValueResultSet.next()){
                 maxValue = getMaxValueResultSet.getFloat("cantitate_stock");
             }
-            conn.close();
         } catch (SQLException e){
             e.printStackTrace();
         }
@@ -165,7 +166,6 @@ public class New_Costs_Controller implements Initializable {
             if(getMaxvalueResultSet.next()){
                 maxValue = getMaxvalueResultSet.getFloat(column);
             }
-            conn.close();
         } catch (SQLException e){
             e.printStackTrace();
         }
@@ -215,7 +215,8 @@ public class New_Costs_Controller implements Initializable {
         DatabaseConnection db = new DatabaseConnection();
         Connection conn = db.getConnection();
         String activeCostsQuery = "INSERT INTO costul_productiei(tip, scop, data_cost" +
-                ", cantitate, valoare, tip_cost_id, produs_id) VALUES(?,?,?,?,?,?,?)";
+                ", cantitate, valoare, factura_id, produs_id) VALUES(?,?,?,?,?,(select _id_factura from facturi where activ_id = "+
+                elementIdComboBox.getValue()+" and tip_intrare_iesire = 'Intrare'),?)";
         String getPriceActive = "select pret from facturi where tip_intrare_iesire = 'Intrare' and (tip_marfa = " +
                 "'Materiale' OR tip_marfa = 'OMVSD') and " +
                 "activ_id = "+ elementIdComboBox.getValue();
@@ -236,11 +237,9 @@ public class New_Costs_Controller implements Initializable {
             activePrepareStatemen.setDate(3, Date.valueOf(datePicker.getValue()));
             activePrepareStatemen.setFloat(4,Float.parseFloat(valoareTextField.getText()));
             activePrepareStatemen.setFloat(5,activPret);
-            activePrepareStatemen.setInt(6, elementIdComboBox.getValue());
-            activePrepareStatemen.setInt(7,produsIdComboBox.getValue());
+            activePrepareStatemen.setInt(6,produsIdComboBox.getValue());
             activePrepareStatemen.execute();
             conn.createStatement().execute(updateStock);
-            conn.close();
             succesInsertion();
         } catch (SQLException e){
             e.printStackTrace();
@@ -250,10 +249,15 @@ public class New_Costs_Controller implements Initializable {
     private void insertCostsOtherElementsInDb(){
         DatabaseConnection db = new DatabaseConnection();
         Connection conn = db.getConnection();
-        String insertPersonalCostsQuery = "INSERT INTO costul_productiei(tip, scop, data_cost" +
-                ", valoare, tip_cost_id, produs_id) VALUES(?,?,?,?,?,?)";
+        String insertQuery;
+        if(tipComboBox.getValue().equals("Remunerarea muncii")){
+            insertQuery = "insert into costul_productiei(tip,scop,data_cost, valoare, persoana_id, produs_id) values(?,?,?,?,?,?)";
+        }else{
+            insertQuery = "INSERT INTO costul_productiei(tip, scop, data_cost" +
+                    ", valoare, factura_id, produs_id) VALUES(?,?,?,?,?,?)";
+        }
         try{
-            PreparedStatement personalPreparedStatement = conn.prepareStatement(insertPersonalCostsQuery);
+            PreparedStatement personalPreparedStatement = conn.prepareStatement(insertQuery);
             personalPreparedStatement.setString(1,tipComboBox.getValue());
             personalPreparedStatement.setString(2,scopTextField.getText());
             personalPreparedStatement.setDate(3, Date.valueOf(datePicker.getValue()));
@@ -261,7 +265,26 @@ public class New_Costs_Controller implements Initializable {
             personalPreparedStatement.setInt(5, elementIdComboBox.getValue());
             personalPreparedStatement.setInt(6,produsIdComboBox.getValue());
             personalPreparedStatement.execute();
-            conn.close();
+            succesInsertion();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+    
+    private void insertCostsAmortizareInDb(){
+        DatabaseConnection db = new DatabaseConnection();
+        Connection conn = db.getConnection();
+        String insertAmortizareQuery = "INSERT INTO costul_productiei(tip, scop, data_cost" +
+                ", valoare, factura_id, produs_id) VALUES(?,?,?,?,(select _id_factura from facturi  where activ_id = "+elementIdComboBox.getValue()+
+                "),?)";
+        try{
+            PreparedStatement preparedStatement = conn.prepareStatement(insertAmortizareQuery);
+            preparedStatement.setString(1,tipComboBox.getValue());
+            preparedStatement.setString(2,scopTextField.getText());
+            preparedStatement.setDate(3, Date.valueOf(datePicker.getValue()));
+            preparedStatement.setFloat(4,Float.parseFloat(valoareTextField.getText()));
+            preparedStatement.setInt(5,produsIdComboBox.getValue());
+            preparedStatement.execute();
             succesInsertion();
         } catch (SQLException e){
             e.printStackTrace();
@@ -276,11 +299,12 @@ public class New_Costs_Controller implements Initializable {
         if(generalValidation()){
             if(tipComboBox.getValue().equals("Activ")){
                 insertionActiveCostsInDb();
+            } else if(tipComboBox.getValue().equals("Amortizare MF")){
+                insertCostsAmortizareInDb();
             } else{
                 insertCostsOtherElementsInDb();
             }
         }
-
     }
 
     public void cancelButtonOnAction(){

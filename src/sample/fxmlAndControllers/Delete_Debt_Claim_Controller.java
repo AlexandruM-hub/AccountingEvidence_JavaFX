@@ -9,7 +9,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import sample.DatabaseConnection;
-
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
