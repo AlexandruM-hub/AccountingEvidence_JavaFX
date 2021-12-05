@@ -931,7 +931,7 @@ public class AppController implements Initializable {
         }else if(e.getSource() == changeStaffButton){
             loadStaffStages("Change_Employee.fxml", "Modifica datele despre angajat");
         }else if(e.getSource() == deleteStaffButton){
-
+            loadStaffStages("Delete_Employee.fxml", "Stergerea angajatului");
         }
     }
 
