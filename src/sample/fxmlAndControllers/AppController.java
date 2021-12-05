@@ -156,6 +156,8 @@ public class AppController implements Initializable {
     private TableView<Staff> staffTableView;
     @FXML
     private TextField searchStaffTextField;
+    @FXML
+    private Button addStaffButton, changeStaffButton, deleteStaffButton;
 
     //OBSV ACTIVE
     ObservableList<Assets> depoziteObservableList = FXCollections.observableArrayList();
@@ -927,7 +929,7 @@ public class AppController implements Initializable {
         if(e.getSource() == addStaffButton){
             loadStaffStages("New_Staff.fxml", "Angajat nou");
         }else if(e.getSource() == changeStaffButton){
-
+            loadStaffStages("Change_Employee.fxml", "Modifica datele despre angajat");
         }else if(e.getSource() == deleteStaffButton){
 
         }
@@ -941,8 +943,7 @@ public class AppController implements Initializable {
         stage.show();
     }
 
-    @FXML
-    private Button addStaffButton, changeStaffButton, deleteStaffButton;
+
 
     //MENU BUTTONS
     public void menuButtonsOnAction(ActionEvent e){
