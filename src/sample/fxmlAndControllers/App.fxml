@@ -709,7 +709,7 @@
          <children>
             <VBox prefHeight="366.0" prefWidth="158.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#newInvoiceButton" prefHeight="122.0" prefWidth="159.0" styleClass="buttonsStyle" stylesheets="@../../css/login.css" text="Angajat nou" textAlignment="CENTER">
+                  <Button fx:id="addStaffButton" contentDisplay="TOP" mnemonicParsing="false" onAction="#staffButtonsOnAction" prefHeight="122.0" prefWidth="159.0" styleClass="buttonsStyle" stylesheets="@../../css/login.css" text="Angajat nou" textAlignment="CENTER">
                      <graphic>
                         <ImageView fitHeight="57.0" fitWidth="64.0">
                            <image>
@@ -721,7 +721,7 @@
                         <Font name="Bell MT Bold" size="17.0" />
                      </font>
                   </Button>
-                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#changeInvoiceButtonOnAction" prefHeight="122.0" prefWidth="159.0" styleClass="buttonsStyle" stylesheets="@../../css/login.css" text="Modifica" textAlignment="CENTER">
+                  <Button fx:id="changeStaffButton" contentDisplay="TOP" mnemonicParsing="false" onAction="#staffButtonsOnAction" prefHeight="122.0" prefWidth="159.0" styleClass="buttonsStyle" stylesheets="@../../css/login.css" text="Modifica" textAlignment="CENTER">
                      <font>
                         <Font name="Bell MT Bold" size="17.0" />
                      </font>
@@ -733,7 +733,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
-                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#deleteInvoiceButtonOnAction" prefHeight="122.0" prefWidth="159.0" styleClass="buttonsStyle" stylesheets="@../../css/login.css" text="Sterge" textAlignment="CENTER">
+                  <Button fx:id="deleteStaffButton" contentDisplay="TOP" mnemonicParsing="false" onAction="#staffButtonsOnAction" prefHeight="122.0" prefWidth="159.0" styleClass="buttonsStyle" stylesheets="@../../css/login.css" text="Sterge" textAlignment="CENTER">
                      <font>
                         <Font name="Bell MT Bold" size="17.0" />
                      </font>
@@ -747,7 +747,7 @@
                   </Button>
                </children>
             </VBox>
-            <TextField fx:id="invoicesSearchTextField1" layoutX="544.0" layoutY="26.0" prefHeight="25.0" prefWidth="200.0" promptText="Search" AnchorPane.rightAnchor="173.0" AnchorPane.topAnchor="24.0" />
+            <TextField fx:id="searchStaffTextField" layoutX="544.0" layoutY="26.0" prefHeight="25.0" prefWidth="200.0" promptText="Search" AnchorPane.rightAnchor="173.0" AnchorPane.topAnchor="24.0" />
             <ImageView fitHeight="24.0" fitWidth="32.0" layoutX="502.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="383.0" AnchorPane.topAnchor="25.0">
                <image>
                   <Image url="@../../css/search.png" />

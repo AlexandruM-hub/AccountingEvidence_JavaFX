@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="610.0" prefWidth="480.0" styleClass="addAssetBackground" stylesheets="@../../css/login.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.fxmlAndControllers.New_Staff_Controller">
+    <children>
+        <Text layoutX="42.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="textStyle" text="Nume" AnchorPane.leftAnchor="42.0" AnchorPane.topAnchor="92.0">
+            <font>
+                <Font name="Bell MT Bold" size="23.0" />
+            </font>
+        </Text>
+        <Text layoutX="41.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="textStyle" text="Prenume" AnchorPane.leftAnchor="42.0" AnchorPane.topAnchor="141.64990234375">
+            <font>
+                <Font name="Bell MT Bold" size="23.0" />
+            </font>
+        </Text>
+        <Button layoutX="428.0" layoutY="328.0" mnemonicParsing="false" onAction="#saveButtonOnAction" styleClass="buttonsStyle" stylesheets="@../../css/login.css" text="Save" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="30.0">
+            <font>
+                <Font name="Bell MT Bold" size="18.0" />
+            </font>
+        </Button>
+        <Text layoutX="125.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="textStyle" text="Introduceti datele" AnchorPane.leftAnchor="125.0" AnchorPane.rightAnchor="125.927734375" AnchorPane.topAnchor="38.443359375">
+            <font>
+                <Font name="Bell MT Bold" size="28.0" />
+            </font>
+        </Text>
+        <Text layoutX="41.0" layoutY="208.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="textStyle" text="IDNP" AnchorPane.leftAnchor="42.0" AnchorPane.topAnchor="187.0">
+            <font>
+                <Font name="Bell MT Bold" size="23.0" />
+            </font>
+        </Text>
+        <TextField fx:id="prenumeTextField" layoutX="284.0" layoutY="141.0" prefHeight="27.0" prefWidth="170.0" promptText="Prenume" AnchorPane.leftAnchor="284.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="141.0">
+            <font>
+                <Font size="13.0" />
+            </font>
+        </TextField>
+        <TextField fx:id="numeTextField" layoutX="284.0" layoutY="93.0" prefHeight="27.0" prefWidth="170.0" promptText="Nume" AnchorPane.leftAnchor="284.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="93.0">
+            <font>
+                <Font size="13.0" />
+            </font>
+        </TextField>
+        <Button layoutX="29.0" layoutY="328.0" mnemonicParsing="false" onAction="#cancelButtonOnAction" styleClass="buttonsStyle" stylesheets="@../../css/login.css" text="Cancel" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0">
+            <font>
+                <Font name="Bell MT Bold" size="18.0" />
+            </font>
+        </Button>
+      <TextField fx:id="idnpTextField" layoutX="284.0" layoutY="187.0" prefHeight="27.0" prefWidth="177.0" promptText="IDNP" AnchorPane.leftAnchor="284.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="187.0">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </TextField>
+      <Text layoutX="47.0" layoutY="254.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="textStyle" text="Telefon" AnchorPane.leftAnchor="42.0" AnchorPane.topAnchor="233.0">
+         <font>
+            <Font name="Bell MT Bold" size="23.0" />
+         </font>
+      </Text>
+      <Text layoutX="42.0" layoutY="301.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="textStyle" text="Data nasterii" AnchorPane.leftAnchor="42.0" AnchorPane.topAnchor="280.0">
+         <font>
+            <Font name="Bell MT Bold" size="23.0" />
+         </font>
+      </Text>
+      <Text layoutX="41.0" layoutY="350.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="textStyle" text="Email" AnchorPane.leftAnchor="42.0" AnchorPane.topAnchor="329.0">
+         <font>
+            <Font name="Bell MT Bold" size="23.0" />
+         </font>
+      </Text>
+      <Text layoutX="42.0" layoutY="399.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="textStyle" text="Data angajarii" AnchorPane.leftAnchor="42.0" AnchorPane.topAnchor="378.0">
+         <font>
+            <Font name="Bell MT Bold" size="23.0" />
+         </font>
+      </Text>
+      <TextField fx:id="telefonTextField" layoutX="284.0" layoutY="233.0" prefHeight="27.0" prefWidth="177.0" promptText="Telefon" AnchorPane.leftAnchor="284.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="233.0">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="emailTextField" layoutX="284.0" layoutY="329.0" prefHeight="27.0" prefWidth="177.0" promptText="Email" AnchorPane.leftAnchor="284.0" AnchorPane.rightAnchor="19.0" AnchorPane.topAnchor="329.0">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </TextField>
+      <DatePicker fx:id="dataNasteriiDatePicker" layoutX="283.0" layoutY="281.0" prefHeight="25.0" prefWidth="177.0" promptText="Data nasterii" AnchorPane.leftAnchor="283.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="281.0" />
+      <DatePicker fx:id="dataAngajariiDatePicker" layoutX="283.0" layoutY="379.0" prefHeight="25.0" prefWidth="177.0" promptText="Data angajarii" AnchorPane.leftAnchor="283.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="379.0" />
+      <Text fx:id="invalidNume" fill="RED" layoutX="42.0" layoutY="133.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="235.515625" AnchorPane.leftAnchor="42.0" AnchorPane.topAnchor="120.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text fx:id="invalidPrenume" fill="RED" layoutX="42.0" layoutY="184.265625" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="235.515625" AnchorPane.leftAnchor="42.0" AnchorPane.topAnchor="167.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text fx:id="invalidIDNP" fill="RED" layoutX="42.0" layoutY="231.265625" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="235.515625" AnchorPane.leftAnchor="42.0" AnchorPane.topAnchor="214.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text fx:id="invalidTelefon" fill="RED" layoutX="42.0" layoutY="276.265625" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="235.515625" AnchorPane.leftAnchor="42.0" AnchorPane.topAnchor="259.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text fx:id="invalidDataNastere" fill="RED" layoutX="42.0" layoutY="323.265625" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="235.515625" AnchorPane.leftAnchor="42.0" AnchorPane.topAnchor="306.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text fx:id="invalidEmail" fill="RED" layoutX="42.0" layoutY="373.265625" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="235.515625" AnchorPane.leftAnchor="42.0" AnchorPane.topAnchor="356.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text fx:id="invalidDataAngajare" fill="RED" layoutX="42.0" layoutY="421.265625" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="235.515625" AnchorPane.leftAnchor="42.0" AnchorPane.topAnchor="404.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text layoutX="42.0" layoutY="445.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="textStyle" text="Salariu">
+         <font>
+            <Font name="Bell MT Bold" size="23.0" />
+         </font>
+      </Text>
+      <TextField fx:id="salariuTextField" layoutX="283.0" layoutY="424.0" prefHeight="27.0" prefWidth="177.0" promptText="Salariu">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </TextField>
+      <Text fx:id="invalidSalariu" fill="RED" layoutX="42.0" layoutY="468.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="235.515625">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text layoutX="42.0" layoutY="493.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="textStyle" text="Functie">
+         <font>
+            <Font name="Bell MT Bold" size="23.0" />
+         </font>
+      </Text>
+      <TextField fx:id="functieTextField" layoutX="283.0" layoutY="472.0" prefHeight="27.0" prefWidth="177.0" promptText="Functie">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </TextField>
+      <Text fx:id="invalidFunctie" fill="RED" layoutX="42.0" layoutY="516.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="235.515625">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+        <Pane fx:id="succesPane" layoutX="147.0" layoutY="193.0" prefHeight="200.0" prefWidth="200.0" styleClass="addSuccesfullyData" stylesheets="@../../css/login.css" visible="false" AnchorPane.topAnchor="193.0">
+            <children>
+                <ImageView fitHeight="95.0" fitWidth="108.0" layoutX="46.0" layoutY="32.0">
+                    <image>
+                        <Image url="@../../css/SuccesLogo.png" />
+                    </image>
+                </ImageView>
+                <Text fill="WHITE" layoutX="30.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Datele au fost salvate!" textAlignment="CENTER" wrappingWidth="140.0">
+                    <font>
+                        <Font name="Bell MT Bold" size="25.0" />
+                    </font>
+                </Text>
+            </children>
+        </Pane>
+    </children>
+</AnchorPane>

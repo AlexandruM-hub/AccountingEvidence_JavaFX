@@ -23,6 +23,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.stream.Stream;
 
@@ -153,6 +154,8 @@ public class AppController implements Initializable {
     private TableColumn<Date, Staff> dataNasterePersoanaTableColumn, dataAngajarePersoanaTableColumn;
     @FXML
     private TableView<Staff> staffTableView;
+    @FXML
+    private TextField searchStaffTextField;
 
     //OBSV ACTIVE
     ObservableList<Assets> depoziteObservableList = FXCollections.observableArrayList();
@@ -224,6 +227,7 @@ public class AppController implements Initializable {
             }
         }));
         loadStaffInTable();
+        searchStaffTextField.textProperty().addListener(((observableValue, s, t1) -> searchStaff()));
     }
 
     //STAFF
@@ -256,6 +260,16 @@ public class AppController implements Initializable {
         dataNasterePersoanaTableColumn.setCellValueFactory(new PropertyValueFactory<>("dataNastere"));
         emailStaffTablecolumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         dataAngajarePersoanaTableColumn.setCellValueFactory(new PropertyValueFactory<>("dataAngajare"));
+    }
+
+    private void searchStaff(){
+        ObservableList<Staff> aux = FXCollections.observableArrayList();
+        for(Staff x : staffObservableList){
+            if(x.toString().toLowerCase().contains(searchStaffTextField.getText().toLowerCase())){
+                aux.add(x);
+            }
+        }
+        staffTableView.setItems(aux);
     }
 
 
@@ -908,6 +922,27 @@ public class AppController implements Initializable {
         stage.setTitle("Stergerea Facturilor");
         stage.show();
     }
+
+    public void staffButtonsOnAction(ActionEvent e) throws IOException{
+        if(e.getSource() == addStaffButton){
+            loadStaffStages("New_Staff.fxml", "Angajat nou");
+        }else if(e.getSource() == changeStaffButton){
+
+        }else if(e.getSource() == deleteStaffButton){
+
+        }
+    }
+
+    public void loadStaffStages(String fileName, String stageTitle) throws IOException{
+        Parent root = FXMLLoader.load(getClass().getResource(fileName));
+        Stage stage = new Stage(StageStyle.DECORATED);
+        stage.setScene(new Scene(root));
+        stage.setTitle(stageTitle);
+        stage.show();
+    }
+
+    @FXML
+    private Button addStaffButton, changeStaffButton, deleteStaffButton;
 
     //MENU BUTTONS
     public void menuButtonsOnAction(ActionEvent e){
