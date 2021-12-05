@@ -932,8 +932,14 @@ public class AppController implements Initializable {
             loadStaffStages("Change_Employee.fxml", "Modifica datele despre angajat");
         }else if(e.getSource() == deleteStaffButton){
             loadStaffStages("Delete_Employee.fxml", "Stergerea angajatului");
+        } else if(e.getSource() == allowAccesButton){
+            loadStaffStages("Allow_Access.fxml", "Permite Acces");
+        } else if(e.getSource() == changePasswordButton){
+
         }
     }
+    @FXML
+    private Button allowAccesButton, changePasswordButton;
 
     public void loadStaffStages(String fileName, String stageTitle) throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource(fileName));

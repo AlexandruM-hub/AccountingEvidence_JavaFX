@@ -707,7 +707,7 @@
       </AnchorPane>
       <AnchorPane fx:id="staffAnchorPane" prefHeight="200.0" prefWidth="200.0" styleClass="tabsBackground" stylesheets="@../../css/login.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="315.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
          <children>
-            <VBox prefHeight="366.0" prefWidth="158.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <VBox prefHeight="559.0" prefWidth="158.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <Button fx:id="addStaffButton" contentDisplay="TOP" mnemonicParsing="false" onAction="#staffButtonsOnAction" prefHeight="122.0" prefWidth="159.0" styleClass="buttonsStyle" stylesheets="@../../css/login.css" text="Angajat nou" textAlignment="CENTER">
                      <graphic>
@@ -744,6 +744,16 @@
                            </image>
                         </ImageView>
                      </graphic>
+                  </Button>
+                  <Button fx:id="allowAccesButton" contentDisplay="TOP" layoutX="10.0" layoutY="254.0" mnemonicParsing="false" onAction="#staffButtonsOnAction" prefHeight="122.0" prefWidth="159.0" styleClass="buttonsStyle" stylesheets="@../../css/login.css" text="Permite Acces" textAlignment="CENTER">
+                     <font>
+                        <Font name="Bell MT Bold" size="17.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="changePasswordButton" contentDisplay="TOP" layoutX="10.0" layoutY="362.0" mnemonicParsing="false" onAction="#staffButtonsOnAction" prefHeight="122.0" prefWidth="158.0" styleClass="buttonsStyle" stylesheets="@../../css/login.css" text="Schimba Parola" textAlignment="CENTER">
+                     <font>
+                        <Font name="Bell MT Bold" size="17.0" />
+                     </font>
                   </Button>
                </children>
             </VBox>
