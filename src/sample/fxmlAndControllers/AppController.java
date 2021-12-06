@@ -238,14 +238,15 @@ public class AppController implements Initializable {
         DatabaseConnection db = new DatabaseConnection();
         Connection conn = db.getConnection();
         String getStaffQuery = "SELECT _id_personal, nume, prenume, telefon, data_nastere," +
-                " email, data_angajare from personal";
+                " email, data_angajare, functie, salariu from personal";
         try{
             ResultSet getStaffResultSet = conn.createStatement().executeQuery(getStaffQuery);
             while(getStaffResultSet.next()){
                 staffObservableList.add(new Staff(getStaffResultSet.getInt("_id_personal"), getStaffResultSet.getString("nume"),
                         getStaffResultSet.getString("prenume"), getStaffResultSet.getString("telefon"),
                         getStaffResultSet.getDate("data_nastere"), getStaffResultSet.getString("email"),
-                        getStaffResultSet.getDate("data_angajare")));
+                        getStaffResultSet.getDate("data_angajare"), getStaffResultSet.getString("functie"),
+                        getStaffResultSet.getFloat("salariu")));
             }
             staffTableView.setItems(staffObservableList);
         } catch (SQLException e){
@@ -262,6 +263,8 @@ public class AppController implements Initializable {
         dataNasterePersoanaTableColumn.setCellValueFactory(new PropertyValueFactory<>("dataNastere"));
         emailStaffTablecolumn.setCellValueFactory(new PropertyValueFactory<>("email"));
         dataAngajarePersoanaTableColumn.setCellValueFactory(new PropertyValueFactory<>("dataAngajare"));
+        functieStaffTableColumn.setCellValueFactory(new PropertyValueFactory<>("functie"));
+        salariuStaffTableColumn.setCellValueFactory(new PropertyValueFactory<>("salariu"));
     }
 
     private void searchStaff(){
@@ -935,11 +938,16 @@ public class AppController implements Initializable {
         } else if(e.getSource() == allowAccesButton){
             loadStaffStages("Allow_Access.fxml", "Permite Acces");
         } else if(e.getSource() == changePasswordButton){
-
+            loadStaffStages("Change_Password.fxml", "Modifica Parola / Restrictioneaza accesul");
         }
     }
+
     @FXML
     private Button allowAccesButton, changePasswordButton;
+    @FXML
+    private TableColumn<Staff, String> functieStaffTableColumn;
+    @FXML
+    private TableColumn<Staff, Float> salariuStaffTableColumn;
 
     public void loadStaffStages(String fileName, String stageTitle) throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource(fileName));

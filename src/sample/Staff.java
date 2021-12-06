@@ -4,10 +4,12 @@ import java.util.Date;
 
 public class Staff {
     private int idPersoana;
-    private String nume, prenume, email, telefon;
+    private String nume, prenume, email, telefon, functie;
     private Date dataNastere, dataAngajare;
+    private float salariu;
 
-    public Staff(int idPersoana, String nume, String prenume, String telefon, Date dataNastere, String email, Date dataAngajare){
+    public Staff(int idPersoana, String nume, String prenume, String telefon,
+                 Date dataNastere, String email, Date dataAngajare, String functie, float salariu){
         this.idPersoana = idPersoana;
         this.nume = nume;
         this.prenume = prenume;
@@ -15,6 +17,8 @@ public class Staff {
         this.dataNastere = dataNastere;
         this.email = email;
         this.dataAngajare = dataAngajare;
+        this.functie = functie;
+        this.salariu = salariu;
     }
 
     @Override
@@ -25,11 +29,29 @@ public class Staff {
                 "" + prenume +
                 "" + email +
                 "" + dataNastere +
-                "" + dataAngajare;
+                "" + dataAngajare +
+                "" + functie +
+                "" + salariu;
     }
 
     public int getIdPersoana() {
         return idPersoana;
+    }
+
+    public String getFunctie() {
+        return functie;
+    }
+
+    public void setFunctie(String functie) {
+        this.functie = functie;
+    }
+
+    public float getSalariu() {
+        return salariu;
+    }
+
+    public void setSalariu(float salariu) {
+        this.salariu = salariu;
     }
 
     public void setIdPersoana(int idPersoana) {
