@@ -62,8 +62,8 @@
       <TextField fx:id="cantitateRecoltataTextField" layoutX="323.0" layoutY="146.0" prefHeight="25.0" prefWidth="244.0" promptText="Cantitatea Recoltata" AnchorPane.leftAnchor="323.0" AnchorPane.rightAnchor="33.0" AnchorPane.topAnchor="146.0" />
       <TextField fx:id="cantitateDepozitataTextField" layoutX="323.0" layoutY="189.0" prefHeight="25.0" prefWidth="244.0" promptText="Cantitatea in depozit" AnchorPane.leftAnchor="323.0" AnchorPane.rightAnchor="33.0" AnchorPane.topAnchor="189.0" />
       <TextField fx:id="anProducereTextField" layoutX="323.0" layoutY="232.0" prefHeight="25.0" prefWidth="244.0" promptText="An producere" AnchorPane.leftAnchor="323.0" AnchorPane.rightAnchor="33.0" AnchorPane.topAnchor="232.0" />
-      <ComboBox fx:id="grupTerenComboBox" layoutX="323.0" layoutY="275.0" prefHeight="25.0" prefWidth="244.0" promptText="Grup teren" />
-      <ComboBox fx:id="idDepozitcomboBox" layoutX="323.0" layoutY="318.0" prefHeight="25.0" prefWidth="244.0" promptText="ID Depozit" />
+      <ComboBox fx:id="grupTerenComboBox" layoutX="323.0" layoutY="275.0" prefHeight="25.0" prefWidth="244.0" promptText="Grup teren" AnchorPane.leftAnchor="323.0" AnchorPane.rightAnchor="33.0" AnchorPane.topAnchor="275.0" />
+      <ComboBox fx:id="idDepozitcomboBox" layoutX="323.0" layoutY="318.0" prefHeight="25.0" prefWidth="244.0" promptText="ID Depozit" AnchorPane.leftAnchor="323.0" AnchorPane.rightAnchor="33.0" AnchorPane.topAnchor="318.0" />
         <Pane fx:id="succesPane" layoutX="200.0" layoutY="114.0" prefHeight="200.0" prefWidth="200.0" styleClass="addSuccesfullyData" stylesheets="@../../css/login.css" visible="false">
             <children>
                 <ImageView fitHeight="95.0" fitWidth="108.0" layoutX="46.0" layoutY="32.0">

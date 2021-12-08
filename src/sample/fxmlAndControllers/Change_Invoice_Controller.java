@@ -13,6 +13,8 @@ import javafx.util.Duration;
 import sample.DatabaseConnection;
 import java.net.URL;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ResourceBundle;
 import java.util.stream.Stream;
@@ -55,10 +57,12 @@ public class Change_Invoice_Controller implements Initializable {
         }
     }
 
+    private String tipFactura;
     private void getDataById(){
         DatabaseConnection db = new DatabaseConnection();
         Connection conn = db.getConnection();
-        String getDataByIdQuery = "SELECT nr_factura, contractant, data, tip_marfa, denumire_marfa, cantitate, pret, activ_id, produse_id " +
+        String getDataByIdQuery = "SELECT nr_factura, contractant, DATE_FORMAT(data, '%d.%m.%Y') as data, tip_intrare_iesire, " +
+                "tip_marfa, denumire_marfa, cantitate, pret, activ_id, produse_id " +
                 "from facturi where _id_factura = " + idFacturaComboBox.getValue();
         try{
             ResultSet getDataByIdResultSet = conn.createStatement().executeQuery(getDataByIdQuery);
@@ -68,8 +72,9 @@ public class Change_Invoice_Controller implements Initializable {
                 denumireMarfaTextField.setText(getDataByIdResultSet.getString("denumire_marfa"));
                 cantitateTextField.setText(getDataByIdResultSet.getString("cantitate"));
                 pretTextField.setText(getDataByIdResultSet.getString("pret"));
-                datePicker.getEditor().setText(getDataByIdResultSet.getString("data"));
+                datePicker.setValue(LocalDate.parse(getDataByIdResultSet.getString("data"), DateTimeFormatter.ofPattern("dd.MM.yyyy")));
                 tipMarfa = getDataByIdResultSet.getString("tip_marfa");
+                tipFactura = getDataByIdResultSet.getString("tip_intrare_iesire");
                 if(tipMarfa.equals("Produse")){
                     activId = getDataByIdResultSet.getInt("produse_id");
                 }else if(tipMarfa.equals("Materiale") || tipMarfa.equals("OMVSD") || tipMarfa.equals("Mijloc Fix")){
@@ -83,7 +88,7 @@ public class Change_Invoice_Controller implements Initializable {
                     maxVal = getMaxValueProduse.getFloat("cantitate_ramasa");
                     maxVal += Float.parseFloat(cantitateTextField.getText());
                 }
-            } else if(tipMarfa.equals("Materiale") || tipMarfa.equals("OMVSD") || tipMarfa.equals("Mijloc Fix")){
+            } else if(tipFactura.equals("Iesire") && (tipMarfa.equals("Materiale") || tipMarfa.equals("OMVSD") || tipMarfa.equals("Mijloc Fix"))){
                 String getMaxValueActiveQuery = "SELECT cantitate_stock from assets where _id_asset = " + activId;
                 ResultSet getMaxValActive = conn.createStatement().executeQuery(getMaxValueActiveQuery);
                 if(getMaxValActive.next()){
@@ -92,6 +97,8 @@ public class Change_Invoice_Controller implements Initializable {
                 } else{
                     maxVal = Integer.MAX_VALUE;
                 }
+            } else{
+                maxVal = Integer.MAX_VALUE;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -174,7 +181,7 @@ public class Change_Invoice_Controller implements Initializable {
             e.printStackTrace();
         }
     }
-    //cantitate_ramasa +(cantitatea veche - cantitatea noua)
+
     //maxVal - cantitatea noua
 
     //BUTTONS
@@ -186,10 +193,16 @@ public class Change_Invoice_Controller implements Initializable {
                 String updateProduseQuery = "UPDATE produse SET cantitate_ramasa = " + (maxVal - Float.parseFloat(cantitateTextField.getText())) +
                         "where _id_produs = " + activId;
                 updateOtherTables(updateProduseQuery);
-            } else if(tipMarfa.equals("Materiale") || tipMarfa.equals("Mijloc Fix") || tipMarfa.equals("OMVSD")){
+            } else if(tipFactura.equals("Iesire") && (tipMarfa.equals("Materiale") || tipMarfa.equals("Mijloc Fix") || tipMarfa.equals("OMVSD"))){
                 String updateAssetsQuery = "UPDATE assets SET cantitate_stock = " + (maxVal - Float.parseFloat(cantitateTextField.getText())) +
                         "where _id_asset = " + activId;
                 updateOtherTables(updateAssetsQuery);
+            } else if(tipFactura.equals("Intrare") && (tipMarfa.equals("Materiale") || tipMarfa.equals("Mijloc Fix") || tipMarfa.equals("OMVSD"))){
+                String updateAssetsIntrareQuery = "update assets set cantitate_stock = " + Float.parseFloat(cantitateTextField.getText())+
+                        " - (select coalesce(sum(cantitate),0) from facturi where tip_intrare_iesire = 'Iesire' and activ_id = " + activId +
+                        " ) - (select coalesce(sum(cantitate),0) from costul_productiei where factura_id = (select _id_factura from facturi " +
+                        "where tip_intrare_iesire = 'Intrare' and activ_id = " + activId + ")) where _id_asset = " + activId;
+                updateOtherTables(updateAssetsIntrareQuery);
             }
             updateDateInDb();
         }

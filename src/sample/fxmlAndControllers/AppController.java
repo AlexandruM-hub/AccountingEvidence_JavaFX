@@ -158,6 +158,22 @@ public class AppController implements Initializable {
     private TextField searchStaffTextField;
     @FXML
     private Button addStaffButton, changeStaffButton, deleteStaffButton;
+    @FXML
+    private Button allowAccesButton, changePasswordButton;
+    @FXML
+    private TableColumn<Staff, String> functieStaffTableColumn;
+    @FXML
+    private TableColumn<Staff, Float> salariuStaffTableColumn;
+
+    //DASHBOARD
+    //ponderea costurilor -> piechart
+    //cheltuieli si venituri pe ani ->
+    //cost, venit per produs
+    //tip produse piechart per cantitate recoltata
+
+
+    //id MF
+
 
     //OBSV ACTIVE
     ObservableList<Assets> depoziteObservableList = FXCollections.observableArrayList();
@@ -218,7 +234,7 @@ public class AppController implements Initializable {
                         addAssetButtonOnAction();
                         break;
                     case "Produse":
-                        addProdusButtonOnAction();
+                        sellProductButtonOnAction();
                         break;
                     case "Alte":
                         addNewInvoice();
@@ -587,10 +603,10 @@ public class AppController implements Initializable {
         DatabaseConnection db = new DatabaseConnection();
         Connection conn = db.getConnection();
         mijloaceFixeObservableList.clear();
-        String mijloaceFixeQuery = "SELECT facturi._id_factura, facturi.nr_factura, facturi.contractant, "
+        String mijloaceFixeQuery = "SELECT assets._id_asset, facturi.nr_factura, facturi.contractant, "
                 + "facturi.data, facturi.denumire_marfa AS denumire, assets.cantitate_stock, assets.cantitate_stock * facturi.pret AS valoareActiv FROM "
                 +"facturi INNER JOIN assets ON facturi.activ_id = assets._id_asset WHERE facturi.tip_marfa = 'Mijloc Fix' AND facturi.tip_intrare_iesire = 'Intrare'";
-        String mijloaceFixeSearchQuery = " AND (facturi._id_factura LIKE '%" + mijloaceFixeSearchTextField.getText() +"%' OR facturi.nr_factura LIKE '%"
+        String mijloaceFixeSearchQuery = " AND (assets._id_asset LIKE '%" + mijloaceFixeSearchTextField.getText() +"%' OR facturi.nr_factura LIKE '%"
                 + mijloaceFixeSearchTextField.getText() + "%' OR facturi.contractant LIKE '%" + mijloaceFixeSearchTextField.getText() + "%' OR "
                 +"facturi.data LIKE '%" + mijloaceFixeSearchTextField.getText() +"%' OR facturi.denumire_marfa LIKE '%" + mijloaceFixeSearchTextField.getText() +"%' OR "
                 +"assets.cantitate_stock LIKE '%" + mijloaceFixeSearchTextField.getText() + "%' OR assets.cantitate_stock * facturi.pret LIKE '%"
@@ -598,7 +614,7 @@ public class AppController implements Initializable {
         try{
             ResultSet mijloaceFixeResultSet = conn.createStatement().executeQuery(mijloaceFixeQuery + mijloaceFixeSearchQuery);
             while (mijloaceFixeResultSet.next()) {
-                mijloaceFixeObservableList.add(new Assets(mijloaceFixeResultSet.getInt("_id_factura"), mijloaceFixeResultSet.getString("nr_factura"),
+                mijloaceFixeObservableList.add(new Assets(mijloaceFixeResultSet.getInt("_id_asset"), mijloaceFixeResultSet.getString("nr_factura"),
                         mijloaceFixeResultSet.getString("contractant"), mijloaceFixeResultSet.getDate("data"), mijloaceFixeResultSet.getString("denumire"),
                         mijloaceFixeResultSet.getFloat("cantitate_stock"), mijloaceFixeResultSet.getFloat("valoareActiv")));
             }
@@ -942,12 +958,7 @@ public class AppController implements Initializable {
         }
     }
 
-    @FXML
-    private Button allowAccesButton, changePasswordButton;
-    @FXML
-    private TableColumn<Staff, String> functieStaffTableColumn;
-    @FXML
-    private TableColumn<Staff, Float> salariuStaffTableColumn;
+
 
     public void loadStaffStages(String fileName, String stageTitle) throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource(fileName));

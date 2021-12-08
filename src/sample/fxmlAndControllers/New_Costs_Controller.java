@@ -92,9 +92,9 @@ public class New_Costs_Controller implements Initializable {
                         break;
                     case "Amortizare MF":
                         String getMaxValueQuery = "SELECT pret * (select cantitate_stock from assets where _id_asset = " +
-                                +elementIdComboBox.getValue() + ") - coalesce((select sum(valoare) from costul_productiei where factura_id = " +
-                                "(select factura_id from facturi where tip_intrare_iesire = 'Intrare' and activ_id = "
-                                + elementIdComboBox.getValue() + " )), 0) as valoaremax from facturi where activ_id = "
+                                +elementIdComboBox.getValue() + ") - (select coalesce(sum(valoare),0) from costul_productiei where factura_id = " +
+                                "(select _id_factura from facturi where tip_intrare_iesire = 'Intrare' and activ_id = "
+                                + elementIdComboBox.getValue() + " )) as valoaremax from facturi where activ_id = "
                                 + elementIdComboBox.getValue() + " and tip_intrare_iesire = 'Intrare'";
                         //coalesce in caz ca returneaza null
                         getMaxValueFactura(getMaxValueQuery, "valoaremax");
@@ -190,9 +190,6 @@ public class New_Costs_Controller implements Initializable {
         } else if(elementIdComboBox.getSelectionModel().isEmpty()){
             invalidElementIdText.setText("Acest camp nu poate fi gol");
             return false;
-        } else if(produsIdComboBox.getSelectionModel().isEmpty()){
-            invalidProdusIdText.setText("Acest camp nu poate fi gol");
-            return false;
         } else if(valoareTextField.getText().isBlank()){
             invalidValoareText.setText("Campul nu poate fi gol");
             return false;
@@ -237,7 +234,12 @@ public class New_Costs_Controller implements Initializable {
             activePrepareStatemen.setDate(3, Date.valueOf(datePicker.getValue()));
             activePrepareStatemen.setFloat(4,Float.parseFloat(valoareTextField.getText()));
             activePrepareStatemen.setFloat(5,activPret);
-            activePrepareStatemen.setInt(6,produsIdComboBox.getValue());
+            try{
+                activePrepareStatemen.setInt(6,produsIdComboBox.getValue());
+            } catch (NullPointerException e){
+                activePrepareStatemen.setString(6,null);
+
+            }
             activePrepareStatemen.execute();
             conn.createStatement().execute(updateStock);
             succesInsertion();
@@ -263,7 +265,12 @@ public class New_Costs_Controller implements Initializable {
             personalPreparedStatement.setDate(3, Date.valueOf(datePicker.getValue()));
             personalPreparedStatement.setFloat(4,Float.parseFloat(valoareTextField.getText()));
             personalPreparedStatement.setInt(5, elementIdComboBox.getValue());
-            personalPreparedStatement.setInt(6,produsIdComboBox.getValue());
+            try{
+                personalPreparedStatement.setInt(6,produsIdComboBox.getValue());
+            } catch (NullPointerException e){
+                personalPreparedStatement.setString(6,null);
+            }
+
             personalPreparedStatement.execute();
             succesInsertion();
         } catch (SQLException e){
@@ -283,7 +290,12 @@ public class New_Costs_Controller implements Initializable {
             preparedStatement.setString(2,scopTextField.getText());
             preparedStatement.setDate(3, Date.valueOf(datePicker.getValue()));
             preparedStatement.setFloat(4,Float.parseFloat(valoareTextField.getText()));
-            preparedStatement.setInt(5,produsIdComboBox.getValue());
+            try{
+                preparedStatement.setInt(5,produsIdComboBox.getValue());
+            } catch (NullPointerException e){
+                preparedStatement.setString(5,null);
+
+            }
             preparedStatement.execute();
             succesInsertion();
         } catch (SQLException e){

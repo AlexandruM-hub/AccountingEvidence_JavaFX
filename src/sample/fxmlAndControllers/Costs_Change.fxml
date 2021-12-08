@@ -60,7 +60,7 @@
                 <Font size="14.0" />
             </font>
         </Text>
-      <DatePicker fx:id="datePicker" layoutX="325.0" layoutY="170.0" prefHeight="25.0" prefWidth="195.0" promptText="Data efectuarii" />
+      <DatePicker fx:id="datePicker" layoutX="325.0" layoutY="170.0" prefHeight="25.0" prefWidth="195.0" promptText="Data efectuarii" AnchorPane.leftAnchor="325.0" AnchorPane.rightAnchor="31.0" AnchorPane.topAnchor="170.0" />
       <Text layoutX="135.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="textStyle" text="Modificarea costurilor" textAlignment="CENTER" wrappingWidth="281.96337890625" AnchorPane.leftAnchor="135.0" AnchorPane.rightAnchor="134.03662109375" AnchorPane.topAnchor="32.0">
          <font>
             <Font name="Bell MT Bold" size="23.0" />

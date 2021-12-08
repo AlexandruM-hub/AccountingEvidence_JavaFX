@@ -132,14 +132,19 @@ public class New_Invoice_Controller implements Initializable {
         DatabaseConnection db = new DatabaseConnection();
         Connection conn = db.getConnection();
         String query = "INSERT INTO costul_productiei(tip, scop, data_cost," +
-                " valoare, factura_id, produs_id) values(?,?,?,?,(SELECT _id_factura from facturi ORDER by _id_factura DESC LIMIT 1),?)";
+                " valoare, factura_id, produs_id, cantitate) values(?,?,?,?,(SELECT _id_factura from facturi ORDER by _id_factura DESC LIMIT 1),?,?)";
         try{
             PreparedStatement preparedStatement = conn.prepareStatement(query);
             preparedStatement.setString(1,"Alte costuri");
             preparedStatement.setString(2, continutTextField.getText());
             preparedStatement.setDate(3,Date.valueOf(datePicker.getValue()));
             preparedStatement.setFloat(4,Float.parseFloat(cantitateTextField.getText())*Float.parseFloat(pretTextField.getText()));
-            preparedStatement.setInt(5,idProdusComboBox.getValue());
+            try{
+                preparedStatement.setInt(5,idProdusComboBox.getValue());
+            } catch (NullPointerException e){
+                preparedStatement.setString(5,null);
+            }
+            preparedStatement.setFloat(6,Float.parseFloat(cantitateTextField.getText()));
             preparedStatement.execute();
         } catch (SQLException e){
             e.printStackTrace();
@@ -158,12 +163,8 @@ public class New_Invoice_Controller implements Initializable {
                 invalidNrFacturii, invalidIdProdus).forEach(text -> text.setText(""));
         if(validation()){
             if(checkBox.isSelected()){
-                if(!idProdusComboBox.getSelectionModel().isEmpty()){
-                    insertDataInDb();
-                    insertDataInCosts();
-                } else{
-                    invalidIdProdus.setText("Introduceti produsul la care se refera costul");
-                }
+                insertDataInDb();
+                insertDataInCosts();
             }else{
                 insertDataInDb();
 

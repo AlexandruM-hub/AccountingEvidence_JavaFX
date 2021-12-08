@@ -1,31 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.chart.AreaChart?>
-<?import javafx.scene.chart.CategoryAxis?>
-<?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.chart.PieChart?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane minHeight="500.0" minWidth="500.0" prefHeight="789.0" prefWidth="1232.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.fxmlAndControllers.AppController">
+<AnchorPane minHeight="500.0" minWidth="500.0" prefHeight="789.0" prefWidth="1232.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.fxmlAndControllers.AppController">
    <children>
       <Pane layoutX="315.0" prefHeight="25.0" prefWidth="917.0" styleClass="topPaneColor" stylesheets="@../../css/login.css" AnchorPane.leftAnchor="315.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <AnchorPane layoutY="25.0" prefHeight="764.0" prefWidth="317.0" styleClass="menuButtonBackground" stylesheets="@../../css/login.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="25.0">
          <children>
-            <Button fx:id="dashboardButton" mnemonicParsing="false" onAction="#menuButtonsOnAction" prefHeight="63.0" prefWidth="317.0" styleClass="menuButton" stylesheets="@../../css/login.css" text="    Dashboard         " textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Button fx:id="dashboardButton" mnemonicParsing="false" onAction="#menuButtonsOnAction" prefHeight="63.0" prefWidth="317.0" styleClass="menuButton" stylesheets="@../../css/login.css" text="    Dashboard            " textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <font>
                   <Font name="Bell MT Bold" size="24.0" />
                </font>
@@ -37,7 +24,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="transactionButton" layoutY="63.0" mnemonicParsing="false" onAction="#menuButtonsOnAction" prefHeight="63.0" prefWidth="317.0" styleClass="menuButton" stylesheets="@../../css/login.css" text="      Facturi                  " textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="63.0">
+            <Button fx:id="transactionButton" layoutY="63.0" mnemonicParsing="false" onAction="#menuButtonsOnAction" prefHeight="63.0" prefWidth="317.0" styleClass="menuButton" stylesheets="@../../css/login.css" text="   Facturi                   " textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="63.0">
                <font>
                   <Font name="Bell MT Bold" size="24.0" />
                </font>
@@ -49,7 +36,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="incomesButton" layoutY="126.0" mnemonicParsing="false" onAction="#menuButtonsOnAction" prefHeight="63.0" prefWidth="317.0" styleClass="menuButton" stylesheets="@../../css/login.css" text="   Venituri              " textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="126.0">
+            <Button fx:id="incomesButton" layoutY="126.0" mnemonicParsing="false" onAction="#menuButtonsOnAction" prefHeight="63.0" prefWidth="317.0" styleClass="menuButton" stylesheets="@../../css/login.css" text="   Venituri                 " textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="126.0">
                <font>
                   <Font name="Bell MT Bold" size="24.0" />
                </font>
@@ -61,7 +48,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="costsButton" layoutY="189.0" mnemonicParsing="false" onAction="#menuButtonsOnAction" prefHeight="63.0" prefWidth="317.0" styleClass="menuButton" stylesheets="@../../css/login.css" text="  Costuri                  " textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="189.0">
+            <Button fx:id="costsButton" layoutY="189.0" mnemonicParsing="false" onAction="#menuButtonsOnAction" prefHeight="63.0" prefWidth="317.0" styleClass="menuButton" stylesheets="@../../css/login.css" text="   Costuri                  " textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="189.0">
                <font>
                   <Font name="Bell MT Bold" size="24.0" />
                </font>
@@ -73,7 +60,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="productsButton" layoutY="252.0" mnemonicParsing="false" onAction="#menuButtonsOnAction" prefHeight="63.0" prefWidth="317.0" styleClass="menuButton" stylesheets="@../../css/login.css" text="   Produse            " textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="252.0">
+            <Button fx:id="productsButton" layoutY="252.0" mnemonicParsing="false" onAction="#menuButtonsOnAction" prefHeight="63.0" prefWidth="317.0" styleClass="menuButton" stylesheets="@../../css/login.css" text="    Produse                " textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="252.0">
                <font>
                   <Font name="Bell MT Bold" size="24.0" />
                </font>
@@ -85,7 +72,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="assetsButton" layoutY="315.0" mnemonicParsing="false" onAction="#menuButtonsOnAction" prefHeight="63.0" prefWidth="317.0" styleClass="menuButton" stylesheets="@../../css/login.css" text="   Active                " textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="315.0">
+            <Button fx:id="assetsButton" layoutY="315.0" mnemonicParsing="false" onAction="#menuButtonsOnAction" prefHeight="63.0" prefWidth="317.0" styleClass="menuButton" stylesheets="@../../css/login.css" text="    Active                   " textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="315.0">
                <font>
                   <Font name="Bell MT Bold" size="24.0" />
                </font>
@@ -97,7 +84,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="claimsButton" layoutY="378.0" mnemonicParsing="false" onAction="#menuButtonsOnAction" prefHeight="63.0" prefWidth="317.0" styleClass="menuButton" stylesheets="@../../css/login.css" text="    Creante/Datorii" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="378.0">
+            <Button fx:id="claimsButton" layoutY="378.0" mnemonicParsing="false" onAction="#menuButtonsOnAction" prefHeight="63.0" prefWidth="317.0" styleClass="menuButton" stylesheets="@../../css/login.css" text="     Creante/Datorii  " textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="378.0">
                <font>
                   <Font name="Bell MT Bold" size="24.0" />
                </font>
@@ -109,7 +96,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="staffButton" layoutY="441.0" mnemonicParsing="false" onAction="#menuButtonsOnAction" prefHeight="63.0" prefWidth="317.0" styleClass="menuButton" stylesheets="@../../css/login.css" text="   Personal             " textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="441.0">
+            <Button fx:id="staffButton" layoutY="441.0" mnemonicParsing="false" onAction="#menuButtonsOnAction" prefHeight="63.0" prefWidth="317.0" styleClass="menuButton" stylesheets="@../../css/login.css" text="   Personal               " textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="441.0">
                <font>
                   <Font name="Bell MT Bold" size="24.0" />
                </font>
@@ -397,115 +384,6 @@
                </columnResizePolicy>
             </TableView>
          </children></AnchorPane>
-      <AnchorPane fx:id="transactionAnchor" layoutX="315.0" layoutY="25.0" prefHeight="772.0" prefWidth="917.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="315.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
-         <children>
-            <TabPane prefHeight="764.0" prefWidth="917.0" styleClass="tabsBackground" stylesheets="@../../css/login.css" tabClosingPolicy="UNAVAILABLE" tabMinHeight="30.0" tabMinWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <tabs>
-                  <Tab fx:id="transactionTab" text="Facturi">
-                     <content>
-                        <AnchorPane cache="true" minHeight="0.0" minWidth="500.0" prefHeight="727.0" prefWidth="914.0">
-                           <opaqueInsets>
-                              <Insets />
-                           </opaqueInsets>
-                        </AnchorPane>
-                     </content>
-                  </Tab>
-                  <Tab fx:id="inTab" text="IN">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                     </content>
-                  </Tab>
-                  <Tab fx:id="outTab" text="OUT">
-                     <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="717.0" prefWidth="917.0" />
-                     </content>
-                  </Tab>
-               </tabs>
-            </TabPane>
-            <VBox prefHeight="366.0" prefWidth="158.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="39.0">
-               <children>
-                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#newInvoiceButton" prefHeight="122.0" prefWidth="159.0" styleClass="buttonsStyle" stylesheets="@../../css/login.css" text="Factura Noua" textAlignment="CENTER">
-                     <graphic>
-                        <ImageView fitHeight="57.0" fitWidth="64.0">
-                           <image>
-                              <Image url="@../../css/addIcon.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                     <font>
-                        <Font name="Bell MT Bold" size="17.0" />
-                     </font>
-                  </Button>
-                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#changeInvoiceButtonOnAction" prefHeight="122.0" prefWidth="159.0" styleClass="buttonsStyle" stylesheets="@../../css/login.css" text="Modifica" textAlignment="CENTER">
-                     <font>
-                        <Font name="Bell MT Bold" size="17.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="49.0" fitWidth="53.0">
-                           <image>
-                              <Image url="@../../css/change.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#deleteInvoiceButtonOnAction" prefHeight="122.0" prefWidth="159.0" styleClass="buttonsStyle" stylesheets="@../../css/login.css" text="Sterge" textAlignment="CENTER">
-                     <font>
-                        <Font name="Bell MT Bold" size="17.0" />
-                     </font>
-                     <graphic>
-                        <ImageView fitHeight="45.0" fitWidth="48.0">
-                           <image>
-                              <Image url="@../../css/delete.jpg" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
-               </children>
-            </VBox>
-            <TableView fx:id="invoicesTableView" layoutY="92.0" prefHeight="642.0" prefWidth="705.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="181.0" AnchorPane.topAnchor="103.0">
-               <columns>
-                  <TableColumn fx:id="idFacturaInvoicesTableColumn" prefWidth="75.0" text="ID Factura" />
-                  <TableColumn fx:id="nrFacturaInvoicesTableColumn" minWidth="50.0" prefWidth="150.0" text="Nr Factura" />
-                  <TableColumn fx:id="tipInvoiceTableColumn" minWidth="40.0" prefWidth="41.0" text="Tip" />
-                  <TableColumn fx:id="contractantInvoicesTableColumn" minWidth="100.0" prefWidth="46.0" text="Contractant" />
-                  <TableColumn fx:id="invoicesDateTableColumn" minWidth="50.0" prefWidth="30.0" text="Data" />
-                  <TableColumn fx:id="tipMarfaInvoiceTableColumn" minWidth="40.0" prefWidth="54.0" text="Tip marfa" />
-                  <TableColumn fx:id="denumireMarfaInvoiceTableColumn" minWidth="100.0" prefWidth="67.0" text="Denumire marfa" />
-                  <TableColumn fx:id="cantitateInvoiceTableColumn" minWidth="40.0" prefWidth="63.0" text="Cantitate" />
-                  <TableColumn fx:id="pretInvoiceTableColumn" minWidth="20.0" prefWidth="48.0" text="Pret" />
-                  <TableColumn fx:id="valoareInvoiceTableColumn" minWidth="40.0" prefWidth="75.0" text="Valoare" />
-                  <TableColumn fx:id="idProdusInvoicesTableColumn" minWidth="20.0" prefWidth="75.0" text="ID Activ" />
-                  <TableColumn fx:id="idDepozitInvoiceTableColumn" prefWidth="75.0" text="ID Depozit" />
-                  <TableColumn fx:id="idTerenInvoicesTableColumn" prefWidth="75.0" text="ID Teren" />
-                  <TableColumn fx:id="idAssetInvoicesTableColumn" prefWidth="75.0" text="ID Produs" />
-               </columns>
-               <columnResizePolicy>
-                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-               </columnResizePolicy>
-            </TableView>
-            <TextField fx:id="invoicesSearchTextField" prefHeight="25.0" prefWidth="200.0" promptText="Search" AnchorPane.rightAnchor="181.0" AnchorPane.topAnchor="51.0" />
-            <ImageView fitHeight="24.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="392.0" AnchorPane.topAnchor="51.0">
-               <image>
-                  <Image url="@../../css/search.png" />
-               </image>
-            </ImageView>
-            <Pane fx:id="newInvoicePane" opacity="0.0" prefHeight="143.0" prefWidth="384.0" styleClass="newInvoiceBackground" stylesheets="@../../css/login.css" visible="false" AnchorPane.rightAnchor="181.0" AnchorPane.topAnchor="46.0">
-               <children>
-                  <Text fill="WHITE" layoutX="46.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Alegeti continutul facturii">
-                     <font>
-                        <Font name="Bell MT Bold" size="26.0" />
-                     </font>
-                  </Text>
-                  <ComboBox fx:id="newInvoiceComboBox" layoutX="46.0" layoutY="72.0" prefHeight="25.0" prefWidth="299.0" promptText="Active / Produse / Altele" />
-                  <ImageView fitHeight="29.0" fitWidth="31.0" layoutX="351.0" layoutY="2.0" onMouseClicked="#closeNewInvoiceButtonOnAction">
-                     <image>
-                        <Image url="@../../css/CloseIcon.png" />
-                     </image>
-                  </ImageView>
-               </children>
-            </Pane>
-         </children>
-      </AnchorPane>
       <AnchorPane fx:id="claimsAnchor" layoutX="365.0" layoutY="76.0" prefHeight="762.0" prefWidth="685.0" style="-fx-background-color: #ccc;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="315.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
          <children>
             <TabPane prefHeight="764.0" prefWidth="917.0" styleClass="tabsBackground" stylesheets="@../../css/login.css" tabClosingPolicy="UNAVAILABLE" tabMinHeight="30.0" tabMinWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -676,23 +554,6 @@
                </columnResizePolicy>
             </TableView>
          </children></AnchorPane>
-      <AnchorPane fx:id="dashboardAnchor" layoutX="315.0" layoutY="26.0" prefHeight="763.0" prefWidth="685.0" styleClass="tabsBackground" stylesheets="@../../css/login.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="315.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="26.0">
-         <children>
-            <PieChart layoutX="90.0" layoutY="431.0" prefHeight="300.0" prefWidth="361.0" styleClass="newInvoiceBackground" stylesheets="@../../css/login.css" />
-            <AreaChart layoutX="14.0" layoutY="14.0">
-              <xAxis>
-                <CategoryAxis side="BOTTOM" />
-              </xAxis>
-              <yAxis>
-                <NumberAxis side="LEFT" upperBound="10000.0">
-                     <tickLabelFont>
-                        <Font size="16.0" />
-                     </tickLabelFont>
-                  </NumberAxis>
-              </yAxis>
-            </AreaChart>
-         </children>
-      </AnchorPane>
       <AnchorPane fx:id="productsAnchor" layoutX="345.0" layoutY="56.0" prefHeight="762.0" prefWidth="685.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="315.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
          <children>
             <TabPane layoutY="-25.0" prefHeight="789.0" prefWidth="917.0" styleClass="tabsBackground" stylesheets="@../../css/login.css" tabClosingPolicy="UNAVAILABLE" tabMinHeight="30.0" tabMinWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -809,5 +670,131 @@
                </children>
             </VBox>
          </children></AnchorPane>
+      <AnchorPane fx:id="transactionAnchor" layoutX="315.0" layoutY="25.0" prefHeight="772.0" prefWidth="917.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="315.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
+         <children>
+            <TabPane prefHeight="764.0" prefWidth="917.0" styleClass="tabsBackground" stylesheets="@../../css/login.css" tabClosingPolicy="UNAVAILABLE" tabMinHeight="30.0" tabMinWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <tabs>
+                  <Tab fx:id="transactionTab" text="Facturi">
+                     <content>
+                        <AnchorPane cache="true" minHeight="0.0" minWidth="500.0" prefHeight="727.0" prefWidth="914.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                  <Tab fx:id="inTab" text="IN">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                     </content>
+                  </Tab>
+                  <Tab fx:id="outTab" text="OUT">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="717.0" prefWidth="917.0" />
+                     </content>
+                  </Tab>
+               </tabs>
+            </TabPane>
+            <VBox prefHeight="366.0" prefWidth="158.0" AnchorPane.rightAnchor="3.0" AnchorPane.topAnchor="39.0">
+               <children>
+                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#newInvoiceButton" prefHeight="122.0" prefWidth="159.0" styleClass="buttonsStyle" stylesheets="@../../css/login.css" text="Factura Noua" textAlignment="CENTER">
+                     <graphic>
+                        <ImageView fitHeight="57.0" fitWidth="64.0">
+                           <image>
+                              <Image url="@../../css/addIcon.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font name="Bell MT Bold" size="17.0" />
+                     </font>
+                  </Button>
+                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#changeInvoiceButtonOnAction" prefHeight="122.0" prefWidth="159.0" styleClass="buttonsStyle" stylesheets="@../../css/login.css" text="Modifica" textAlignment="CENTER">
+                     <font>
+                        <Font name="Bell MT Bold" size="17.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="49.0" fitWidth="53.0">
+                           <image>
+                              <Image url="@../../css/change.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button contentDisplay="TOP" mnemonicParsing="false" onAction="#deleteInvoiceButtonOnAction" prefHeight="122.0" prefWidth="159.0" styleClass="buttonsStyle" stylesheets="@../../css/login.css" text="Sterge" textAlignment="CENTER">
+                     <font>
+                        <Font name="Bell MT Bold" size="17.0" />
+                     </font>
+                     <graphic>
+                        <ImageView fitHeight="45.0" fitWidth="48.0">
+                           <image>
+                              <Image url="@../../css/delete.jpg" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </VBox>
+            <TableView fx:id="invoicesTableView" layoutY="92.0" prefHeight="642.0" prefWidth="705.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="181.0" AnchorPane.topAnchor="103.0">
+               <columns>
+                  <TableColumn fx:id="idFacturaInvoicesTableColumn" prefWidth="75.0" text="ID Factura" />
+                  <TableColumn fx:id="nrFacturaInvoicesTableColumn" minWidth="50.0" prefWidth="150.0" text="Nr Factura" />
+                  <TableColumn fx:id="tipInvoiceTableColumn" minWidth="40.0" prefWidth="41.0" text="Tip" />
+                  <TableColumn fx:id="contractantInvoicesTableColumn" minWidth="100.0" prefWidth="46.0" text="Contractant" />
+                  <TableColumn fx:id="invoicesDateTableColumn" minWidth="50.0" prefWidth="30.0" text="Data" />
+                  <TableColumn fx:id="tipMarfaInvoiceTableColumn" minWidth="40.0" prefWidth="54.0" text="Tip marfa" />
+                  <TableColumn fx:id="denumireMarfaInvoiceTableColumn" minWidth="100.0" prefWidth="67.0" text="Denumire marfa" />
+                  <TableColumn fx:id="cantitateInvoiceTableColumn" minWidth="40.0" prefWidth="63.0" text="Cantitate" />
+                  <TableColumn fx:id="pretInvoiceTableColumn" minWidth="20.0" prefWidth="48.0" text="Pret" />
+                  <TableColumn fx:id="valoareInvoiceTableColumn" minWidth="40.0" prefWidth="75.0" text="Valoare" />
+                  <TableColumn fx:id="idProdusInvoicesTableColumn" minWidth="20.0" prefWidth="75.0" text="ID Activ" />
+                  <TableColumn fx:id="idDepozitInvoiceTableColumn" prefWidth="75.0" text="ID Depozit" />
+                  <TableColumn fx:id="idTerenInvoicesTableColumn" prefWidth="75.0" text="ID Teren" />
+                  <TableColumn fx:id="idAssetInvoicesTableColumn" prefWidth="75.0" text="ID Produs" />
+               </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+            <TextField fx:id="invoicesSearchTextField" prefHeight="25.0" prefWidth="200.0" promptText="Search" AnchorPane.rightAnchor="181.0" AnchorPane.topAnchor="51.0" />
+            <ImageView fitHeight="24.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="392.0" AnchorPane.topAnchor="51.0">
+               <image>
+                  <Image url="@../../css/search.png" />
+               </image>
+            </ImageView>
+            <Pane fx:id="newInvoicePane" opacity="0.0" prefHeight="143.0" prefWidth="384.0" styleClass="newInvoiceBackground" stylesheets="@../../css/login.css" visible="false" AnchorPane.rightAnchor="181.0" AnchorPane.topAnchor="46.0">
+               <children>
+                  <Text fill="WHITE" layoutX="46.0" layoutY="48.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Alegeti continutul facturii">
+                     <font>
+                        <Font name="Bell MT Bold" size="26.0" />
+                     </font>
+                  </Text>
+                  <ComboBox fx:id="newInvoiceComboBox" layoutX="46.0" layoutY="72.0" prefHeight="25.0" prefWidth="299.0" promptText="Active / Produse / Altele" />
+                  <ImageView fitHeight="29.0" fitWidth="31.0" layoutX="355.0" onMouseClicked="#closeNewInvoiceButtonOnAction">
+                     <image>
+                        <Image url="@../../css/closeButton.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="dashboardAnchor" layoutX="315.0" layoutY="26.0" prefHeight="763.0" prefWidth="685.0" styleClass="tabsBackground" stylesheets="@../../css/login.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="315.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="26.0">
+         <children>
+            <PieChart layoutX="90.0" layoutY="431.0" prefHeight="300.0" prefWidth="361.0" styleClass="newInvoiceBackground" stylesheets="@../../css/login.css" />
+            <AreaChart layoutX="14.0" layoutY="14.0">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" upperBound="10000.0">
+                     <tickLabelFont>
+                        <Font size="16.0" />
+                     </tickLabelFont>
+                  </NumberAxis>
+              </yAxis>
+            </AreaChart>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

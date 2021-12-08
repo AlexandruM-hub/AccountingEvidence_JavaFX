@@ -170,7 +170,7 @@ public class Costs_Change_Controller implements Initializable {
         try{
             PreparedStatement preparedStatement = conn.prepareStatement(query);
             preparedStatement.setString(1, scopTextField.getText());
-            preparedStatement.setDate(2, Date.valueOf(datePicker.getEditor().getText()));
+            preparedStatement.setDate(2, Date.valueOf(datePicker.getValue()));
             preparedStatement.setFloat(3, Float.parseFloat(valoareTextField.getText()));
             preparedStatement.execute();
             conn.close();

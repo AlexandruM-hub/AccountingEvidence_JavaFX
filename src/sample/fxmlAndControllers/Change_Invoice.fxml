@@ -86,9 +86,9 @@
                 <Font size="14.0" />
             </font>
         </Text>
-      <DatePicker fx:id="datePicker" layoutX="323.0" layoutY="189.0" prefHeight="25.0" prefWidth="244.0" promptText="Data" />
-      <TextField fx:id="cantitateTextField" layoutX="323.0" layoutY="275.0" prefHeight="25.0" prefWidth="244.0" promptText="Cantitate" />
-      <TextField fx:id="pretTextField" layoutX="323.0" layoutY="318.0" prefHeight="25.0" prefWidth="244.0" promptText="Pret" />
+      <DatePicker fx:id="datePicker" layoutX="323.0" layoutY="189.0" prefHeight="25.0" prefWidth="244.0" promptText="Data" AnchorPane.leftAnchor="323.0" AnchorPane.rightAnchor="33.0" AnchorPane.topAnchor="189.0" />
+      <TextField fx:id="cantitateTextField" layoutX="323.0" layoutY="275.0" prefHeight="25.0" prefWidth="244.0" promptText="Cantitate" AnchorPane.leftAnchor="323.0" AnchorPane.rightAnchor="33.0" AnchorPane.topAnchor="275.0" />
+      <TextField fx:id="pretTextField" layoutX="323.0" layoutY="318.0" prefHeight="25.0" prefWidth="244.0" promptText="Pret" AnchorPane.leftAnchor="323.0" AnchorPane.rightAnchor="33.0" AnchorPane.topAnchor="318.0" />
       <Text fx:id="invalidCantitate" fill="RED" layoutX="23.0" layoutY="315.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="266.13671875">
          <font>
             <Font size="14.0" />

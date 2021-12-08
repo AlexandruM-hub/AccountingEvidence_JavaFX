@@ -47,7 +47,7 @@
             <Font name="Bell MT Bold" size="21.0" />
          </font>
       </Text>
-      <ComboBox fx:id="idDatorieCreantaComboBox" layoutX="235.0" layoutY="82.0" prefHeight="25.0" prefWidth="236.0" promptText="Datorie / Creanta ID" />
+      <ComboBox fx:id="idDatorieCreantaComboBox" layoutX="235.0" layoutY="82.0" prefHeight="25.0" prefWidth="236.0" promptText="Datorie / Creanta ID" AnchorPane.leftAnchor="235.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="82.0" />
       <Text fx:id="invalidIdDatorieCreanta" fill="RED" layoutX="16.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="207.1123046875">
          <font>
             <Font name="Bell MT" size="14.0" />

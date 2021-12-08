@@ -12,33 +12,33 @@
                 <Font name="Bell MT Bold" size="29.0" />
             </font>
         </Text>
-        <Text fill="#cfcb5b" layoutX="6.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tip" textAlignment="CENTER" wrappingWidth="207.1123046875" AnchorPane.leftAnchor="5.1123046875" AnchorPane.rightAnchor="224.775390625" AnchorPane.topAnchor="98.0">
+        <Text fill="#cfcb5b" layoutX="6.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tip" textAlignment="CENTER" wrappingWidth="207.1123046875" AnchorPane.leftAnchor="5.1123046875" AnchorPane.topAnchor="98.0">
             <font>
                 <Font name="Bell MT Bold" size="21.0" />
             </font>
         </Text>
-        <Text fill="#cfcb5b" layoutX="4.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aferenta" textAlignment="CENTER" wrappingWidth="207.1123046875" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="226.8876953125" AnchorPane.topAnchor="139.33251953125">
+        <Text fill="#cfcb5b" layoutX="4.0" layoutY="157.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aferenta" textAlignment="CENTER" wrappingWidth="207.1123046875" AnchorPane.leftAnchor="4.0" AnchorPane.topAnchor="139.33251953125">
             <font>
                 <Font name="Bell MT Bold" size="21.0" />
             </font>
         </Text>
-        <Text fill="#cfcb5b" layoutX="10.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Data limita achitare" textAlignment="CENTER" wrappingWidth="215.1123046875" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="258.8876953125" AnchorPane.topAnchor="184.0">
+        <Text fill="#cfcb5b" layoutX="10.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Data limita achitare" textAlignment="CENTER" wrappingWidth="215.1123046875" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="184.0">
             <font>
                 <Font name="Bell MT Bold" size="21.0" />
             </font>
         </Text>
-        <Text fill="#cfcb5b" layoutX="3.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Element ID" textAlignment="CENTER" wrappingWidth="207.1123046875" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="227.8876953125" AnchorPane.topAnchor="228.33251953125">
+        <Text fill="#cfcb5b" layoutX="3.0" layoutY="246.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Element ID" textAlignment="CENTER" wrappingWidth="207.1123046875" AnchorPane.leftAnchor="3.0" AnchorPane.topAnchor="228.33251953125">
             <font>
                 <Font name="Bell MT Bold" size="21.0" />
             </font>
         </Text>
-        <Text fill="#cfcb5b" layoutX="3.0" layoutY="290.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Valoare" textAlignment="CENTER" wrappingWidth="207.1123046875" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="227.8876953125" AnchorPane.topAnchor="272.33251953125">
+        <Text fill="#cfcb5b" layoutX="3.0" layoutY="290.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Valoare" textAlignment="CENTER" wrappingWidth="207.1123046875" AnchorPane.leftAnchor="3.0" AnchorPane.topAnchor="272.33251953125">
             <font>
                 <Font name="Bell MT Bold" size="21.0" />
             </font>
         </Text>
         <DatePicker fx:id="termenLimitaDatePicke" layoutX="237.0" layoutY="184.0" prefHeight="25.0" prefWidth="236.0" promptText="Data limita achitare" style="-fx-background-color: #ADADAD;" AnchorPane.leftAnchor="237.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="184.0" />
-        <TextField fx:id="valoareTextField" layoutX="236.0" layoutY="272.0" prefHeight="25.0" prefWidth="236.0" promptText="Valoare" AnchorPane.leftAnchor="236.0" AnchorPane.rightAnchor="12.0" />
+        <TextField fx:id="valoareTextField" layoutX="236.0" layoutY="272.0" prefHeight="25.0" prefWidth="236.0" promptText="Valoare" AnchorPane.leftAnchor="236.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="272.0" />
         <Text fx:id="invalidTipText" fill="RED" layoutX="14.0" layoutY="136.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="207.1123046875">
             <font>
                 <Font name="Bell MT" size="14.0" />
@@ -76,15 +76,15 @@
             <font>
                 <Font name="Bell MT Bold" size="17.0" />
             </font></Button>
-      <ComboBox fx:id="tipComboBox" layoutX="238.0" layoutY="99.0" prefHeight="25.0" prefWidth="236.0" promptText="Datorie / Creanta" />
-      <ComboBox fx:id="aferentaComboBox" layoutX="237.0" layoutY="140.0" prefHeight="25.0" prefWidth="236.0" promptText="Facturi / Personal" />
-      <ComboBox fx:id="elementIdComboBox" layoutX="236.0" layoutY="229.0" prefHeight="25.0" prefWidth="236.0" promptText="Element ID" />
-      <Text fill="#cfcb5b" layoutX="8.0" layoutY="334.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Data achitat" textAlignment="CENTER" wrappingWidth="207.1123046875">
+      <ComboBox fx:id="tipComboBox" layoutX="238.0" layoutY="99.0" prefHeight="25.0" prefWidth="236.0" promptText="Datorie / Creanta" AnchorPane.leftAnchor="238.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="99.0" />
+      <ComboBox fx:id="aferentaComboBox" layoutX="237.0" layoutY="140.0" prefHeight="25.0" prefWidth="236.0" promptText="Facturi / Personal" AnchorPane.leftAnchor="237.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="140.0" />
+      <ComboBox fx:id="elementIdComboBox" layoutX="236.0" layoutY="229.0" prefHeight="25.0" prefWidth="236.0" promptText="Element ID" AnchorPane.leftAnchor="236.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="229.0" />
+      <Text fill="#cfcb5b" layoutX="8.0" layoutY="334.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Data achitat" textAlignment="CENTER" wrappingWidth="207.1123046875" AnchorPane.leftAnchor="8.0" AnchorPane.topAnchor="316.33251953125">
          <font>
             <Font name="Bell MT Bold" size="21.0" />
          </font>
       </Text>
-      <DatePicker fx:id="dataAchitatDatePiker" layoutX="235.0" layoutY="315.0" prefHeight="25.0" prefWidth="236.0" promptText="Data achitat" />
+      <DatePicker fx:id="dataAchitatDatePiker" layoutX="235.0" layoutY="315.0" prefHeight="25.0" prefWidth="236.0" promptText="Data achitat" AnchorPane.leftAnchor="235.0" AnchorPane.rightAnchor="13.0" AnchorPane.topAnchor="315.0" />
         <Pane fx:id="succesPane" layoutX="143.0" layoutY="142.0" prefHeight="200.0" prefWidth="200.0" styleClass="addSuccesfullyData" stylesheets="@../../css/login.css" visible="false" AnchorPane.topAnchor="142.0">
             <children>
                 <ImageView fitHeight="95.0" fitWidth="108.0" layoutX="46.0" layoutY="32.0">
@@ -100,12 +100,12 @@
             </children></Pane>
       <TextField fx:id="scopRemunerareTextField" layoutX="237.0" layoutY="359.0" prefHeight="25.0" prefWidth="236.0" promptText="Scop remunerare" visible="false" />
       <ComboBox fx:id="produsIdComboBox" layoutX="235.0" layoutY="403.0" prefHeight="25.0" prefWidth="236.0" promptText="Produs ID" visible="false" />
-      <Text fx:id="scopRemunerareText" fill="#cfcb5b" layoutX="8.0" layoutY="379.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Scop remunerare" textAlignment="CENTER" visible="false" wrappingWidth="207.1123046875">
+      <Text fx:id="scopRemunerareText" fill="#cfcb5b" layoutX="8.0" layoutY="379.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Scop remunerare" textAlignment="CENTER" visible="false" wrappingWidth="207.1123046875" AnchorPane.leftAnchor="8.0" AnchorPane.topAnchor="361.33251953125">
          <font>
             <Font name="Bell MT Bold" size="21.0" />
          </font>
       </Text>
-      <Text fx:id="produseIdText" fill="#cfcb5b" layoutX="8.0" layoutY="423.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Produs ID" textAlignment="CENTER" visible="false" wrappingWidth="207.1123046875">
+      <Text fx:id="produseIdText" fill="#cfcb5b" layoutX="8.0" layoutY="423.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Produs ID" textAlignment="CENTER" visible="false" wrappingWidth="207.1123046875" AnchorPane.leftAnchor="8.0" AnchorPane.topAnchor="405.33251953125">
          <font>
             <Font name="Bell MT Bold" size="21.0" />
          </font>
