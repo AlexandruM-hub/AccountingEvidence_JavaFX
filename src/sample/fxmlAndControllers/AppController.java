@@ -9,10 +9,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
@@ -23,7 +25,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
-import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.stream.Stream;
 
@@ -166,6 +167,12 @@ public class AppController implements Initializable {
     private TableColumn<Staff, Float> salariuStaffTableColumn;
 
     //DASHBOARD
+    @FXML
+    private Text profitText, venituriText, costuriText, cheltuieliText, creanteText, datoriiText;
+    @FXML
+    private PieChart costsPieChart;
+    @FXML
+    private BarChart<String, Float> productsBarChart;
     //ponderea costurilor -> piechart
     //cheltuieli si venituri pe ani ->
     //cost, venit per produs
@@ -200,6 +207,7 @@ public class AppController implements Initializable {
 
     //STAFF
     ObservableList<Staff> staffObservableList = FXCollections.observableArrayList();
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -246,7 +254,114 @@ public class AppController implements Initializable {
         }));
         loadStaffInTable();
         searchStaffTextField.textProperty().addListener(((observableValue, s, t1) -> searchStaff()));
+        getStatisticsFromDb();
+        pieChartCosts();
+        ProductsBarChart();
     }
+
+    private void ProductsBarChart(){
+        XYChart.Series<String, Float> series1 = new XYChart.Series<>();
+        series1.setName("Venituri");
+        XYChart.Series<String, Float> series2 = new XYChart.Series<>();
+        series2.setName("Costuri");
+        DatabaseConnection db = new DatabaseConnection();
+        Connection conn = db.getConnection();
+        String getVenituriQuery = "SELECT sum(facturi.pret * facturi.cantitate) as valoare, produse.denumire_produs " +
+                "as denumire from facturi inner join produse on facturi.produse_id = produse._id_produs group by " +
+                "produse.denumire_produs";
+        String getAverageQuery = "select ((select sum(valoare) from costul_productiei where produs_id IS NULL) / " +
+                "(select sum(cantitate_recoltata) from produse)) as average";
+        String createViewQuery = "create view costuri_produse (cost_produs, denumire) as (select sum(costul_productiei.valoare), " +
+                "produse.denumire_produs from costul_productiei inner join produse on costul_productiei.produs_id = produse._id_produs group by " +
+                "produse.denumire_produs)";
+        String getProductCosts = "SELECT sum(produse.cantitate_recoltata) as cantitate, costuri_produse.cost_produs as cost, " +
+                "costuri_produse.denumire as denumire from produse INNER JOIN costuri_produse on produse.denumire_produs = costuri_produse.denumire " +
+                "GROUP BY denumire";
+        try{
+            ResultSet getVenituriResultSet = conn.createStatement().executeQuery(getVenituriQuery);
+            while(getVenituriResultSet.next()){
+                series1.getData().add(new XYChart.Data<>(getVenituriResultSet.getString("denumire"), getVenituriResultSet.getFloat("valoare")));
+            }
+            float averageCost = 0;
+            ResultSet getAvgResultSet = conn.createStatement().executeQuery(getAverageQuery);
+            if(getAvgResultSet.next()){
+                averageCost = getAvgResultSet.getFloat("average");
+            }
+            conn.createStatement().execute(createViewQuery);
+            ResultSet getCostsPerProductRs = conn.createStatement().executeQuery(getProductCosts);
+            while(getCostsPerProductRs.next()){
+                series2.getData().add(new XYChart.Data<>(getCostsPerProductRs.getString("denumire"),
+                        getCostsPerProductRs.getFloat("cost") + (averageCost * getCostsPerProductRs.getFloat("cantitate"))));
+            }
+            conn.createStatement().execute("drop view costuri_produse");
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        productsBarChart.getData().addAll(series1, series2);
+    }
+
+    private void pieChartCosts(){
+        ObservableList<PieChart.Data> costsPieChartDataObsList = FXCollections.observableArrayList();
+        DatabaseConnection db = new DatabaseConnection();
+        Connection conn = db.getConnection();
+        String getCostsFromDbQuery = "select tip ,sum(valoare) as valoareCosturi from costul_productiei group by tip";
+        try{
+            ResultSet getCostsFromDb = conn.createStatement().executeQuery(getCostsFromDbQuery);
+            while(getCostsFromDb.next()){
+                costsPieChartDataObsList.add(new PieChart.Data(getCostsFromDb.getString("tip"), getCostsFromDb.getFloat("valoareCosturi")));
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        costsPieChart.setTitle("Costuri");
+        costsPieChart.setStartAngle(120);
+        costsPieChart.setData(costsPieChartDataObsList);
+
+    }
+
+
+
+    private void getStatisticsFromDb(){
+        DatabaseConnection db = new DatabaseConnection();
+        Connection conn = db.getConnection();
+        String getProfitQuery = "select ((select sum(cantitate * pret) from facturi where tip_intrare_iesire = 'Iesire' and data >= '2021-01-01') - " +
+                "(select sum(valoare) from costul_productiei where data_cost >= '2021-01-01')) as profit";
+        String getVenituriQuery = "select sum(cantitate * pret) as valoareVenituri from facturi where tip_intrare_iesire = 'Iesire' and data >= '2021-01-01'";
+        String getCosturiQuery = "select sum(valoare) as valoareCosturi from costul_productiei where data_cost >= '2021-01-01'";
+        String getCheltuieliQuery = "select sum(cantitate * pret) as valoareCheltuieli from facturi where tip_intrare_iesire = 'Intrare' and data >= '2021-01-01'";
+        String getCreanteQuery = "select sum(valoare) as valoareCreanta from datorii_creante where data_achitat IS NULL and tip = 'Creanta'";
+        String getDatoriiQuery = "select sum(valoare) as valoareDatorie from datorii_creante where data_achitat IS NULL and tip = 'Datorie'";
+        try{
+            ResultSet getProfit = conn.createStatement().executeQuery(getProfitQuery);
+            if(getProfit.next()){
+                profitText.setText(String.valueOf(getProfit.getFloat("profit")));
+            }
+            ResultSet getVenituriResultSet = conn.createStatement().executeQuery(getVenituriQuery);
+            if(getVenituriResultSet.next()){
+                venituriText.setText(String.valueOf(getVenituriResultSet.getFloat("valoareVenituri")));
+            }
+            ResultSet getCosturiResultSet = conn.createStatement().executeQuery(getCosturiQuery);
+            if(getCosturiResultSet.next()){
+                costuriText.setText("" + getCosturiResultSet.getFloat("valoareCosturi"));
+            }
+            ResultSet getCheltuieliResultSet = conn.createStatement().executeQuery(getCheltuieliQuery);
+            if(getCheltuieliResultSet.next()){
+                cheltuieliText.setText("" + getCheltuieliResultSet.getFloat("valoareCheltuieli"));
+            }
+            ResultSet getCreanteResultSet = conn.createStatement().executeQuery(getCreanteQuery);
+            if(getCreanteResultSet.next()){
+                creanteText.setText("" + getCreanteResultSet.getFloat("valoareCreanta"));
+            }
+            ResultSet getDatoriiResultSet = conn.createStatement().executeQuery(getDatoriiQuery);
+            if(getDatoriiResultSet.next()){
+                datoriiText.setText("" + getDatoriiResultSet.getFloat("valoareDatorie"));
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+
 
     //STAFF
     private void getStaffFromDb(){

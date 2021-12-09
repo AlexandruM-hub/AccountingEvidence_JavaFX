@@ -12,7 +12,7 @@
       <Pane layoutX="315.0" prefHeight="25.0" prefWidth="917.0" styleClass="topPaneColor" stylesheets="@../../css/login.css" AnchorPane.leftAnchor="315.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <AnchorPane layoutY="25.0" prefHeight="764.0" prefWidth="317.0" styleClass="menuButtonBackground" stylesheets="@../../css/login.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="25.0">
          <children>
-            <Button fx:id="dashboardButton" mnemonicParsing="false" onAction="#menuButtonsOnAction" prefHeight="63.0" prefWidth="317.0" styleClass="menuButton" stylesheets="@../../css/login.css" text="    Dashboard            " textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Button fx:id="dashboardButton" mnemonicParsing="false" onAction="#menuButtonsOnAction" prefHeight="63.0" prefWidth="317.0" styleClass="menuButton" stylesheets="@../../css/login.css" text="    Statistica              " textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <font>
                   <Font name="Bell MT Bold" size="24.0" />
                </font>
@@ -781,19 +781,88 @@
       </AnchorPane>
       <AnchorPane fx:id="dashboardAnchor" layoutX="315.0" layoutY="26.0" prefHeight="763.0" prefWidth="685.0" styleClass="tabsBackground" stylesheets="@../../css/login.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="315.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="26.0">
          <children>
-            <PieChart layoutX="90.0" layoutY="431.0" prefHeight="300.0" prefWidth="361.0" styleClass="newInvoiceBackground" stylesheets="@../../css/login.css" />
-            <AreaChart layoutX="14.0" layoutY="14.0">
-              <xAxis>
-                <CategoryAxis side="BOTTOM" />
-              </xAxis>
-              <yAxis>
-                <NumberAxis side="LEFT" upperBound="10000.0">
-                     <tickLabelFont>
-                        <Font size="16.0" />
-                     </tickLabelFont>
-                  </NumberAxis>
-              </yAxis>
-            </AreaChart>
+            <Pane layoutX="30.0" layoutY="31.0" prefHeight="352.0" prefWidth="375.0" styleClass="statisticsBackground" stylesheets="@../../css/login.css" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="31.0">
+               <children>
+                  <Text fill="WHITE" layoutX="45.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Datele statistice pentru anul 2021" textAlignment="CENTER" wrappingWidth="285.1796875">
+                     <font>
+                        <Font name="Bell MT Bold" size="25.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="profitText" fill="#b3ff87" layoutX="181.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="175.1796875">
+                     <font>
+                        <Font name="Bell MT Bold" size="25.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="venituriText" fill="#b3ff87" layoutX="181.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="175.1796875">
+                     <font>
+                        <Font name="Bell MT Bold" size="25.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="costuriText" fill="#fccdcd" layoutX="181.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="175.1796875">
+                     <font>
+                        <Font name="Bell MT Bold" size="25.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="cheltuieliText" fill="#fccdcd" layoutX="181.0" layoutY="224.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="175.1796875">
+                     <font>
+                        <Font name="Bell MT Bold" size="25.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="creanteText" fill="#b3ff87" layoutX="181.0" layoutY="265.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="175.1796875">
+                     <font>
+                        <Font name="Bell MT Bold" size="25.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="datoriiText" fill="#fccdcd" layoutX="181.0" layoutY="308.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="175.1796875">
+                     <font>
+                        <Font name="Bell MT Bold" size="25.0" />
+                     </font>
+                  </Text>
+                  <Text fill="#b3ff87" layoutX="18.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Venituri : " wrappingWidth="157.99999999999977">
+                     <font>
+                        <Font name="Bell MT Bold" size="25.0" />
+                     </font>
+                  </Text>
+                  <Text fill="#fccdcd" layoutX="18.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Costuri :" wrappingWidth="157.99999999999977">
+                     <font>
+                        <Font name="Bell MT Bold" size="25.0" />
+                     </font>
+                  </Text>
+                  <Text fill="#fccdcd" layoutX="18.0" layoutY="223.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cheltuieli : " wrappingWidth="157.99999999999977">
+                     <font>
+                        <Font name="Bell MT Bold" size="25.0" />
+                     </font>
+                  </Text>
+                  <Text fill="#b3ff87" layoutX="18.0" layoutY="264.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Creante :" wrappingWidth="144.1796875">
+                     <font>
+                        <Font name="Bell MT Bold" size="25.0" />
+                     </font>
+                  </Text>
+                  <Text fill="#fccdcd" layoutX="18.0" layoutY="307.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Datorii :" wrappingWidth="144.1796875">
+                     <font>
+                        <Font name="Bell MT Bold" size="25.0" />
+                     </font>
+                  </Text>
+                  <Text fill="#b3ff87" layoutX="18.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Profit: " wrappingWidth="157.99999999999977">
+                     <font>
+                        <Font name="Bell MT Bold" size="25.0" />
+                     </font>
+                  </Text>
+               </children>
+            </Pane>
+            <HBox layoutX="35.0" layoutY="408.0" prefHeight="322.0" prefWidth="856.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="411.0">
+               <children>
+                  <PieChart fx:id="costsPieChart" minHeight="322.0" prefHeight="325.0" prefWidth="467.0" stylesheets="@../../css/login.css" HBox.hgrow="ALWAYS" />
+                  <BarChart fx:id="productsBarChart" prefHeight="333.0" prefWidth="440.0" title="Costuri / Venituri pe produs" HBox.hgrow="ALWAYS">
+                    <xAxis>
+                      <CategoryAxis side="BOTTOM" stylesheets="@../../css/login.css" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis side="LEFT" styleClass="axis-label" stylesheets="@../../css/login.css" upperBound="100000.0" />
+                    </yAxis>
+                  </BarChart>
+               </children>
+            </HBox>
          </children>
       </AnchorPane>
    </children>

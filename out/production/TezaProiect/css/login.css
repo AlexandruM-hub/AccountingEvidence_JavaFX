@@ -133,6 +133,25 @@
   -fx-background-color: linear-gradient(from 20% 40% to 68% 100%, #a55c1b, #202B3C);
 }
 
+.statisticsBackground{
+  -fx-background-color: linear-gradient(from 0% 50% to 100% 100%, #4ca1af, #2c3e50);
+  -fx-background-radius: 40 40 40 40;
+}
+
+.chart-pie-label{
+  -fx-fill: #fff;
+  -fx-font-size: 1.4em;
+}
+
+.chart-title {
+  -fx-text-fill: #fff;
+  -fx-font-size: 2em;
+  -fx-font-weight: bold;
+}
+
+.axis-label {
+  -fx-text-fill: #fff;
+}
 /*        NEW STYLE FOR BUTTONS AND BACK
 .changeAssetBackground{
   -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #23074d, #cc5333);
