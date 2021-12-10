@@ -173,14 +173,6 @@ public class AppController implements Initializable {
     private PieChart costsPieChart;
     @FXML
     private BarChart<String, Float> productsBarChart;
-    //ponderea costurilor -> piechart
-    //cheltuieli si venituri pe ani ->
-    //cost, venit per produs
-    //tip produse piechart per cantitate recoltata
-
-
-    //id MF
-
 
     //OBSV ACTIVE
     ObservableList<Assets> depoziteObservableList = FXCollections.observableArrayList();
@@ -257,7 +249,48 @@ public class AppController implements Initializable {
         getStatisticsFromDb();
         pieChartCosts();
         ProductsBarChart();
+        costsLineChartFunction();
     }
+
+    private void costsLineChartFunction(){
+        XYChart.Series<String, Float> seriaCosturi = new XYChart.Series<>();
+        seriaCosturi.setName("Costuri");
+        XYChart.Series<String, Float> seriaVenituri = new XYChart.Series<>();
+        seriaVenituri.setName("Venituri");
+        XYChart.Series<String, Float> seriaCheltuieli = new XYChart.Series<>();
+        seriaCheltuieli.setName("Cheltuieli");
+        DatabaseConnection db = new DatabaseConnection();
+        Connection conn = db.getConnection();
+        String getCostsQuery = "SELECT month(data_cost) as luna, sum(valoare) as valoare from costul_productiei GROUP by month(data_cost)";
+        String getVenituriQuery = "select month(data) as luna, sum(pret * cantitate) as valoare from facturi where tip_intrare_iesire = " +
+                "'Iesire' and data >= '2021-01-01' group by month(data)";
+        String getCheltuieliQuery = "select month(data) as luna, sum(pret * cantitate) as valoare from facturi where tip_intrare_iesire = " +
+                "'Intrare' and data >= '2021-01-01' group by month(data)";
+        try{
+            ResultSet getCostResultSet = conn.createStatement().executeQuery(getCostsQuery);
+            while(getCostResultSet.next()){
+                seriaCosturi.getData().add(new XYChart.Data<>(getCostResultSet.getString("luna"),
+                        getCostResultSet.getFloat("valoare")));
+            }
+            ResultSet getVenituriResultSet = conn.createStatement().executeQuery(getVenituriQuery);
+            while(getVenituriResultSet.next()){
+                seriaVenituri.getData().add(new XYChart.Data<>(getVenituriResultSet.getString("luna"),
+                        getVenituriResultSet.getFloat("valoare")));
+            }
+            ResultSet getCheltuieliResultSet = conn.createStatement().executeQuery(getCheltuieliQuery);
+            while(getCheltuieliResultSet.next()){
+                seriaCheltuieli.getData().add(new XYChart.Data<>(getCheltuieliResultSet.getString("luna"),
+                        getCheltuieliResultSet.getFloat("valoare")));
+            }
+
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        costsLineChart.getData().addAll(seriaCheltuieli, seriaVenituri, seriaCosturi);
+    }
+
+    @FXML
+    private LineChart<String, Float> costsLineChart;
 
     private void ProductsBarChart(){
         XYChart.Series<String, Float> series1 = new XYChart.Series<>();
@@ -316,7 +349,6 @@ public class AppController implements Initializable {
         costsPieChart.setTitle("Costuri");
         costsPieChart.setStartAngle(120);
         costsPieChart.setData(costsPieChartDataObsList);
-
     }
 
 

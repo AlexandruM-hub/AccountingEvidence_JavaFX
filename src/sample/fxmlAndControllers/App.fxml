@@ -852,17 +852,35 @@
             </Pane>
             <HBox layoutX="35.0" layoutY="408.0" prefHeight="322.0" prefWidth="856.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="411.0">
                <children>
-                  <PieChart fx:id="costsPieChart" minHeight="322.0" prefHeight="325.0" prefWidth="467.0" stylesheets="@../../css/login.css" HBox.hgrow="ALWAYS" />
+                  <PieChart fx:id="costsPieChart" minHeight="322.0" prefHeight="325.0" prefWidth="467.0" HBox.hgrow="ALWAYS" />
                   <BarChart fx:id="productsBarChart" prefHeight="333.0" prefWidth="440.0" title="Costuri / Venituri pe produs" HBox.hgrow="ALWAYS">
                     <xAxis>
-                      <CategoryAxis side="BOTTOM" stylesheets="@../../css/login.css" />
+                      <CategoryAxis label="Produs" side="BOTTOM" tickLabelFill="WHITE">
+                           <tickLabelFont>
+                              <Font size="10.0" />
+                           </tickLabelFont></CategoryAxis>
                     </xAxis>
                     <yAxis>
-                      <NumberAxis side="LEFT" styleClass="axis-label" stylesheets="@../../css/login.css" upperBound="100000.0" />
+                      <NumberAxis label="Lei" side="LEFT" tickLabelFill="WHITE" upperBound="100000.0">
+                           <tickLabelFont>
+                              <Font name="System Bold" size="13.0" />
+                           </tickLabelFont></NumberAxis>
                     </yAxis>
                   </BarChart>
                </children>
             </HBox>
+            <LineChart fx:id="costsLineChart" layoutX="405.0" layoutY="14.0" AnchorPane.leftAnchor="405.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="14.0">
+              <xAxis>
+                <CategoryAxis label="Luna" side="BOTTOM" tickLabelFill="WHITE" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis label="Lei" side="LEFT" tickLabelFill="WHITE">
+                     <tickLabelFont>
+                        <Font name="System Bold" size="13.0" />
+                     </tickLabelFont>
+                  </NumberAxis>
+              </yAxis>
+            </LineChart>
          </children>
       </AnchorPane>
    </children>

@@ -150,8 +150,11 @@
 }
 
 .axis-label {
-  -fx-text-fill: #fff;
+  -fx-text-fill:#fff;
+  -fx-font-weight: bold;
 }
+
+
 /*        NEW STYLE FOR BUTTONS AND BACK
 .changeAssetBackground{
   -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #23074d, #cc5333);
