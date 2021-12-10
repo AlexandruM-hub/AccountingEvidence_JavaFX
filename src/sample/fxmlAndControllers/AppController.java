@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.chart.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
@@ -30,7 +31,7 @@ import java.util.stream.Stream;
 
 public class AppController implements Initializable {
     @FXML
-    private Button exitButton, changeAssetButton, staffButton;
+    private Button staffButton;
     @FXML
     private Button dashboardButton, transactionButton, incomesButton, costsButton, productsButton, assetsButton, claimsButton, debtsButton;
     @FXML
@@ -200,6 +201,7 @@ public class AppController implements Initializable {
     //STAFF
     ObservableList<Staff> staffObservableList = FXCollections.observableArrayList();
 
+    Image iconIMG = new Image("file:D:\\Lucrari de laborator\\Semestrul 3\\Teza de an\\TezaProiect\\src\\css\\tractor.png");
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -246,19 +248,28 @@ public class AppController implements Initializable {
         }));
         loadStaffInTable();
         searchStaffTextField.textProperty().addListener(((observableValue, s, t1) -> searchStaff()));
+
         getStatisticsFromDb();
         pieChartCosts();
         ProductsBarChart();
         costsLineChartFunction();
+        costsLineChart.getData().addAll(seriaCheltuieli, seriaVenituri, seriaCosturi);
+        productsBarChart.getData().addAll(series1, series2);
     }
 
+    XYChart.Series<String, Float> seriaVenituri = new XYChart.Series<>();
+    XYChart.Series<String, Float> seriaCosturi = new XYChart.Series<>();
+    XYChart.Series<String, Float> seriaCheltuieli = new XYChart.Series<>();
+
+
     private void costsLineChartFunction(){
-        XYChart.Series<String, Float> seriaCosturi = new XYChart.Series<>();
+        seriaCheltuieli.getData().clear();
+        seriaCosturi.getData().clear();
+        seriaVenituri.getData().clear();
         seriaCosturi.setName("Costuri");
-        XYChart.Series<String, Float> seriaVenituri = new XYChart.Series<>();
         seriaVenituri.setName("Venituri");
-        XYChart.Series<String, Float> seriaCheltuieli = new XYChart.Series<>();
         seriaCheltuieli.setName("Cheltuieli");
+
         DatabaseConnection db = new DatabaseConnection();
         Connection conn = db.getConnection();
         String getCostsQuery = "SELECT month(data_cost) as luna, sum(valoare) as valoare from costul_productiei GROUP by month(data_cost)";
@@ -286,16 +297,19 @@ public class AppController implements Initializable {
         }catch (SQLException e){
             e.printStackTrace();
         }
-        costsLineChart.getData().addAll(seriaCheltuieli, seriaVenituri, seriaCosturi);
+
     }
 
     @FXML
     private LineChart<String, Float> costsLineChart;
 
+    XYChart.Series<String, Float> series1 = new XYChart.Series<>();
+    XYChart.Series<String, Float> series2 = new XYChart.Series<>();
+
     private void ProductsBarChart(){
-        XYChart.Series<String, Float> series1 = new XYChart.Series<>();
+        series1.getData().clear();
+        series2.getData().clear();
         series1.setName("Venituri");
-        XYChart.Series<String, Float> series2 = new XYChart.Series<>();
         series2.setName("Costuri");
         DatabaseConnection db = new DatabaseConnection();
         Connection conn = db.getConnection();
@@ -330,11 +344,13 @@ public class AppController implements Initializable {
         } catch (SQLException e){
             e.printStackTrace();
         }
-        productsBarChart.getData().addAll(series1, series2);
+
     }
 
+    ObservableList<PieChart.Data> costsPieChartDataObsList = FXCollections.observableArrayList();
+
     private void pieChartCosts(){
-        ObservableList<PieChart.Data> costsPieChartDataObsList = FXCollections.observableArrayList();
+        costsPieChartDataObsList.clear();
         DatabaseConnection db = new DatabaseConnection();
         Connection conn = db.getConnection();
         String getCostsFromDbQuery = "select tip ,sum(valoare) as valoareCosturi from costul_productiei group by tip";
@@ -944,15 +960,17 @@ public class AppController implements Initializable {
         Stage addAssetStage = new Stage(StageStyle.DECORATED);
         addAssetStage.setScene(new Scene(root));
         addAssetStage.setTitle("Add asset");
+        addAssetStage.getIcons().add(iconIMG);
         addAssetStage.show();
     }
 
     public void changeAssetButtonOnAction() throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource("Change_Asset_Stage.fxml"));
-        Stage DeleteAssetStage = new Stage(StageStyle.DECORATED);
-        DeleteAssetStage.setScene(new Scene(root));
-        DeleteAssetStage.setTitle("Change Asset");
-        DeleteAssetStage.show();
+        Stage changeAssetStage = new Stage(StageStyle.DECORATED);
+        changeAssetStage.setScene(new Scene(root));
+        changeAssetStage.setTitle("Change Asset");
+        changeAssetStage.getIcons().add(iconIMG);
+        changeAssetStage.show();
     }
 
     public void deleteAssetButtonOnAction() throws IOException{
@@ -960,38 +978,36 @@ public class AppController implements Initializable {
         Stage DeleteAssetStage = new Stage(StageStyle.DECORATED);
         DeleteAssetStage.setScene(new Scene(root));
         DeleteAssetStage.setTitle("Delete Asset");
+        DeleteAssetStage.getIcons().add(iconIMG);
         DeleteAssetStage.show();
     }
-
-    /////?????
-    public void exitButtonOnAction(ActionEvent e){
-        Stage stage = (Stage) exitButton.getScene().getWindow();
-        stage.close();
-    }
-
+    
     //PRODUCTS BUTTONS
     public void addProdusButtonOnAction() throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource("New_Product.fxml"));
-        Stage addAssetStage = new Stage(StageStyle.DECORATED);
-        addAssetStage.setScene(new Scene(root));
-        addAssetStage.setTitle("Produs nou");
-        addAssetStage.show();
+        Stage addProduct = new Stage(StageStyle.DECORATED);
+        addProduct.setScene(new Scene(root));
+        addProduct.setTitle("Produs nou");
+        addProduct.getIcons().add(iconIMG);
+        addProduct.show();
     }
 
     public void deleteProductButtonOnAction() throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource("Delete_Product.fxml"));
-        Stage addAssetStage = new Stage(StageStyle.DECORATED);
-        addAssetStage.setScene(new Scene(root));
-        addAssetStage.setTitle("Stergerea produsului");
-        addAssetStage.show();
+        Stage deleteProductStage = new Stage(StageStyle.DECORATED);
+        deleteProductStage.setScene(new Scene(root));
+        deleteProductStage.setTitle("Stergerea produsului");
+        deleteProductStage.getIcons().add(iconIMG);
+        deleteProductStage.show();
     }
 
     public void changeProductButtonOnAction() throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource("Change_Product.fxml"));
-        Stage addAssetStage = new Stage(StageStyle.DECORATED);
-        addAssetStage.setScene(new Scene(root));
-        addAssetStage.setTitle("Modificare Produs");
-        addAssetStage.show();
+        Stage changeProductStage = new Stage(StageStyle.DECORATED);
+        changeProductStage.setScene(new Scene(root));
+        changeProductStage.setTitle("Modificare Produs");
+        changeProductStage.getIcons().add(iconIMG);
+        changeProductStage.show();
     }
 
     public void sellProductButtonOnAction() throws IOException{
@@ -999,24 +1015,27 @@ public class AppController implements Initializable {
         Stage sellProduct = new Stage(StageStyle.DECORATED);
         sellProduct.setScene(new Scene(root));
         sellProduct.setTitle("Comercializarea produsului");
+        sellProduct.getIcons().add(iconIMG);
         sellProduct.show();
     }
 
     //CLAIMS & DEBTS BUTTONS
     public void addDebtClaimButtonOnAction() throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource("Creante_Datorii.fxml"));
-        Stage sellProduct = new Stage(StageStyle.DECORATED);
-        sellProduct.setScene(new Scene(root));
-        sellProduct.setTitle("Creanta/Datorie noua");
-        sellProduct.show();
+        Stage addDebtClaim = new Stage(StageStyle.DECORATED);
+        addDebtClaim.setScene(new Scene(root));
+        addDebtClaim.setTitle("Creanta/Datorie noua");
+        addDebtClaim.getIcons().add(iconIMG);
+        addDebtClaim.show();
     }
 
     public void changeDebtClaimButtonOnAction() throws IOException{
         Parent root = FXMLLoader.load(getClass().getResource("Change_Debts_Claims.fxml"));
-        Stage sellProduct = new Stage(StageStyle.DECORATED);
-        sellProduct.setScene(new Scene(root));
-        sellProduct.setTitle("Modificare Creanta / Datorie");
-        sellProduct.show();
+        Stage changeDebtClaim = new Stage(StageStyle.DECORATED);
+        changeDebtClaim.setScene(new Scene(root));
+        changeDebtClaim.setTitle("Modificare Creanta / Datorie");
+        changeDebtClaim.getIcons().add(iconIMG);
+        changeDebtClaim.show();
     }
 
     public void deleteDebtClaimButtonOnAction() throws  IOException{
@@ -1024,6 +1043,7 @@ public class AppController implements Initializable {
         Stage deleteDebtClaim = new Stage(StageStyle.DECORATED);
         deleteDebtClaim.setScene(new Scene(root));
         deleteDebtClaim.setTitle("Stergere Creanta / Datorie");
+        deleteDebtClaim.getIcons().add(iconIMG);
         deleteDebtClaim.show();
     }
 
@@ -1033,6 +1053,7 @@ public class AppController implements Initializable {
         Stage stage = new Stage(StageStyle.DECORATED);
         stage.setScene(new Scene(root));
         stage.setTitle("Costuri de productie noi");
+        stage.getIcons().add(iconIMG);
         stage.show();
     }
 
@@ -1041,6 +1062,7 @@ public class AppController implements Initializable {
         Stage stage = new Stage(StageStyle.DECORATED);
         stage.setScene(new Scene(root));
         stage.setTitle("Modificarea costurilor");
+        stage.getIcons().add(iconIMG);
         stage.show();
     }
 
@@ -1049,6 +1071,7 @@ public class AppController implements Initializable {
         Stage stage = new Stage(StageStyle.DECORATED);
         stage.setScene(new Scene(root));
         stage.setTitle("Stergerea costurilor");
+        stage.getIcons().add(iconIMG);
         stage.show();
     }
 
@@ -1072,6 +1095,7 @@ public class AppController implements Initializable {
         Stage stage = new Stage(StageStyle.DECORATED);
         stage.setScene(new Scene(root));
         stage.setTitle("Factura noua");
+        stage.getIcons().add(iconIMG);
         stage.show();
     }
 
@@ -1080,6 +1104,7 @@ public class AppController implements Initializable {
         Stage stage = new Stage(StageStyle.DECORATED);
         stage.setScene(new Scene(root));
         stage.setTitle("Modificarea facturii");
+        stage.getIcons().add(iconIMG);
         stage.show();
     }
 
@@ -1088,6 +1113,7 @@ public class AppController implements Initializable {
         Stage stage = new Stage(StageStyle.DECORATED);
         stage.setScene(new Scene(root));
         stage.setTitle("Stergerea Facturilor");
+        stage.getIcons().add(iconIMG);
         stage.show();
     }
 
@@ -1112,6 +1138,7 @@ public class AppController implements Initializable {
         Stage stage = new Stage(StageStyle.DECORATED);
         stage.setScene(new Scene(root));
         stage.setTitle(stageTitle);
+        stage.getIcons().add(iconIMG);
         stage.show();
     }
 
@@ -1122,6 +1149,10 @@ public class AppController implements Initializable {
         Stream.of(dashboardButton,transactionButton,incomesButton,costsButton,productsButton,assetsButton,
                 claimsButton, staffButton).forEach(Button -> Button.setStyle("menuButton"));
         if(e.getSource() == dashboardButton){
+            getStatisticsFromDb();
+            pieChartCosts();
+            ProductsBarChart();
+            costsLineChartFunction();
             dashboardAnchor.toFront();
             dashboardButton.setStyle("-fx-text-fill: #cfcb5b; -fx-background-color: rgba(89,50,15,0.2)");
         }

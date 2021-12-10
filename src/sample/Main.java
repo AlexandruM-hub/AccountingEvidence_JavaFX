@@ -19,7 +19,6 @@ public class Main extends Application {
         primaryStage.getIcons().add(iconIMG);
         primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.show();
-
     }
 
 
