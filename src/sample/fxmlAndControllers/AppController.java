@@ -1,6 +1,7 @@
 package sample.fxmlAndControllers;
 
 import javafx.animation.FadeTransition;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -205,6 +206,9 @@ public class AppController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        Runnable loadingDataFromDbOtherThread = () -> Platform.runLater(this::loadAllAssetsInAssetTableViews);
+        new Thread(loadingDataFromDbOtherThread).start();
 
         //ASSETS
         currentAssetsSearchTextField.textProperty().addListener((observableValue, s, t1) -> searchCurrentAssetsInDB());
@@ -1149,8 +1153,9 @@ public class AppController implements Initializable {
         Stream.of(dashboardButton,transactionButton,incomesButton,costsButton,productsButton,assetsButton,
                 claimsButton, staffButton).forEach(Button -> Button.setStyle("menuButton"));
         if(e.getSource() == dashboardButton){
+            Runnable getCostsRunnable = () -> Platform.runLater(this::pieChartCosts);
+            new Thread(getCostsRunnable).start();
             getStatisticsFromDb();
-            pieChartCosts();
             ProductsBarChart();
             costsLineChartFunction();
             dashboardAnchor.toFront();

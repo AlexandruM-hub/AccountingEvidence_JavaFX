@@ -35,7 +35,6 @@ public class Controller {
         stage.close();
     }
 
-
     public void  loginButtonOnAction() throws NoSuchAlgorithmException {
         if(!usernameField.getText().isBlank() && !passwordField.getText().isBlank()){
             validateLogin();
